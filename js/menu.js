@@ -88,5 +88,5 @@ function goOnlineUse(){
     $('#serviceInterfaceNav').css('display', 'none');
     $('.menuDataServiceGrid').css('display', 'none');
     $('#service').css('background-color', 'transparent');
-    window.location = 'pages/onlineUse.html';
+    window.location = '../pages/tollGate.html';
 }

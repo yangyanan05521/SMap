@@ -22,6 +22,139 @@ body{
     position: relative;
     box-sizing: border-box;
 }
+/*-------------------------------scenery--------------------------------------*/
+
+#container .introduce{
+    width:390px;
+    background-color: #fff;
+    left: 10px;
+    top: 10px;
+    position: absolute;
+    z-index: 50;
+    border-radius: 10px;
+
+}
+#container .introduce .introTitle{
+    color:#333;
+    font-size:16px;
+    height: 30px;
+    line-height:30px;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+    padding:0px 7px;
+}
+
+#container .introduce .introContent{
+    color:grey;
+    font-size:14px;
+    line-height: 25px;
+    padding:5px;
+
+}
+
+#container .introduce .scrollContent{
+    height: 110px;
+    overflow:auto;
+}
+#container .introduce .specialTitle{
+    color:#333;
+    font-size:15px;
+    line-height: 25px;
+    padding:0px 7px;
+    border-top: 1px solid #eaeaea;
+}
+#container .introduce .specialTitle:hover{
+    color: rgb(245, 54, 35);
+}
+#container .introduce .imgDisplay img{
+   width:125px;
+    height:90px;
+    margin-right: 5px;
+}
+
+#container .introduce .specialList{
+    margin: 0;
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    padding:0px 0px 15px 0px ;
+
+}
+#container .introduce .specialList li{
+    font-size: 14px;
+    display: inline-block;
+    list-style: none;
+    padding: 2px 5px;
+    text-align: center;
+    border:1px solid rgb(245, 54, 35);
+    border-radius: 10px;
+    width: 21%;
+    margin-top:3px;
+    color:rgb(245, 54, 35);
+    -webkit-cursor:pointer;
+}
+#container .introduce .secondList ul{
+    margin: 0;
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    padding:0px 0px 5px 0px ;
+
+
+}
+#container .introduce .secondList li{
+    font-size: 14px;
+    display: inline-block;
+    list-style: none;
+    padding: 2px 5px;
+    text-align: center;
+    width: 21%;
+    margin-top:3px;
+    color:#0066cc;
+    cursor:pointer;
+
+
+
+}
+#container .introduce .specialList .active{
+    background-color:rgb(245, 54, 35);
+    color:#FFFFFF;
+    padding: 2px 5px;
+
+}
+
+#container .introduce .specialList li:hover{
+   background-color:rgb(245, 54, 35) ;
+    color:#fff;
+    cursor:pointer;
+
+}
+
+#container  #changeBlank{
+    position:absolute;
+    left:630px;
+    top:155px;
+    z-index:100;
+    background:#5693ff;
+    border-radius: 10px;
+    color: #FFFFFF;
+    text-align: center;
+}
+
+#container  #changeBlank img{
+    width:190px;
+    height:100px;
+
+}
+
+
+.ng-cloak{
+    display: none;
+}
+
+
+/*-------------------------------scenery--------------------------------------*/
 #content{
     width: calc(100% - 420px);
     height: calc(100% - 144px);

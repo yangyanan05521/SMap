@@ -82,6 +82,7 @@ login.controller("loginController", ['$scope', function ($scope) {
             }
             ,function (data, status) {
                 data = JSON.parse(data);
+                console.log(data);
                 switch (data.code) {
                     case 301:
                         $("#name_err").text("用户名不存在，请重新输入！");

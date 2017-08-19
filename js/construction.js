@@ -58,7 +58,7 @@ angular.module("construction",["navApp"]).controller("constructionController",["
         },
         "paint": {
             "line-color": "rgba(20,120,255,0.8)",
-            "line-width": 2
+            "line-width": 20
         }
     };
     $scope.addLines = function (data,id) {

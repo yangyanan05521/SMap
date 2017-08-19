@@ -541,6 +541,7 @@ tollGate.controller("tollGateController", ['$scope', 'dsEdit', '$location', '$an
         $scope.lastClickNode = index; //记录当前点击的节点,并高亮
         $scope.showHeightLightTollGate(index);
     };
+
     // 获取路径
     $scope.getLinksFromStartToEnd = function () {
         var bounds = {
@@ -597,6 +598,7 @@ tollGate.controller("tollGateController", ['$scope', 'dsEdit', '$location', '$an
                     display: 'none',
                 };
                 dsEdit.getProduct('tollgate/path/'+$scope.startPid+'/'+$scope.endPid).then(function (data) {
+                    console.log(data);
                     // map.flyTo({center: data[0].pointGeoJson.coordinates});
                     if(data.length === 0){
                         $scope.noSearchResult = {
@@ -657,6 +659,7 @@ tollGate.controller("tollGateController", ['$scope', 'dsEdit', '$location', '$an
     };
     map.on('click','TollNode_Layer',function (e) {
             $scope.tollGateLocation = [];
+            console.log(e);
             $scope.TollGateName = e.features[0].properties.name;
             var div = window.document.createElement('div');
             div.innerHTML =
@@ -664,9 +667,9 @@ tollGate.controller("tollGateController", ['$scope', 'dsEdit', '$location', '$an
                 '<div class="tipPopDeep"></div>';
         $scope.tollGateLocation.push(e.lngLat.lng);
         $scope.tollGateLocation.push(e.lngLat.lat);
+              console.log($scope.tollGateLocation);
 
-            console.log(e.lngLat.lng);
-            console.log(e.lngLat.lat);
+
 
         $scope.showTollGateName =  new mapboxgl.Popup()
                 .setLngLat($scope.tollGateLocation)

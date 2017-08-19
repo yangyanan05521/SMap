@@ -148,9 +148,9 @@ gulp.task('homepage', function() {
     }
 
 });
-gulp.task('onlineUse', function() {
+gulp.task('tollGate', function() {
     if(develop){
-        return gulp.src('pages/onlineUse.html')
+        return gulp.src('pages/tollGate.html')
             .pipe(usemin({
                 css: [
                     sourcemaps.init({
@@ -176,7 +176,7 @@ gulp.task('onlineUse', function() {
             }))
             .pipe(gulp.dest('dist/pages'));
     }else{
-        return gulp.src('pages/onlineUse.html')
+        return gulp.src('pages/tollGate.html')
             .pipe(usemin({
                 css: [minifyCss(), rev() ],
                 html: [ function () {return htmlmin({ collapseWhitespace: true });}],
@@ -606,7 +606,7 @@ gulp.task('clean',function(){
 
 gulp.task('pages',function () {
     runSequence([
-        'homepage','onlineUse','productDescription','productService',
+        'homepage','tollGate','productDescription','productService',
         'productWarehouse','undevelopPage','trafficLimited','construction',
         'trafficControl','roadwork','login','chargeMessage',
     ]);
@@ -614,7 +614,7 @@ gulp.task('pages',function () {
 
 gulp.task('watch',function (event) {
     gulp.watch(['index.html'],['homepage']);
-    gulp.watch(['pages/onlineUse.html'],['onlineUse']);
+    gulp.watch(['pages/tollGate.html'],['tollGate']);
     gulp.watch(['pages/productDescription.html'],['productDescription']);
     gulp.watch(['pages/productService.html'],['productService']);
     gulp.watch(['pages/productWarehouse.html'],['productWarehouse']);
