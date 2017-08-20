@@ -34,18 +34,28 @@
         [
           108.9612221718,
           34.219
+        ],
+        [
+          108.9612221718,
+          34.2181013046
         ]
       ],
       "type": "LineString"
     },
     "pointGeoJson": {
       "coordinates": [
-        108.9650630951,
-        34.2189352408
+        108.9642,
+        34.218926
       ],
       "type": "Point"
     },
     "s_node_pid": 332279,
-    "s_toll_pid": 636
+    "s_toll_pid": 636,
+    "sceneryName":"大慈恩寺",
+    "sceneryClass":"5A景区 名胜古迹",
+    "sceneryTicket":"80元/人",
+    "sceneryTime":"7:00-22:00",
+    "address":"陕西省西安市雁塔区雁塔西路雁塔西路雁塔西路雁塔西路雁塔西路"
+
   }
 ]

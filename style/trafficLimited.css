@@ -23,6 +23,25 @@ body{
     box-sizing: border-box;
 }
 /*-------------------------------scenery--------------------------------------*/
+.fl {
+    float: left; }
+
+.fr {
+    float: right; }
+
+.wrapper {
+    margin: 0 auto; }
+
+.clear:after {
+    content: "";
+    clear: both;
+    display: block;
+    height: 0;
+    overflow: hidden;
+    visibility: hidden; }
+li{
+    list-style:none;
+}
 
 #container .introduce{
     width:390px;
@@ -130,28 +149,82 @@ body{
     cursor:pointer;
 
 }
-
-#container  #changeBlank{
-    position:absolute;
-    left:630px;
-    top:155px;
-    z-index:100;
-    background:#5693ff;
-    border-radius: 10px;
-    color: #FFFFFF;
-    text-align: center;
-}
-
-#container  #changeBlank img{
-    width:190px;
-    height:100px;
-
-}
-
-
 .ng-cloak{
     display: none;
 }
+
+#container #content .searchList{
+    position:absolute;
+    left: 10px;
+    top:10px;
+    width:340px;
+    height: 45px;
+    background-color:rgba(0,0,0,.5);
+    z-index: 100;
+    border-radius: 2px;
+
+}
+#container #content .searchList .cancelButton{
+    display: inline-block;
+    margin-top: 8px;
+}
+
+#container #content .searchList .cancelButton img{
+    display: inline-block;
+    margin-left: -50px;
+    cursor: pointer;
+}
+
+
+#container #content .searchList .searchButton img{
+    width:33px;
+    height:30px;
+    cursor: pointer;
+
+}
+#container #content .searchList input{
+    text-indent:5px;
+    width: 275px;
+    height: 30px;
+    line-height: 20px;
+    padding: 0;
+    letter-spacing: .5px;
+    font-size: 14px;
+    border:none;
+    outline: none;
+    margin-top:7px;
+    margin-left:15px;
+
+}
+#container #content .searchList .searchResult{
+    padding:10px;
+    font-size:14px;
+    color:#333;
+    background: #fff;
+    transition: all linear 0.5s;
+
+}
+#container #content .searchList .searchResult img{
+    width:140px;
+    height:93px;
+}
+#container #content .searchList .searchResult li{
+    margin-bottom: 10px;
+}
+
+#container #content .searchList .searchResult li div{
+    line-height: 20px;
+}
+#container #content .searchList .searchResult .dotDis{
+    width:160px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+
+
+
 
 
 /*-------------------------------scenery--------------------------------------*/

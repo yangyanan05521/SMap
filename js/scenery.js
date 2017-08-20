@@ -9,12 +9,12 @@ var map = new mapboxgl.Map({
     pitch: 0
 });
 
-var mySwiper = new Swiper('.swiper-container', {
-        nextButton: '.swiper-button-next',
-        prevButton: '.swiper-button-prev',
-        slidesPerView: 3,
-        speed:300
-})
+// var mySwiper = new Swiper('.swiper-container', {
+//         nextButton: '.swiper-button-next',
+//         prevButton: '.swiper-button-prev',
+//         slidesPerView: 3,
+//         speed:300
+// })
 
 angular.module("scenery",['dataService', 'nvd3', 'angular-popups','navApp']).controller("sceneryController",["$scope","$location","dsEdit","$anchorScroll","$http",function (
     $scope,$location,dsEdit,$anchorScroll,$http) {
@@ -40,6 +40,7 @@ angular.module("scenery",['dataService', 'nvd3', 'angular-popups','navApp']).con
     $scope.specialList=['餐饮','住宿','购物','停车场','卫生间','交通','公共服务','出入口'];
     $scope.sceondList1=['中餐厅','异域风味','地方美食','快餐','糕点','酒吧','冷饮店','咖啡/茶'];
     $scope.colorArr = ['rgba(20,120,255,0.8)', 'rgba(20,120,255,0.3)', 'rgba(20,120,255,0.3)'];
+    $scope.sceneryList=[];
     $scope.originLayer = {
         "id": "route",
         "type": "line",
@@ -62,6 +63,11 @@ angular.module("scenery",['dataService', 'nvd3', 'angular-popups','navApp']).con
             "line-color": "rgba(20,120,255,0.8)",
             "line-width": 8
         }
+    };
+
+    $scope.toggleSearch={
+        display:"none",
+        height:"0px"
     };
 
 
@@ -135,7 +141,7 @@ angular.module("scenery",['dataService', 'nvd3', 'angular-popups','navApp']).con
             div.setAttribute('class','popTollGateIcon');
             div.innerHTML = i+1;
             var loc = data[i].geoJson.coordinates;
-            $scope.tollGateOnMapArr[i] = new mapboxgl.Popup({closeOnClick: true})
+            $scope.tollGateOnMapArr[i] = new mapboxgl.Popup()
                 .setLngLat(loc)
                 .setDOMContent(div)
                 .addTo(map);
@@ -147,25 +153,14 @@ angular.module("scenery",['dataService', 'nvd3', 'angular-popups','navApp']).con
        // console.log(data.data[0].geoJson);
         var div = window.document.createElement('div');
         div.setAttribute('class','popStartIcon');
-        div.innerHTML = '起';
-        var Toll = new mapboxgl.Popup({closeOnClick: false})
-            .setLngLat(data.data[0].geoJson.coordinates[0])
+        div.innerHTML = '1';
+        var Toll = new mapboxgl.Popup({closeButton:false,closeOnClick:false})
+            .setLngLat(data.data[0].pointGeoJson.coordinates)
             .setDOMContent(div)
             .addTo(map);
         $scope.popuArr.push(Toll);
     };
-    //终点图标
-    $scope.createEndTollIcon = function (data) {
-        var div = window.document.createElement('div');
-        div.setAttribute('class','popEndIcon');
-        div.innerHTML = '终';
-        var lastIndex = data.data[0].geoJson.coordinates.length - 1; //获取最后一个点的坐标
-        var Toll = new mapboxgl.Popup({closeOnClick: false})
-            .setLngLat(data.data[0].geoJson.coordinates[lastIndex])
-            .setDOMContent(div)
-            .addTo(map);
-        $scope.popuArr.push(Toll);
-    };
+
 
 
     //连线
@@ -178,12 +173,14 @@ angular.module("scenery",['dataService', 'nvd3', 'angular-popups','navApp']).con
         $scope.clearLines();
 
         $http.post('test1.json').then(function (data) {
-            // console.log(data);
+            // console.log(data.data[0]);
             // map.flyTo({center: data[0].pointGeoJson.coordinates});
           //  console.log(data.data.length);
+
+            $scope.sceneryList=data.data[0];
             $scope.linksArr = data;
             $scope.createStartTollIcon(data);
-            $scope.createEndTollIcon(data);
+
             for (var i = 0, len = data.data.length; i < len; i++) {
 
                 if (map.getSource('route' + i)) {
@@ -214,25 +211,80 @@ angular.module("scenery",['dataService', 'nvd3', 'angular-popups','navApp']).con
 
         })};
 
-    map.on('click','scenery_test',function (e) {
+    $scope.getLinksFromStartToEnd = function () {
+        var bounds = {
+            type: 'FeatureCollection',
+            features: [],
+        };
+        $scope.clearLines();
 
-        $scope.tollGateLocation = [];
-      //  console.log(e);
-        $scope.TollGateName = e.features[0].properties.name;
+        $http.post('test1.json').then(function (data) {
+            // console.log(data.data[0]);
+            // map.flyTo({center: data[0].pointGeoJson.coordinates});
+            //  console.log(data.data.length);
 
-        var blankNode=window.document.getElementById("changeBlank");
-        var innerNode = window.document.createElement('div');
-        console.log(blankNode);
-        innerNode.innerHTML="";
+            $scope.linksArr = data;
+            $scope.createStartTollIcon(data);
 
-        innerNode.innerHTML =
-            '<div>收费站名称：'+$scope.TollGateName+'</div>' +
-            '<div>  <img src="../img/scenery/scene2.jpg"></div>';
-        blankNode.appendChild(innerNode);
+            for (var i = 0, len = data.data.length; i < len; i++) {
+
+                if (map.getSource('route' + i)) {
+                    $scope.addLines(data.data[i], 'route' + i, i);
+                } else {
+                    var obj = $scope.originLayer;
+                    obj.id = 'route' + i;
+                    obj.paint['line-color'] = $scope.colorArr[i];
+                    var source = {
+                        "type": "geojson",
+                        "data": {
+                            "type": "Feature",
+                            "properties": {},
+                            "geometry": data.data[i].geoJson
+                        }
+                    };
+
+                    $scope.originLayer.source = source;
+                    map.addLayer($scope.originLayer);
+                }
+                var pointFeature = turf.lineString(data.data[i].geoJson.coordinates);
+                //  console.log(data.data[i].geoJson.coordinates);
+                bounds.features.push(pointFeature);
+            }
+            var bbox = turf.bbox(bounds);
+            var v2 = new mapboxgl.LngLatBounds([bbox[0], bbox[1]], [bbox[2], bbox[3]]);
+            map.fitBounds(v2, {padding: 50});
+
+        })};
+
+    //获取景区列表
+    $scope.getList= function () {
+
+
+        $http.post('test2Pop.json').then(function (data) {
+           //  console.log(data.data);
+            $scope.sceneryList=data.data;
+
+        })};
+
+
+    //点击查询
+   $scope.item=0;
+   $scope.searchScenery=function(){
+       if($scope.item==0){
+           $scope.item=1;
+       }else{
+           $scope.item=0;
+       }
+       map.flyTo({center:[ 108.9642,34.21826],zoom:16});
+       $scope.getLinksFromStartToEnd();
+       $scope.getList();
 
 
 
-    });
+
+   }
+
+
 
 
 

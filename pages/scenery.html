@@ -26,10 +26,7 @@
             <li style="font-size: 14px;padding-left: 5px; color:rgba(0,0,0,0.7)">景区专题引导</li>
         </ul>
     </div>
-    <div id="changeBlank">
 
-
-    </div>
     <div id="content">
         <div class="selectedDiv">
             <div class="nowCity" >
@@ -43,76 +40,81 @@
             </div>
 
         </div>
-        <div class="introduce">
-            <div class="introTitle">
-                <i class="iconfont icon-jingqu"></i>
-                <span>大雁塔文化休闲景区  AAAA景区</span>
-            </div>
-            <div class="introContent">
-                <i class="iconfont icon-leibie1"></i>
-                <span>景区类别:&nbsp;风景名著</span>
-            </div>
-            <div class="introContent">
-                <i class="iconfont icon-menpiao1"></i>
-                <span>景点门票:&nbsp;100元/人</span>
-            </div>
-            <div class="introContent">
-                <i class="iconfont icon-didian"></i>
-                <span>景点地址:&nbsp;西安市雁塔区和平门外雁塔路南端大雁塔</span>
-            </div>
-            <div class="introContent">
-                <i class="iconfont icon-dianhua"></i>
-                <span>景区电话:&nbsp;029-67913178</span>
-            </div>
-            <div class="imgDisplay swiper-container">
-                <div class="swiper-wrapper">
-                    <div  class="swiper-slide">
-                        <img src="../img/scenery/scene1.jpg" alt="">
-                    </div>
-                    <div  class="swiper-slide">
-                        <img src="../img/scenery/scene2.jpg" alt="">
-                    </div>
-                    <div  class="swiper-slide">
-                        <img src="../img/scenery/scene3.jpg" alt="">
-                    </div>
-                    <div  class="swiper-slide">
-                        <img src="../img/scenery/scene4.jpg" alt="">
-                    </div>
-                    <div  class="swiper-slide">
-                        <img src="../img/scenery/scene5.jpg" alt="">
-                    </div>
-                    <div  class="swiper-slide">
-                        <img src="../img/scenery/scene6.jpg" alt="">
-                    </div>
+
+        <div class="searchList">
+            <div class="searchInput clear">
+                <input type="text" placeholder="请输入景区关键字搜索" class="fl">
+                <span class="cancelButton">
+                    <img src="../img/scenery/searchbar_close.png" alt="">
+                </span>
+                <div class="fl searchButton" style="margin-top:7px" ng-click="searchScenery()">
+                    <i>
+                        <img src="../img/scenery/timg.jpg" alt="">
+                    </i>
 
                 </div>
-                <div class="swiper-button-next swiper-button-white"></div>
-                <div class="swiper-button-prev swiper-button-white"></div>
-            </div>
-            <div class="introContent scrollContent">
-                景区介绍:&nbsp;大雁塔作为现存最早、规模最大的唐代四方楼阁式砖塔，是佛塔这种古印度佛寺的建筑形式随佛教传入中原地区，并融入华夏文化的典型物证，是凝聚了中国古代劳动人民智慧结晶的标志性建筑。
-            </div>
-            <div class="specialTitle">
-               特色专题&nbsp;&nbsp;>&nbsp;&nbsp;
-            </div>
-            <ul class="specialList">
-                <li ng-repeat="site in specialList" ng-cloak  ng-click='show($index)'  ng-class='{active:selected==$index}'>{{site}}</li>
-            </ul>
-            <div class="secondList">
-                <ul  ng-show='selected==0'class="ng-cloak" ng-cloak>
-                    <li ng-repeat="item in sceondList1" ng-cloak class="ng-cloak"  >{{item}}</li>
-                </ul>
             </div>
 
-            <div class="specialTitle">
-                景区线路&nbsp;&nbsp;>&nbsp;&nbsp;
-            </div>
-            <ul class="specialList">
-                <li>人文景观游</li>
-                <li>浪漫夜晚游</li>
-                <li>佛教文化游</li>
+            <ul class="searchResult fade" ng-hide='item==0' >
+                  <li class="clear">
+                      <div class="infoDes fl">
+                          <div>
+                              1.大雁塔
+                          </div>
+                          <div>
+                              <span>5A景区</span>
+                              <span>名胜古迹</span>
+                          </div>
+                          <div>
+                              <span>门票</span>
+                              <span>￥90</span>
+                          </div>
+                          <div>
+                              <span>开放时间</span>
+                              <span>8：00-17:00</span>
+                          </div>
+                          <div class="dotDis">
+                              陕西省西安市雁塔区雁塔西路雁塔西路雁塔西路雁塔西路雁塔西路
+                          </div>
+
+                      </div>
+                      <div class="imgDes fr">
+                          <img src="../img/scenery/scene2.jpg" alt="">
+                      </div>
+                  </li>
+
+                <li class="clear" ng-repeat="item in sceneryList">
+                    <div class="infoDes fl">
+                        <div>
+                            [{{$index + 1}}]
+                            {{item.sceneryName}}
+                        </div>
+                        <div>
+                            <span> {{item.sceneryClass}}</span>
+                            <span>名胜古迹</span>
+                        </div>
+                        <div>
+                            <span>门票</span>
+                            <span> {{item.sceneryTicket}}</span>
+                        </div>
+                        <div>
+                            <span>开放时间</span>
+                            <span> {{item.sceneryTime}}</span>
+                        </div>
+                        <div class="dotDis">
+                            {{item.address}}
+                        </div>
+
+                    </div>
+                    <div class="imgDes fr">
+                        <img src="../img/scenery/scene2.jpg" alt="">
+                    </div>
+                </li>
+
             </ul>
+
         </div>
+
 
     </div>
 
