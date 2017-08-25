@@ -18,8 +18,8 @@ App.checkServer = {
 // web app全局配置信息
 App.Config = {
     serviceUrl: 'http://fs.navinfo.com/smapapi',
-    //appRoot:'http://localhost:63342/SMAP',
-    appRoot: 'http://fs.navinfo.com/smap',
+    appRoot:'http://localhost:63342/SMAP',
+    //appRoot: 'http://fs.navinfo.com/smap',
     mapboxToken:'pk.eyJ1IjoiZmFuZ2xhbmsiLCJhIjoiY2lpcjc1YzQxMDA5NHZra3NpaDAyODB4eSJ9.z6uZHccXvtyVqA5zmalfGg',
     checkServiceUrl:App.checkServer.dev.checkServiceUrl,
     platelimit: 'type=6&parm=0', //限行限号初始化数据为其他限行方式

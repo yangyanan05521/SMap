@@ -669,8 +669,6 @@ tollGate.controller("tollGateController", ['$scope', 'dsEdit', '$location', '$an
         $scope.tollGateLocation.push(e.lngLat.lat);
               console.log($scope.tollGateLocation);
 
-
-
         $scope.showTollGateName =  new mapboxgl.Popup()
                 .setLngLat($scope.tollGateLocation)
                 .setDOMContent(div)

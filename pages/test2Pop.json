@@ -1,15 +1,70 @@
 [
   {
+  "sceneryName":"大雁塔",
+  "sceneryClass":"5A景区 名胜古迹",
+  "sceneryTicket":"80元/人",
+  "sceneryTime":"7:00-22:00",
+  "address":"陕西省西安市雁塔区雁塔西路雁塔西路雁塔西路雁塔西路雁塔西路",
+    "pointGeoJson": {
+      "coordinates": [
+        108.9642,
+        34.218926
+      ],
+      "type": "Point"
+    }
+},{
+  "sceneryName":"大雁塔休闲广场",
+  "sceneryClass":"4A景区 名胜古迹",
+  "sceneryTicket":"80元/人",
+  "sceneryTime":"7:00-22:00",
+  "address":"陕西省西安市雁塔区雁塔西路雁塔西路雁塔西路雁塔西路雁塔西路",
+  "pointGeoJson": {
+    "coordinates": [
+      108.96178,
+      34.218926
+    ],
+    "type": "Point"
+  }
+},
+  {
     "sceneryName":"大慈恩寺",
     "sceneryClass":"5A景区 名胜古迹",
     "sceneryTicket":"80元/人",
     "sceneryTime":"7:00-22:00",
-    "address":"陕西省西安市雁塔区雁塔西路雁塔西路雁塔西路雁塔西路雁塔西路"
+    "address":"陕西省西安市雁塔区雁塔西路雁塔西路雁塔西路雁塔西路雁塔西路",
+    "pointGeoJson": {
+      "coordinates": [
+        108.965878,
+        34.21804
+      ],
+      "type": "Point"
+    }
   },{
-  "sceneryName":"休闲广场",
+  "sceneryName":"大唐西市",
   "sceneryClass":"5A景区 名胜古迹",
-  "sceneryTicket":"80元/人",
+  "sceneryTicket":"100元/人",
   "sceneryTime":"7:00-22:00",
-  "address":"陕西省西安市雁塔区雁塔西路雁塔西路雁塔西路雁塔西路雁塔西路"
-}
+  "address":"陕西省西安市雁塔区雁塔西路雁塔西路雁塔西路雁塔西路雁塔西路",
+  "pointGeoJson": {
+    "coordinates": [
+      108.96416,
+      34.22094
+    ],
+    "type": "Point"
+  }
+},
+  {
+    "sceneryName":"大雁塔喷泉广场",
+    "sceneryClass":"音乐喷泉",
+    "sceneryTicket":"免费",
+    "sceneryTime":"7:00-22:00",
+    "address":"陕西省西安市雁塔区雁塔西路雁塔西路雁塔西路雁塔西路雁塔西路",
+    "pointGeoJson": {
+      "coordinates": [
+        108.9668226242,
+        34.2205676028
+      ],
+      "type": "Point"
+    }
+  }
 ]

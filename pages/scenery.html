@@ -5,7 +5,7 @@
     <!-- build:css ../style/trafficLimited.css -->
 
     <link href='../lib/mapbox/mapbox-gl.css' rel='stylesheet' />
-    <link href="../style/trafficLimited.css" rel="stylesheet" />
+    <link href="../style/scenery.css" rel="stylesheet" />
     <link rel="stylesheet" href="../lib/swiper/swiper-3.4.2.min.css"/>
     <link rel="stylesheet" type="text/css" href="../fonts/font_scenery/iconfont.css">
 
@@ -56,34 +56,8 @@
             </div>
 
             <ul class="searchResult fade" ng-hide='item==0' >
-                  <li class="clear">
-                      <div class="infoDes fl">
-                          <div>
-                              1.大雁塔
-                          </div>
-                          <div>
-                              <span>5A景区</span>
-                              <span>名胜古迹</span>
-                          </div>
-                          <div>
-                              <span>门票</span>
-                              <span>￥90</span>
-                          </div>
-                          <div>
-                              <span>开放时间</span>
-                              <span>8：00-17:00</span>
-                          </div>
-                          <div class="dotDis">
-                              陕西省西安市雁塔区雁塔西路雁塔西路雁塔西路雁塔西路雁塔西路
-                          </div>
 
-                      </div>
-                      <div class="imgDes fr">
-                          <img src="../img/scenery/scene2.jpg" alt="">
-                      </div>
-                  </li>
-
-                <li class="clear" ng-repeat="item in sceneryList">
+                <li class="clear" ng-repeat="item in sceneryList" ng-click="lightLocation($index)">
                     <div class="infoDes fl">
                         <div>
                             [{{$index + 1}}]
@@ -91,7 +65,7 @@
                         </div>
                         <div>
                             <span> {{item.sceneryClass}}</span>
-                            <span>名胜古迹</span>
+                            <span>***</span>
                         </div>
                         <div>
                             <span>门票</span>
@@ -110,10 +84,69 @@
                         <img src="../img/scenery/scene2.jpg" alt="">
                     </div>
                 </li>
+                <button class="moreResult" ng-click="moreInfo()">查看全部</button>
 
             </ul>
+            <div class="introduce">
+                <div class="imgDisplay">
+                    <img src="../img/scenery/scene7.jpg" alt="">
+                    <div class="backBtn">
+                        <i>
+                            <img src="../img/scenery/back.png" alt="" style="width:13px;height:13px">
+                        </i>
+                        <a href="">返回</a>
+                    </div>
+                    <div class="morePic" ng-click="scanPic()">
+                        <img src="../img/scenery/timg.jpg" alt="">
+                        <span>10</span>
+                    </div>
+                </div>
+                <div class="introTitle">
+                    <i class="iconfont icon-jingqu"></i>
+                    <span>大雁塔文化休闲景区  AAAA景区</span>
+                </div>
+                <div class="introContent">
+                    <i class="iconfont icon-leibie1"></i>
+                    <span>景区类别:&nbsp;风景名著</span>
+                </div>
+                <div class="introContent">
+                    <i class="iconfont icon-menpiao1"></i>
+                    <span>景点门票:&nbsp;100元/人</span>
+                </div>
+                <div class="introContent">
+                    <i class="iconfont icon-didian"></i>
+                    <span>景点地址:&nbsp;西安市雁塔区和平门外雁塔路南端大雁塔</span>
+                </div>
+                <div class="introContent">
+                    <i class="iconfont icon-dianhua"></i>
+                    <span>景区电话:&nbsp;029-67913178</span>
+                </div>
+
+                <div class="introContent scrollContent">
+                    景区介绍:&nbsp;大雁塔作为现存最早、规模最大的唐代四方楼阁式砖塔，是佛塔这种古印度佛寺的建筑形式随佛教传入中原地区，并融入华夏文化的典型物证，是凝聚了中国古代劳动人民智慧结晶的标志性建筑。
+                </div>
+
+
+            </div>
 
         </div>
+
+    </div>
+    <div class="swiperPic">
+        <div class="centerBlock">
+            <div class="disPic">
+                <img  alt="">
+            </div>
+            <ul>
+                <li ng-repeat="each in arrImg" ng-click="goImg($index)"><img  ng-src={{each}}  alt=""></li>
+            </ul>
+            <a href="javascript:void(0);" class="btn_left" ng-click="goLeft()" ></a>
+            <a href="javascript:void(0);" class="btn_right" ng-click="goRight()"></a>
+            <div class="closePic" ng-click="closePic()">
+                <img src="../img/scenery/light_close.png" alt="">
+            </div>
+        </div>
+        <span></span>
 
 
     </div>
