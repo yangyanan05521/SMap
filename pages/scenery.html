@@ -28,39 +28,45 @@
     </div>
 
     <div id="content">
-        <div class="selectedDiv">
-            <div class="nowCity" >
-                <span ng-bind="selectScenery" ng-click="toSelected('open')" ng-style="changeImg"></span>
-            </div>
-            <div class="nowCity"  ng-hide="visible" ng-click="locationProvince ('nowScenery')" style="background-image: none;">
-                <span  ng-bind="nowScenery"></span>
-            </div>
-            <div class="nowCity"  ng-hide="visible" ng-click="locationProvince('nextScenery')" style="background-image:none;padding-right:3px">
-                <span  ng-bind="nextScenery" ></span>
-            </div>
-
-        </div>
-
         <div class="searchList">
             <div class="searchInput clear">
-                <input type="text" placeholder="请输入景区关键字搜索" class="fl">
-                <span class="cancelButton">
-                    <img src="../img/scenery/searchbar_close.png" alt="">
-                </span>
-                <div class="fl searchButton" style="margin-top:7px" ng-click="searchScenery()">
-                    <i>
-                        <img src="../img/scenery/timg.jpg" alt="">
+                <div class="fl clear" style="width:280px">
+                    <i class="searchBar fl">
+                        <img src="../img/scenery/icon_scenicspot_searchbar.png" alt="">
                     </i>
-
+                    <input type="text"
+                           placeholder="请输入景区关键字搜索"
+                           class="fl" id="keywordSearch"
+                           style="font-size: 12px"
+                    >
+                    <img src="../img/scenery/searchbar_close.png" alt="" class="cancelButton fr" ng-click="clearInput()">
                 </div>
+
+                <div class="fr searchButton"  ng-click="searchScenery()">搜索</div>
             </div>
+            <!--<ul style="display: none">-->
+                <!--<li-->
+                        <!--class="relativeResult"-->
+                        <!--ng-style="searchResult"-->
+                        <!--ng-repeat="each in keywordsArr"-->
+                        <!--ng-click="getKeywordFromPreSearch(tollGate)"-->
+                <!--&gt;-->
+                    <!--<span class="logo"></span>-->
+                    <!--<div class="resultStation" ng-bind="tollGate.name"></div>-->
+                    <!--<div class="stationLocation" ng-bind="tollGate.admin_name"></div>-->
+                <!--</li>-->
+            <!--</ul>-->
+            <!--<div class="noSearchResult" ng-style="noSearchResult">-->
+                <!--<span class="logo"></span>-->
+                <!--<span class="noResult" ng-bind="printNotice"></span>-->
+            <!--</div>-->
 
             <ul class="searchResult fade" ng-hide='item==0' >
 
-                <li class="clear" ng-repeat="item in sceneryList" ng-click="lightLocation($index)">
+                <li class="clear" ng-repeat="item in sceneryList" ng-click="lightLocation($index)" ng-mousemove="lightMark($index)" ng-mouseleave="removeMark($index)" >
                     <div class="infoDes fl">
-                        <div>
-                            [{{$index + 1}}]
+                        <div class="postName">
+                            {{$index + 1}}.
                             {{item.sceneryName}}
                         </div>
                         <div>
@@ -76,7 +82,7 @@
                             <span> {{item.sceneryTime}}</span>
                         </div>
                         <div class="dotDis">
-                            {{item.address}}
+                            <span>{{item.address}}</span>
                         </div>
 
                     </div>
@@ -84,13 +90,16 @@
                         <img src="../img/scenery/scene2.jpg" alt="">
                     </div>
                 </li>
-                <button class="moreResult" ng-click="moreInfo()">查看全部</button>
+                <div class="moreResult">
+                     <span class="allResult" ng-click="moreInfo()">查看全部搜索结果</span><span>[共{{resultNum}}条]</span>
+                </div>
+
 
             </ul>
-            <div class="introduce">
+            <div class="introduce" style="display: none">
                 <div class="imgDisplay">
                     <img src="../img/scenery/scene7.jpg" alt="">
-                    <div class="backBtn">
+                    <div class="backBtn" ng-click="toResultlist()">
                         <i>
                             <img src="../img/scenery/back.png" alt="" style="width:13px;height:13px">
                         </i>

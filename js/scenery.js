@@ -9,18 +9,11 @@ var map = new mapboxgl.Map({
     pitch: 0
 });
 
-// var mySwiper = new Swiper('.swiper-container', {
-//         nextButton: '.swiper-button-next',
-//         prevButton: '.swiper-button-prev',
-//         slidesPerView: 3,
-//         speed:300
-// })
-
 angular.module("scenery", ['dataService', 'nvd3', 'angular-popups', 'navApp']).controller("sceneryController", ["$scope", "$location", "dsEdit", "$anchorScroll", "$http", function ($scope, $location, dsEdit, $anchorScroll, $http) {
     $scope.locFlag = 'sceneryFlag';
     $scope.startTollGate = '';
     $scope.endTollGate = '';
-    $scope.tollGateArr = [];
+    $scope.keywordsArr = [];
     $scope.popuArr = [];
     $scope.startFlag = false;
     $scope.endFlag = false;
@@ -28,19 +21,15 @@ angular.module("scenery", ['dataService', 'nvd3', 'angular-popups', 'navApp']).c
     $scope.isSearchStartTollGate = true;
     $scope.chooseStartTollGate = false;
     $scope.chooseEndTollGate = false;
-    $scope.startPid = '';
-    $scope.endPid = '';
-    $scope.nowScenery = '大雁塔';
-    $scope.nextScenery = '大唐芙蓉园';
     $scope.visible = 'true';
-    $scope.selectScenery = "选择景区";
     $scope.searchParameter = {};
     $scope.linksArr = [];
-    $scope.specialList = ['餐饮', '住宿', '购物', '停车场', '卫生间', '交通', '公共服务', '出入口'];
-    $scope.sceondList1 = ['中餐厅', '异域风味', '地方美食', '快餐', '糕点', '酒吧', '冷饮店', '咖啡/茶'];
     $scope.colorArr = ['rgba(255,114,86,0.8)', 'rgba(255,11486,0.3)', 'rgba(20,120,255,0.3)'];
     $scope.sceneryList = [];
-
+    $scope.resultNum='';
+    $scope.clearInput=function(){
+        $('#keywordSearch').val('');
+    }
     //勾选范围图层
     $scope.originLayer = {
         "id": "route",
@@ -99,44 +88,39 @@ angular.module("scenery", ['dataService', 'nvd3', 'angular-popups', 'navApp']).c
             'text-color':"#fff"
         }
     };
-
-
-    $scope.toggleSearch = {
-        display: "none",
-        height: "0px"
-    };
-
-
-    //点击显示二级菜单
-    var selected = $scope.selected;
-    $scope.show = function (index) {
-        // console.log(index);
-        $scope.selected = index;
-
-    }
-    //选择景区
-    $scope.toSelected = function (str) {
-        $scope.visible = !$scope.visible;
-
-        $scope.changeImg = {
-            "background-image": "../img/onlineMap/arrow_active.png"
-        }
-    }
-
-    // 获取并定位
-    $scope.locationProvince = function (str) {
-        if (str == 'nowScenery') {
-            $scope.selectScenery = '大雁塔';
-            map.flyTo({center: [108.9642, 34.21826], zoom: 16});
-            $scope.visible = !$scope.visible;
-            $scope.getLinksFromStartToEnd();
-        } else {
-            $scope.selectScenery = '大唐芙蓉园';
-            $scope.visible = !$scope.visible;
-            map.flyTo({center: [108.97386, 34.21252], zoom: 16});
-        }
-    };
-
+    //联想关键词input
+    // $scope.relativeWords = function () {
+    //
+    //     dsEdit.getProduct(startUrl, { name: $scope.startTollGate }).then(function (data) {
+    //         $scope.startFlag = true;
+    //         $scope.endFlag = false;
+    //         $scope.isReadySearchFlag = false;
+    //         $scope.printNotice = "";
+    //         $scope.keywordsArr = data;
+    //         if($scope.tollGateArr.length === 0){
+    //             $scope.noSearchResult = {
+    //                 display: 'block',
+    //             };
+    //             $scope.endStationStyle = {
+    //                 'border-bottom':'1px solid #d0e4ff'
+    //             };
+    //             $scope.printNotice = "无搜索结果，请重新输入";
+    //         }else {
+    //             $scope.searchResult = {
+    //                 display:'block'
+    //             };
+    //             $scope.endStationStyle = {
+    //                 'border-bottom':'1px solid #d0e4ff'
+    //             };
+    //             $scope.noSearchResult = {
+    //                 display: 'none',
+    //                 height: 30 + 'px',
+    //                 'line-height': 30 + 'px',
+    //                 'background-color': '#ffffff'
+    //             };
+    //         }
+    //     });
+    // };
 
     // 清空
     $scope.clearLines = function () {
@@ -170,8 +154,14 @@ angular.module("scenery", ['dataService', 'nvd3', 'angular-popups', 'navApp']).c
     };
 
 
-    //hover显示名称(气泡2)
+    //hover显示名称
     var popupName = new mapboxgl.Popup({
+        closeButton: false,
+        closeOnClick: false
+    });
+
+    //click显示名称
+    var popupClick= new mapboxgl.Popup({
         closeButton: false,
         closeOnClick: false
     });
@@ -235,6 +225,8 @@ angular.module("scenery", ['dataService', 'nvd3', 'angular-popups', 'navApp']).c
         map.addLayer($scope.testLayer);
         //  执行完map.addLayer以后才能添加事件
         map.on('mouseenter', 'pointSelected', function (e) {
+           // var index=e.features[0].properties.mark;
+           // $('.searchResult li').eq(index).css({'background':'#4393ff','color':'#fff'}).siblings().css('background','#fff');
             var pid = e.features[0].properties.id;
             var prop;
             for (var i = 0;i<mySourceData.features.length;i++) {
@@ -272,6 +264,7 @@ angular.module("scenery", ['dataService', 'nvd3', 'angular-popups', 'navApp']).c
     //展示气泡定位(服务)
     $scope.getLocationPopup = function () {
         $http.post('test2Pop.json').then(function (data) {
+            $scope.resultNum=data.data.length;
             var val = data.data.slice(0,3);
             $scope.sceneryList = val;
             locationMap(val);
@@ -303,7 +296,56 @@ angular.module("scenery", ['dataService', 'nvd3', 'angular-popups', 'navApp']).c
         resetMySourceData(mySourceData);
 
     }
+    //click popUp
+    map.on('click','pointSelected',function (e) {
+       //console.log(e.features[0].properties.sceneryName);
+        var titleDes = window.document.createElement('div');
+        titleDes.innerHTML = '<div class="feePopDeep">'+e.features[0].properties.sceneryName+'</div>' +
+            '<div class="tipPopDeep"></div>';
+        $scope.siteLocation = [];
+        $scope.siteLocation.push(e.lngLat.lng);
+        $scope.siteLocation.push(e.lngLat.lat);
 
+        map.getCanvas().style.cursor = 'pointer';
+        popupClick.setLngLat($scope.siteLocation)
+            .setDOMContent(titleDes)
+            .addTo(map);
+
+        $('.introduce').show();
+        $('.searchResult').hide();
+
+    })
+
+    //封装一个请求详情页的接口，供click popUp和click list使用
+    //click list
+    $scope.lightLocation=function (index) {
+        var listId= 'my-point-'+ index;
+        for (var i = 0;i<mySourceData.features.length;i++) {
+            prop = mySourceData.features[i].properties;
+            if (prop.id === listId) {
+                prop.icon = prop['icon-active'];
+            } else {
+                prop.icon = prop['icon-normal'];
+            }
+        }
+        resetMySourceData(mySourceData);
+
+        var titleDes = window.document.createElement('div');
+        var everPoint=mySourceData.features[index];
+        titleDes.innerHTML = '<div class="feePopDeep">'+everPoint.properties.sceneryName+'</div>' +
+            '<div class="tipPopDeep"></div>';
+        map.getCanvas().style.cursor = 'pointer';
+        popupClick.setLngLat(everPoint.geometry.coordinates)
+            .setDOMContent(titleDes)
+            .addTo(map);
+
+        //to details
+        //console.log($('.searchResult .postName').eq(index).html());
+
+        $('.introduce').show();
+        $('.searchResult').hide();
+
+    }
 
     //点击查询
     $scope.item = 0;
@@ -313,13 +355,12 @@ angular.module("scenery", ['dataService', 'nvd3', 'angular-popups', 'navApp']).c
         } else {
             $scope.item = 0;
         }
-        //  map.flyTo({center:[ 108.9642,34.21826],zoom:16});
         $scope.getLinksFromStartToEnd();
         $scope.getLocationPopup();
-
     }
-    //list click
-    $scope.lightLocation=function (index) {
+
+    //mousemove list
+    $scope.lightMark=function (index) {
         var listId= 'my-point-'+ index;
         for (var i = 0;i<mySourceData.features.length;i++) {
             prop = mySourceData.features[i].properties;
@@ -342,41 +383,55 @@ angular.module("scenery", ['dataService', 'nvd3', 'angular-popups', 'navApp']).c
 
     }
 
+    //mouseleave list
+    $scope.removeMark=function (index) {
+        popupName.remove(index);
+    }
+
+
     //see more
     $scope.moreInfo = function () {
-        var btnVal = $('.moreResult').html();
-        $('.moreResult').html(btnVal);
-        if (btnVal == '查看全部') {
+        var btnVal = $('.allResult').html();
+        $('.allResult').html(btnVal);
+        if (btnVal == '查看全部搜索结果') {
             $http.post('test2Pop.json').then(function (data) {
                 $scope.sceneryList = data.data;
                 locationMap(data.data);
             })
-            $('.moreResult').html('收起');
+            $('.allResult').html('已展开全部搜索结果');
+            $('.moreResult').css('color','#1478ff');
         } else {
             $scope.getLocationPopup();
-            $('.moreResult').html('查看全部');
+            $('.allResult').html('查看全部搜索结果');
+            $('.moreResult').css('color','#999');
         }
 
     }
 
     //scan big(more) picture
     $scope.arrImg = ["../img/scenery/slide1.jpg", "../img/scenery/slide2.jpg",
-        "../img/scenery/slide3.jpg", "../img/scenery/slide4.jpg", "../img/scenery/slide5.jpg", '../img/scenery/slide6.jpg'];
+        "../img/scenery/slide3.jpg", "../img/scenery/slide4.jpg", "../img/scenery/slide5.jpg", '../img/scenery/slide6.jpg',
+        "../img/scenery/slide7.jpg", "../img/scenery/slide8.jpg", "../img/scenery/slide9.jpg", '../img/scenery/slide10.jpg'];
     var arrImg=["../img/scenery/slide1.jpg", "../img/scenery/slide2.jpg",
-        "../img/scenery/slide3.jpg", "../img/scenery/slide4.jpg", "../img/scenery/slide5.jpg", '../img/scenery/slide6.jpg'];
-    $scope.scanPic = function () {
+        "../img/scenery/slide3.jpg", "../img/scenery/slide4.jpg", "../img/scenery/slide5.jpg", '../img/scenery/slide6.jpg',
+        "../img/scenery/slide7.jpg", "../img/scenery/slide8.jpg", "../img/scenery/slide9.jpg", '../img/scenery/slide10.jpg'];
+    $scope.scanPic = function (event) {
+        var e = window.event || event;
+        if (e.stopPropagation) {
+            e.stopPropagation();
+        } else {
+            e.cancelBubble = true;
+        }
         $('.swiperPic').show();
         var oImg = $('.centerBlock>ul img');
-
-         $('.disPic>img')[0].src = arrImg[0];
-
+        $('.disPic>img')[0].src = arrImg[0];
 
     }
-   $scope.goImg = function (index) {
+    $scope.goImg = function (index) {
         var oImg = $('.centerBlock>ul img');
         $('.disPic>img')[0].src = oImg[index].src;
-        oImg.css({'border':'none','padding':'0px'});
-        oImg.eq(index).css('border','2px solid #000');
+        oImg.css({'border': 'none', 'padding': '0px'});
+        oImg.eq(index).css('border', '2px solid #fff');
     }
 
     $scope.goLeft = function () {
@@ -405,9 +460,25 @@ angular.module("scenery", ['dataService', 'nvd3', 'angular-popups', 'navApp']).c
         $('.disPic>img')[0].src = arrImg[0];
     }
 
-    $scope.closePic=function(){
+    $scope.closePic = function () {
         $('.swiperPic').hide();
     }
+    $(document).click(function (event) {
+        var _con = $('.centerBlock');
+        if (!_con.is(event.target) && _con.has(event.target).length === 0) {
+            $('.swiperPic').hide();
+        }
+    });
+
+    //to resultList
+    $scope.toResultlist=function(){
+        $('.introduce').hide();
+        $('.searchResult').show();
+        popupClick.remove();
+
+    }
+
+
 
 
 }]);
