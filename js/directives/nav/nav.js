@@ -71,7 +71,7 @@ navApp.directive('navBar',function () {
                            title: '限行数据展示',
                        },
                        {
-                           title: '景区专题引导',
+                           title: '景区专题地图',
                        }
                    ]
                },

@@ -298,7 +298,19 @@ angular.module("scenery", ['dataService', 'nvd3', 'angular-popups', 'navApp']).c
     }
     //click popUp
     map.on('click','pointSelected',function (e) {
-       //console.log(e.features[0].properties.sceneryName);
+       //console.log(e.features[0].properties.sceneryName); 传数据到详情页
+        var pid = e.features[0].properties.id;
+        var prop;
+        for (var i = 0;i<mySourceData.features.length;i++) {
+            prop = mySourceData.features[i].properties;
+            if (prop.id === pid) {
+                prop.icon = prop['icon-active'];
+            } else {
+                prop.icon = prop['icon-normal'];
+            }
+        }
+        resetMySourceData(mySourceData);
+
         var titleDes = window.document.createElement('div');
         titleDes.innerHTML = '<div class="feePopDeep">'+e.features[0].properties.sceneryName+'</div>' +
             '<div class="tipPopDeep"></div>';

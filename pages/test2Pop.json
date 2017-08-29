@@ -66,5 +66,19 @@
       ],
       "type": "Point"
     }
+  },
+  {
+    "sceneryName":"大明宫遗址公园",
+    "sceneryClass":"音乐喷泉",
+    "sceneryTicket":"免费",
+    "sceneryTime":"7:00-22:00",
+    "address":"陕西省西安市新城区雁塔西路雁塔西路雁塔西路雁塔西路雁塔西路",
+    "pointGeoJson": {
+      "coordinates": [
+        108.9659900000,
+        34.2901700000
+      ],
+      "type": "Point"
+    }
   }
 ]

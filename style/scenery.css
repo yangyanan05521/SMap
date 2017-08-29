@@ -193,9 +193,18 @@ li{
     height:100px;
 }
 #container #content .searchList .searchResult li{
-    border-bottom:1px solid #D0E4FF;
+    position: relative;
     padding:0px 10px 10px;
 }
+#container #content .searchList .searchResult li .borderLine{
+    position:absolute;
+    bottom: 0px;
+    left:10px;
+    height: 1px;
+    width:95%;
+    background-color:#D0E4FF;
+}
+
 #container #content .searchList .searchResult li:hover{
      background-color:#4393ff;
  }
