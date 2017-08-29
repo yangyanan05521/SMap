@@ -9,7 +9,7 @@
         </div>
 
 </div>
-<div style="height: 310px;" id="apiExplain">
+<div style="height: 365px;" id="apiExplain">
     <div class="titleContainer">
         <div class="titleContent" >
             API介绍
@@ -19,6 +19,7 @@
         <div style="padding: 10px 20px 0px 20px; font-size: 14px; color: rgba(0,0,0,0.8);line-height: 30px">
             <div style="margin-bottom: 26px;">
                 施工道路服务API是一组支持最新施工道路信息查询、历史记录查询等功能的服务接口，能够实时快速的提供当前最新的施工道路信息的数据。内容包括：获取最新施工道路信息API、获取历史时间段的施工道路信息API等。
+                接口采用分页获取数据的形式。用户第一次访问，请输入参数pageNum=1，之后，根据返回数据中的pageNum，pages的总页数，访问下一页。当访问到最后一页时，会更新用户的登录时间，届时用户再次访问，将进入下一次的增量提取。
             </div>
             <div style="margin-bottom: 26px;">
                 <div class="dotGrayDivtop"></div>
@@ -32,12 +33,7 @@
         </div>
     </div>
 </div>
-
-
-
-
-
-<div class="apiContainer" id="useCase" style="height: 1850px">
+<div class="apiContainer" id="useCase" style="height:2365px">
     <div class="titleContainer">
         <div class="titleContent">
             最新施工信息
@@ -76,6 +72,7 @@
                 </thead>
             </table>
         </div>
+
     </div>
     <div class="apiParamContainer">
         <div class="apiReturnParamContainer">
@@ -92,7 +89,34 @@
                 <thead>
                 <tr >
                     <th data-field="paramName1">一级参数</th>
-                    <th data-field="paramName2">二级参数</th>
+                    <th data-field="type" >类型</th>
+                    <th data-field="description">规则说明</th>
+                </tr>
+                </thead>
+            </table>
+        </div>
+        <div style="padding-left: 20px;margin-top: 26px">
+            <table id="constructionReturnTable1"
+                   data-toggle="table"
+                   data-url="../data/constructionFailReturnParam1.js"
+            >
+                <thead>
+                <tr >
+                    <th data-field="paramName1">二级参数</th>
+                    <th data-field="type" >类型</th>
+                    <th data-field="description">规则说明</th>
+                </tr>
+                </thead>
+            </table>
+        </div>
+        <div style="padding-left: 20px;margin-top: 26px">
+            <table id="constructionReturnTable2"
+                   data-toggle="table"
+                   data-url="../data/constructionFailReturnParam2.js"
+            >
+                <thead>
+                <tr >
+                    <th data-field="paramName1">三级参数</th>
                     <th data-field="type" >类型</th>
                     <th data-field="description">规则说明</th>
                 </tr>
@@ -114,24 +138,30 @@
         <div style="float: left;width: 320px;height: 280px;border: 1px solid #d5d1d3;margin-right: 30px;margin-left: 10px;">
             <div style="height: 30px;text-align: center;font-weight: normal;background: #eafaf5;color: #33c993;line-height: 30px;font-size: 14px;">返回正确结果</div>
             <textarea readonly cols="30" rows="10" style="width: 315px;height: 245px;resize: none;border:none">
-{
-  "data": [
-    {
-      "no": 1,
-      "link_pid": 40014293,
-      "geometry_link": "LINESTRING (116.42809 39.53643, 116.42817 39.53611, 116.42829 39.53561)",
-      "construction_dir": 1,
-      "admin_id": 110115,
-      "desc": "道路施工",
-      "time_domain": "[(y2017M5d15)(y2022M5d15)]",
-      "version": 17Q2,
-      "sources": 1,
-      "link_change": 1
-    }
-  ],
+  {
   "code": 200,
+  "data": {
+    "construction_info": [
+      {
+        "admin_id": 330106,
+        "construction_dir": 1,
+        "desc": "道路施工",
+        "geometry_link": "LINESTRING (120.07534 30.30488, 120.07539 30.30462, 120.07544 30.30438, 120.07548 30.30424, 120.07553 30.30416, 120.07563 30.30407, 120.07567 30.30403, 120.0757 30.30398, 120.07573 30.30389, 120.07589 30.30327, 120.07602 30.30282, 120.07603 30.30273, 120.07606 30.30269, 120.07616 30.30261, 120.07622 30.30259, 120.0763 30.30257, 120.07638 30.30255, 120.07645 30.30253)",
+        "link_change": 1,
+        "link_pid": 8723232,
+        "no": 7308909,
+        "time_domain": "[(y2017M5d22)(y2022M5d22)]",
+        "version": "16Q1",
+        " info_sources ": 1,
+        " reliability ": 1
+      }
+    ],
+    "pageNum": 1,
+    "pages": 10
+  },
   "msg": "OK: Successful processing of the request"
 }
+
 
 
                 </textarea>
@@ -163,9 +193,21 @@
         <div class="apiExampleRequireParam">请求参数</div>
         <div style="width: 690px;padding: 0px 100px 0px 64px">
             <div class="apiExampleRequireParamContainer">
-                <div  class="apiExampleParamList">ak</div>
+                <div  class="apiExampleParamList">username</div>
                 <div style="width: 445px;float: right">
-                    <input type="text"  class="api_Input" id="ak">
+                    <input type="text"  class="api_Input" id="constructionUsername">
+                </div>
+            </div>
+            <div class="apiExampleRequireParamContainer">
+                <div  class="apiExampleParamList">password</div>
+                <div style="width: 445px;float: right">
+                    <input type="text"  class="api_Input" id="constructionPassword">
+                </div>
+            </div>
+            <div class="apiExampleRequireParamContainer">
+                <div  class="apiExampleParamList">pageNum</div>
+                <div style="width: 445px;float: right">
+                    <input type="text"  class="api_Input" id="constructionPageNum">
                 </div>
             </div>
         </div>
@@ -182,35 +224,42 @@
             <div class="apiResultOfContainer" >
                 <textarea readonly class="textContent" id="limitContent">
 {
-  "data": [
-    {
-      "no": 1,
-      "link_pid": 40014293,
-      "geometry_link": "LINESTRING (116.42809 39.53643, 116.42817 39.53611, 116.42829 39.53561)",
-      "construction_dir": 1,
-      "admin_id": 110115,
-      "desc": "道路施工",
-      "time_domain": "[(y2017M5d15)(y2022M5d15)]",
-      "version": 17Q2,
-      "sources": 1,
-      "link_change": 1
-    },
-    {
-      "no": 2,
-      "link_pid": 71372981,
-      "geometry_link": "LINESTRING (116.47101 39.6138, 116.47083 39.61372, 116.47074 39.61369, 116.47052 39.61362, 116.47045 39.61361, 116.47042 39.6136, 116.47019 39.61356)",
-      "construction_dir": 2,
-      "admin_id": 110115,
-      "desc": "道路施工",
-      "time_domain": "[(y2017M5d15)(y2022M5d15)]",
-      "version": 17Q2,
-      "sources": 1,
-      "link_change": 1
-    }
-  ],
   "code": 200,
+  "data": {
+    "construction_info": [
+      {
+        "admin_id": 330106,
+        "construction_dir": 1,
+        "desc": "道路施工",
+        "geometry_link": "LINESTRING (120.07534 30.30488, 120.07539 30.30462, 120.07544 30.30438, 120.07548 30.30424, 120.07553 30.30416, 120.07563 30.30407, 120.07567 30.30403, 120.0757 30.30398, 120.07573 30.30389, 120.07589 30.30327, 120.07602 30.30282, 120.07603 30.30273, 120.07606 30.30269, 120.07616 30.30261, 120.07622 30.30259, 120.0763 30.30257, 120.07638 30.30255, 120.07645 30.30253)",
+        "link_change": 1,
+        "link_pid": 8723232,
+        "no": 7308909,
+        "time_domain": "[(y2017M5d22)(y2022M5d22)]",
+        "version": "16Q1",
+        " info_sources ": 1,
+        " reliability ": 1
+      },
+      {
+        "admin_id": 330104,
+        "construction_dir": 1,
+        "desc": "道路施工",
+        "geometry_link": "LINESTRING (120.26653 30.32603, 120.26677 30.32575)",
+        "link_change": 1,
+        "link_pid": 8303036,
+        "no": 7308910,
+        "time_domain": "[(y2017M5d22)(y2022M5d22)]",
+        "version": "16Q1",
+        " info_sources ": 1,
+        " reliability ": 1
+      }
+    ],
+    "pageNum": 1,
+    "pages": 10
+  },
   "msg": "OK: Successful processing of the request"
 }
+
 
                 </textarea>
             </div>
@@ -277,7 +326,34 @@
                 <thead>
                 <tr >
                     <th data-field="paramName1">一级参数</th>
-                    <th data-field="paramName2">二级参数</th>
+                    <th data-field="type" >类型</th>
+                    <th data-field="description">说明</th>
+                </tr>
+                </thead>
+            </table>
+        </div>
+        <div style="padding-left: 20px;margin-top: 26px">
+            <table id="ConstructionFeedbackReturnParam1"
+                   data-toggle="table"
+                   data-url="../data/ConstructionFeedbackReturnParam1.js"
+            >
+                <thead>
+                <tr >
+                    <th data-field="paramName1">二级参数</th>
+                    <th data-field="type" >类型</th>
+                    <th data-field="description">说明</th>
+                </tr>
+                </thead>
+            </table>
+        </div>
+        <div style="padding-left: 20px;margin-top: 26px">
+            <table id="ConstructionFeedbackReturnParam2"
+                   data-toggle="table"
+                   data-url="../data/ConstructionFeedbackReturnParam2.js"
+            >
+                <thead>
+                <tr >
+                    <th data-field="paramName1">三级参数</th>
                     <th data-field="type" >类型</th>
                     <th data-field="description">说明</th>
                 </tr>
@@ -297,23 +373,29 @@
             <div style="height: 30px;text-align: center;font-weight: normal;background: #eafaf5;color: #33c993;line-height: 30px;font-size: 14px;">返回正确结果</div>
                 <textarea readonly style="width: 315px;height: 245px;resize: none">
 {
-  "data": [
-    {
-      "no": 1,
-      "link_pid": 40014293,
-      "geometry_link": "LINESTRING (116.42809 39.53643, 116.42817 39.53611, 116.42829 39.53561)",
-      "construction_dir": 1,
-      "admin_id": 110115,
-      "desc": "道路施工",
-      "time_domain": "[(y2017M5d15)(y2022M5d15)]",
-      "version": 17Q2,
-      "sources": 1,
-      "link_change": 1
-    }
-  ],
   "code": 200,
+  "data": {
+    "construction_info": [
+      {
+        "admin_id": 330106,
+        "construction_dir": 1,
+        "desc": "道路施工",
+        "geometry_link": "LINESTRING (120.07534 30.30488, 120.07539 30.30462, 120.07544 30.30438, 120.07548 30.30424, 120.07553 30.30416, 120.07563 30.30407, 120.07567 30.30403, 120.0757 30.30398, 120.07573 30.30389, 120.07589 30.30327, 120.07602 30.30282, 120.07603 30.30273, 120.07606 30.30269, 120.07616 30.30261, 120.07622 30.30259, 120.0763 30.30257, 120.07638 30.30255, 120.07645 30.30253)",
+        "link_change": 1,
+        "link_pid": 8723232,
+        "no": 7308909,
+        "time_domain": "[(y2017M5d22)(y2022M5d22)]",
+        "version": "16Q1",
+        " info_sources ": 1,
+        " reliability ": 1
+      }
+    ],
+    "pageNum": 1,
+    "pages": 10
+  },
   "msg": "OK: Successful processing of the request"
 }
+
             </textarea>
         </div>
         <div style="float: left;width: 320px;height: 280px;border: 1px solid #d5d1d3;">
@@ -324,6 +406,7 @@
   "data": "%E6%97%B6%E9%97%B4%E9%97%B4%E9%9A%94%E5%B7%B2%E7%BB%8F%E8%B6%85%E8%BF%877%E5%A4%A9%EF%BC%8C%E8%AF%B7%E9%87%8D%E6%96%B0%E8%BE%93%E5%85%A5%EF%BC%81",
   "msg": "Unauthorized: The requested resource needs authentication"
 }
+
 
             </textarea>
         </div>
@@ -345,9 +428,15 @@
         <div class="apiExampleRequireParam">请求参数</div>
         <div style="width: 690px;padding: 0px 100px 0px 64px">
             <div class="apiExampleRequireParamContainer">
-                <div  class="apiExampleParamList">ak</div>
+                <div  class="apiExampleParamList">username</div>
                 <div style="width: 445px;float: right">
-                    <input type="text"  class="api_Input" id="timequantumAk">
+                    <input type="text"  class="api_Input" id="timequantumUsername">
+                </div>
+            </div>
+            <div class="apiExampleRequireParamContainer">
+                <div  class="apiExampleParamList">password</div>
+                <div style="width: 445px;float: right">
+                    <input type="text"  class="api_Input" id="timequantumPassword">
                 </div>
             </div>
             <div class="apiExampleRequireParamContainer">
@@ -376,33 +465,39 @@
             <div class="apiResultOfContainer" >
                 <textarea readonly class="textContent" id="limitContent">
 {
-  "data": [
-    {
-      "no": 1,
-      "link_pid": 40014293,
-      "geometry_link": "LINESTRING (116.42809 39.53643, 116.42817 39.53611, 116.42829 39.53561)",
-      "construction_dir": 1,
-      "admin_id": 110115,
-      "desc": "道路施工",
-      "time_domain": "[(y2017M5d15)(y2022M5d15)]",
-      "version": 17Q2,
-      "sources": 1,
-      "link_change": 1
-    },
-    {
-      "no": 2,
-      "link_pid": 71372981,
-      "geometry_link": "LINESTRING (116.47101 39.6138, 116.47083 39.61372, 116.47074 39.61369, 116.47052 39.61362, 116.47045 39.61361, 116.47042 39.6136, 116.47019 39.61356)",
-      "construction_dir": 2,
-      "admin_id": 110115,
-      "desc": "道路施工",
-      "time_domain": "[(y2017M5d15)(y2022M5d15)]",
-      "version": 17Q2,
-      "sources": 1,
-      "link_change": 1
-    }
-  ],
   "code": 200,
+  "data": {
+    "construction_info": [
+      {
+        "admin_id": 330106,
+        "construction_dir": 1,
+        "desc": "道路施工",
+        "geometry_link": "LINESTRING (120.07534 30.30488, 120.07539 30.30462, 120.07544 30.30438, 120.07548 30.30424, 120.07553 30.30416, 120.07563 30.30407, 120.07567 30.30403, 120.0757 30.30398, 120.07573 30.30389, 120.07589 30.30327, 120.07602 30.30282, 120.07603 30.30273, 120.07606 30.30269, 120.07616 30.30261, 120.07622 30.30259, 120.0763 30.30257, 120.07638 30.30255, 120.07645 30.30253)",
+        "link_change": 1,
+        "link_pid": 8723232,
+        "no": 7308909,
+        "time_domain": "[(y2017M5d22)(y2022M5d22)]",
+        "version": "16Q1",
+        " info_sources ": 1,
+        " reliability ": 1
+      },
+      {
+        "admin_id": 330104,
+        "construction_dir": 1,
+        "desc": "道路施工",
+        "geometry_link": "LINESTRING (120.26653 30.32603, 120.26677 30.32575)",
+        "link_change": 1,
+        "link_pid": 8303036,
+        "no": 7308910,
+        "time_domain": "[(y2017M5d22)(y2022M5d22)]",
+        "version": "16Q1",
+        " info_sources ": 1,
+        " reliability ": 1
+      }
+    ],
+    "pageNum": 1,
+    "pages": 10
+  },
   "msg": "OK: Successful processing of the request"
 }
 
