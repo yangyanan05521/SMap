@@ -1,13 +1,13 @@
 [
     {
-    "paramName1": "link_pid",
-    "type": "int",
-    "description": "LINK_PID"
-    },
-    {
         "paramName1": "no",
         "type": "int",
         "description": "序号，二级参数construction_info的返回数据"
+    },
+    {
+        "paramName1": "link_pid",
+        "type": "int",
+        "description": "LINK_PID，，二级参数construction_info的返回数据"
     },
     {
         "paramName1": "geometry_link",

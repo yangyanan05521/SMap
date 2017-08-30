@@ -16,7 +16,7 @@
     },
     {
         "paramName1": "construction_dir",
-        "type": "string",
+        "type": "int",
         "description": "施工方向（1：双方向施工 2：顺方向施工 3：逆方向施工），二级参数construction_info的返回数据"
     },
     {
@@ -42,7 +42,7 @@
     {
         "paramName1": "info_sources",
         "type": "int",
-        "description": "信息来源 （1：四维 2：搜狗 3：其他），二级参数construction_info的返回数据"
+        "description": "信息来源 （1：四维 2：腾讯 3：其他），二级参数construction_info的返回数据"
     },
     {
         "paramName1": "link_change",
