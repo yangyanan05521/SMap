@@ -27,9 +27,16 @@ angular.module("scenery", ['dataService', 'nvd3', 'angular-popups', 'navApp']).c
     $scope.colorArr = ['rgba(255,114,86,0.8)', 'rgba(255,11486,0.3)', 'rgba(20,120,255,0.3)'];
     $scope.sceneryList = [];
     $scope.resultNum='';
+    $scope.searchWord='';
+    $scope.noSearchResult = {
+        display: 'none'
+    };
+    $scope.relativeList={
+        display: 'none'
+    };
     $scope.clearInput=function(){
         $('#keywordSearch').val('');
-    }
+    };
     //勾选范围图层
     $scope.originLayer = {
         "id": "route",
@@ -80,7 +87,7 @@ angular.module("scenery", ['dataService', 'nvd3', 'angular-popups', 'navApp']).c
         "type": "symbol",
         'layout':{
             'icon-image':'{icon}',
-            'icon-size':2,
+            'icon-size':1,
             'text-justify': 'center',
             'text-field':'{numMark}'
         },
@@ -89,38 +96,63 @@ angular.module("scenery", ['dataService', 'nvd3', 'angular-popups', 'navApp']).c
         }
     };
     //联想关键词input
-    // $scope.relativeWords = function () {
-    //
-    //     dsEdit.getProduct(startUrl, { name: $scope.startTollGate }).then(function (data) {
-    //         $scope.startFlag = true;
-    //         $scope.endFlag = false;
-    //         $scope.isReadySearchFlag = false;
-    //         $scope.printNotice = "";
-    //         $scope.keywordsArr = data;
-    //         if($scope.tollGateArr.length === 0){
-    //             $scope.noSearchResult = {
-    //                 display: 'block',
-    //             };
-    //             $scope.endStationStyle = {
-    //                 'border-bottom':'1px solid #d0e4ff'
-    //             };
-    //             $scope.printNotice = "无搜索结果，请重新输入";
-    //         }else {
-    //             $scope.searchResult = {
-    //                 display:'block'
-    //             };
-    //             $scope.endStationStyle = {
-    //                 'border-bottom':'1px solid #d0e4ff'
-    //             };
-    //             $scope.noSearchResult = {
-    //                 display: 'none',
-    //                 height: 30 + 'px',
-    //                 'line-height': 30 + 'px',
-    //                 'background-color': '#ffffff'
-    //             };
-    //         }
-    //     });
-    // };
+     $scope.relativeWords = function () {
+         // if ($scope.searchWord != '') {
+         //     dsEdit.getProduct("scenic/search/realtime",{
+         //         parm: JSON.stringify({
+         //             str: $scope.searchWord
+         //         })
+         //     }).then(function (data) {
+         //         console.log(data);
+         //     })
+         // }
+         var reUrl = App.Config.sceneryUrl + "/scenic/search/realtime";
+         // var reUrl="http://192.168.15.41:9999/smapapi/scenic/search/realtime";
+         if ($scope.searchWord != '') {
+             $http.post(reUrl,
+                 {
+                     parm: JSON.stringify({
+                         str: $scope.searchWord
+                     })
+                 }).then(function (data) {
+                 var res = data.data.data;
+                 if (res.length === 0) {
+                     $scope.relativeList = {
+                         display: "none"
+                     }
+                     $scope.noSearchResult = {
+                         display: "block"
+                     }
+                 } else {
+                     $scope.relativeList = {
+                         display: 'block'
+                     };
+                     $scope.noSearchResult = {
+                         display: "none"
+                     }
+                     $scope.keywordsArr = res.slice(0, 10);
+
+                 }
+
+             })
+
+         }else{
+             $scope.relativeList = {
+                 display: "none"
+             }
+             $scope.noSearchResult = {
+                 display: "none"
+             }
+         }
+     }
+     
+     $scope.toSearch=function (data) {
+         $scope.searchWord=data.name;
+         $scope.relativeList = {
+             display: "none"
+         }
+         
+     }
 
     // 清空
     $scope.clearLines = function () {
@@ -166,6 +198,14 @@ angular.module("scenery", ['dataService', 'nvd3', 'angular-popups', 'navApp']).c
         closeOnClick: false
     });
 
+    $scope.changeZoom = function (arg) {
+        var nowZoom = map.getZoom();
+        if(arg === 'add'){
+            map.setZoom(nowZoom+1);
+        }else{
+            map.setZoom(nowZoom-1);
+        }
+    };
 
     // 勾选区域（服务）
     $scope.getLinksFromStartToEnd = function () {
@@ -198,12 +238,11 @@ angular.module("scenery", ['dataService', 'nvd3', 'angular-popups', 'navApp']).c
                     map.addLayer($scope.originLayerFill);
                 }
                 var pointFeature = turf.lineString(data.data[i].geoJson.coordinates);
-                //  console.log(data.data[i].geoJson.coordinates);
                 bounds.features.push(pointFeature);
             }
             var bbox = turf.bbox(bounds);
             var v2 = new mapboxgl.LngLatBounds([bbox[0], bbox[1]], [bbox[2], bbox[3]]);
-            map.fitBounds(v2, {padding: 50});
+            map.fitBounds(v2, {padding: 270});
         })
     };
 
@@ -225,8 +264,8 @@ angular.module("scenery", ['dataService', 'nvd3', 'angular-popups', 'navApp']).c
         map.addLayer($scope.testLayer);
         //  执行完map.addLayer以后才能添加事件
         map.on('mouseenter', 'pointSelected', function (e) {
-           // var index=e.features[0].properties.mark;
-           // $('.searchResult li').eq(index).css({'background':'#4393ff','color':'#fff'}).siblings().css('background','#fff');
+           //var index=e.features[0].properties.mark;
+           //$('.searchResult li').eq(index).css({'background':'#4393ff','color':'#fff'}).siblings().css('background','#fff');
             var pid = e.features[0].properties.id;
             var prop;
             for (var i = 0;i<mySourceData.features.length;i++) {
@@ -263,37 +302,80 @@ angular.module("scenery", ['dataService', 'nvd3', 'angular-popups', 'navApp']).c
 
     //展示气泡定位(服务)
     $scope.getLocationPopup = function () {
-        $http.post('test2Pop.json').then(function (data) {
-            $scope.resultNum=data.data.length;
-            var val = data.data.slice(0,3);
-            $scope.sceneryList = val;
-            locationMap(val);
+        // $http.post('test2Pop.json').then(function (data) {
+        //     $scope.resultNum=data.data.length;
+        //     var val = data.data.slice(0,3);
+        //     $scope.sceneryList = val;
+        //     locationMap(val);
+        //
+        // })
 
-        })
+
+        var sumUrl = App.Config.sceneryUrl + "/scenic/search/searchall";
+            $http.post(sumUrl,
+                {
+                    parm: JSON.stringify({
+                        str: $scope.searchWord
+                    })
+                }).then(function (data) {
+                var res = data.data.data;
+                $scope.resultNum=res.length;
+                if(res.length===0){
+                    $scope.noSearchResult = {
+                        display: "none"
+                    }
+
+                }else{
+                    $scope.sceneryList = res.slice(0,3);
+                    console.log(res);
+                    locationMap(res);
+                }
+
+            })
+
+
     };
     //根据数据地图定位
     var locationMap = function (val) {
-        var len=mySourceData.features.length;
-        mySourceData.features.splice(0,len);
+        var len = mySourceData.features.length;
+        var pointArr = [];
+        mySourceData.features.splice(0, len);
         for (var i = 0; i < val.length; i++) {
             mySourceData.features.push({
                 "type": "Feature",
                 "properties": {
                     id: 'my-point-' + i,
-                    "sceneryName": val[i].sceneryName,
-                    "icon": "green",
-                    'icon-normal': 'green',
-                    'icon-active': 'red',
+                    "sceneryName": val[i].name,
+                    "icon": "POI_red",
+                    'icon-normal': 'POI_red',
+                    'icon-active': 'POI_blue',
                     "mark": i,             //if图片编号用参数，用于mousemove事件取
-                    'numMark':i+1
+                    'numMark': i + 1
                 },
                 "geometry": {
                     "type": "Point",
-                    "coordinates": val[i].pointGeoJson.coordinates
+                    "coordinates": val[i].geometry.coordinates
                 }
             });
+            pointArr.push(val[i].geometry.coordinates);
+
         }
         resetMySourceData(mySourceData);
+        var mush = {
+            "type": "FeatureCollection",
+            "features": [{
+                "type": "Feature",
+                "properties": {},
+                "geometry": {
+                    "type": "MultiPoint",
+                    "coordinates": pointArr
+                }
+            }]
+        }
+        var mbox = turf.bbox(mush);
+        console.log(mbox);
+        var b1= new mapboxgl.LngLatBounds([mbox[0], mbox[1]], [mbox[2], mbox[3]]);
+        map.fitBounds(b1, {padding: 10});
 
     }
     //click popUp
@@ -367,7 +449,7 @@ angular.module("scenery", ['dataService', 'nvd3', 'angular-popups', 'navApp']).c
         } else {
             $scope.item = 0;
         }
-        $scope.getLinksFromStartToEnd();
+       //$scope.getLinksFromStartToEnd();
         $scope.getLocationPopup();
     }
 

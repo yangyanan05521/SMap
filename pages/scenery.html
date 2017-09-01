@@ -36,7 +36,10 @@
                     </i>
                     <input type="text"
                            placeholder="请输入景区关键字搜索"
-                           class="fl" id="keywordSearch"
+                           ng-model="searchWord"
+                           ng-change="relativeWords('change')"
+                           class="fl"
+                           id="keywordSearch"
                            style="font-size: 12px"
                     >
                     <img src="../img/scenery/searchbar_close.png" alt="" class="cancelButton fr" ng-click="clearInput()">
@@ -44,45 +47,43 @@
 
                 <div class="fr searchButton"  ng-click="searchScenery()">搜索</div>
             </div>
-            <!--<ul style="display: none">-->
-                <!--<li-->
-                        <!--class="relativeResult"-->
-                        <!--ng-style="searchResult"-->
-                        <!--ng-repeat="each in keywordsArr"-->
-                        <!--ng-click="getKeywordFromPreSearch(tollGate)"-->
-                <!--&gt;-->
-                    <!--<span class="logo"></span>-->
-                    <!--<div class="resultStation" ng-bind="tollGate.name"></div>-->
-                    <!--<div class="stationLocation" ng-bind="tollGate.admin_name"></div>-->
-                <!--</li>-->
-            <!--</ul>-->
-            <!--<div class="noSearchResult" ng-style="noSearchResult">-->
-                <!--<span class="logo"></span>-->
-                <!--<span class="noResult" ng-bind="printNotice"></span>-->
-            <!--</div>-->
+            <ul ng-style="relativeList" style="padding:0px;margin:0">
+                <li
+                        class="relativeResult"
+                        ng-repeat="each in keywordsArr"
+                        ng-click="toSearch(each)"
+                >
+                    <span class="logo"></span>
+                    <span class="choiceWord" ng-bind="each.name"></span>
+                </li>
+            </ul>
+            <div class="noSearchResult" ng-style="noSearchResult">
+                <span class="logo"></span>
+                <span class="noResult">无搜索结果，请重新输入</span>
+            </div>
 
             <ul class="searchResult fade" ng-hide='item==0' >
 
                 <li class="clear" ng-repeat="item in sceneryList" ng-click="lightLocation($index)" ng-mousemove="lightMark($index)" ng-mouseleave="removeMark($index)" >
-                    <div class="infoDes fl">
+                    <div class="infoDes fl ng-cloak">
                         <div class="postName">
                             {{$index + 1}}.
-                            {{item.sceneryName}}
+                            {{item.name}}
                         </div>
                         <div>
-                            <span> {{item.sceneryClass}}</span>
-                            <span>***</span>
+                            <span>{{item.sight_level+'景区'}}</span>
+                            <span>{{item.sight_class}}</span>
                         </div>
                         <div>
                             <span>门票</span>
-                            <span> {{item.sceneryTicket}}</span>
+                            <span> {{item.ticket_price}}</span>
                         </div>
                         <div>
                             <span>开放时间</span>
-                            <span> {{item.sceneryTime}}</span>
+                            <span> {{item.open_hours}}</span>
                         </div>
                         <div class="dotDis">
-                            <span>{{item.address}}</span>
+                            <span>陕西省西安市雁塔区雁塔西路雁塔西路雁塔西路雁塔西路雁塔西路</span>
                         </div>
 
                     </div>
@@ -95,7 +96,7 @@
 
                 </li>
 
-                <div class="moreResult">
+                <div class="moreResult ng-cloak">
                      <span class="allResult" ng-click="moreInfo()">查看全部搜索结果</span><span>[共{{resultNum}}条]</span>
                 </div>
 
@@ -166,6 +167,10 @@
     </div>
 
     <div id="map">
+        <div class="changeMapSizeDiv">
+            <button class="addBtn" ng-click="changeZoom('add')"></button>
+            <button class="subBtn" ng-click="changeZoom('sub')"></button>
+        </div>
     </div>
 </div>
 </body>
@@ -187,8 +192,6 @@
 <script src="../js/scenery.js"></script>
 <script src="../js/directives/nav/nav.js"></script>
 <!-- endbuild -->
-
-<script src="../js/directives/nav/nav.js"></script>
 
 
 

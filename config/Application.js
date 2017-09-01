@@ -2,26 +2,20 @@
  * Created by liwanchong on 2016/12/16.
  */
 var App = {};
-
 App.dev={
+    //host:'123.207.83.126:8088'
     host:'192.168.15.41:9999'
 };
-App.checkServer = {
-    dev:{
-        checkServiceUrl:'http://' + App.dev.host + '/smap/sync/user/'
-    },
-    release:{
-        checkServiceUrl:'http://fs.navinfo.com/smapapi/sync/user/'
-    }
-};
+
 
 // web app全局配置信息
 App.Config = {
     serviceUrl: 'http://fs.navinfo.com/smapapi',
+    sceneryUrl:'http://' + App.dev.host + '/smapapi',
     appRoot:'http://localhost:63342/SMAP',
     //appRoot: 'http://fs.navinfo.com/smap',
     mapboxToken:'pk.eyJ1IjoiZmFuZ2xhbmsiLCJhIjoiY2lpcjc1YzQxMDA5NHZra3NpaDAyODB4eSJ9.z6uZHccXvtyVqA5zmalfGg',
-    checkServiceUrl:App.checkServer.dev.checkServiceUrl,
+    checkServiceUrl:'http://' + App.dev.host + '/smapapi/sync/user/',
     platelimit: 'type=6&parm=0', //限行限号初始化数据为其他限行方式
     daily:{//日产品更新服务URL
         ak:"E782445785fetch087mkde11",
@@ -34,6 +28,7 @@ App.Config = {
         feedbackUrl:"http://fs.navinfo.com/smapapi/tollgate/feedback",
     },
     construction:{//施工道路服务URL
+        constructionAk:"E505645785fetch087ycde71",
         constructionUsername:"DIDI_CON_INC_TEST",
         constructionPassword:"E505645785fetch087ycde71",
         constructionPageNum:1,

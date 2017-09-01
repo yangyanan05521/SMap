@@ -1,6 +1,6 @@
 {
   "marker-15": {
-    "x": 175,
+    "x": 244,
     "y": 275,
     "width": 10,
     "height": 15,
@@ -8,7 +8,7 @@
     "sdf": true
   },
   "museum-15": {
-    "x": 130,
+    "x": 124,
     "y": 275,
     "width": 15,
     "height": 15,
@@ -16,31 +16,31 @@
     "sdf": true
   },
   "zoo-15": {
-    "x": 250,
-    "y": 260,
+    "x": 139,
+    "y": 275,
     "width": 15,
     "height": 15,
     "pixelRatio": 1,
     "sdf": true
   },
   "building-15": {
-    "x": 265,
-    "y": 260,
+    "x": 154,
+    "y": 275,
     "width": 15,
     "height": 15,
     "pixelRatio": 1,
     "sdf": true
   },
   "Tiananmen": {
-    "x": 250,
-    "y": 248,
+    "x": 267,
+    "y": 258,
     "width": 23,
     "height": 12,
     "pixelRatio": 1,
     "sdf": true
   },
   "restaurant-15": {
-    "x": 145,
+    "x": 229,
     "y": 275,
     "width": 15,
     "height": 15,
@@ -48,7 +48,7 @@
     "sdf": true
   },
   "landscape-15": {
-    "x": 160,
+    "x": 214,
     "y": 275,
     "width": 15,
     "height": 15,
@@ -56,23 +56,23 @@
     "sdf": true
   },
   "point-11": {
-    "x": 273,
-    "y": 248,
+    "x": 287,
+    "y": 275,
     "width": 11,
     "height": 11,
     "pixelRatio": 1,
     "sdf": true
   },
   "bus-15": {
-    "x": 280,
-    "y": 260,
+    "x": 199,
+    "y": 275,
     "width": 15,
     "height": 15,
     "pixelRatio": 1,
     "sdf": true
   },
   "transfer_15": {
-    "x": 115,
+    "x": 184,
     "y": 275,
     "width": 15,
     "height": 15,
@@ -80,7 +80,7 @@
     "sdf": true
   },
   "metro-station-1": {
-    "x": 100,
+    "x": 169,
     "y": 275,
     "width": 15,
     "height": 15,
@@ -88,15 +88,15 @@
     "sdf": true
   },
   "circle-brown-11": {
-    "x": 284,
-    "y": 248,
+    "x": 265,
+    "y": 275,
     "width": 11,
     "height": 11,
     "pixelRatio": 1,
     "sdf": true
   },
   "circle-red-11": {
-    "x": 185,
+    "x": 276,
     "y": 275,
     "width": 11,
     "height": 11,
@@ -104,7 +104,7 @@
     "sdf": true
   },
   "star-11": {
-    "x": 196,
+    "x": 254,
     "y": 275,
     "width": 11,
     "height": 11,
@@ -113,7 +113,7 @@
   },
   "red": {
     "x": 250,
-    "y": 200,
+    "y": 234,
     "width": 24,
     "height": 24,
     "pixelRatio": 1,
@@ -121,23 +121,23 @@
   },
   "green": {
     "x": 274,
-    "y": 200,
+    "y": 234,
     "width": 24,
     "height": 24,
     "pixelRatio": 1,
     "sdf":false
   },
   "white": {
-    "x": 250,
-    "y": 224,
+    "x": 100,
+    "y": 275,
     "width": 24,
     "height": 24,
     "pixelRatio": 1,
     "sdf": true
   },
   "tollstation": {
-    "x": 274,
-    "y": 224,
+    "x": 250,
+    "y": 258,
     "width": 17,
     "height": 17,
     "pixelRatio": 1,
@@ -153,14 +153,14 @@
   },
   "energy": {
     "x": 300,
-    "y": 225,
+    "y": 0,
     "width": 75,
     "height": 75,
     "pixelRatio": 1,
     "sdf": true
   },
   "energyLimited": {
-    "x": 0,
+    "x": 200,
     "y": 100,
     "width": 100,
     "height": 100,
@@ -169,23 +169,23 @@
   },
   "card": {
     "x": 300,
-    "y": 75,
+    "y": 225,
     "width": 75,
     "height": 75,
     "pixelRatio": 1,
     "sdf": true
   },
   "cardLimited": {
-    "x": 200,
-    "y": 0,
+    "x": 0,
+    "y": 200,
     "width": 100,
     "height": 100,
     "pixelRatio": 1,
     "sdf": true
   },
   "carKind": {
-    "x": 175,
-    "y": 200,
+    "x": 300,
+    "y": 75,
     "width": 75,
     "height": 75,
     "pixelRatio": 1,
@@ -200,7 +200,7 @@
     "sdf": true
   },
   "field": {
-    "x": 100,
+    "x": 175,
     "y": 200,
     "width": 75,
     "height": 75,
@@ -209,7 +209,7 @@
   },
   "fieldLimited": {
     "x": 200,
-    "y": 100,
+    "y": 0,
     "width": 100,
     "height": 100,
     "pixelRatio": 1,
@@ -217,7 +217,7 @@
   },
   "number": {
     "x": 300,
-    "y": 0,
+    "y": 150,
     "width": 75,
     "height": 75,
     "pixelRatio": 1,
@@ -232,8 +232,8 @@
     "sdf": true
   },
   "other": {
-    "x": 300,
-    "y": 150,
+    "x": 100,
+    "y": 200,
     "width": 75,
     "height": 75,
     "pixelRatio": 1,
@@ -241,7 +241,7 @@
   },
   "otherLimited": {
     "x": 0,
-    "y": 200,
+    "y": 100,
     "width": 100,
     "height": 100,
     "pixelRatio": 1,
@@ -254,5 +254,21 @@
     "height": 100,
     "pixelRatio": 1,
     "sdf": true
+  },
+  "POI_blue": {
+    "x": 250,
+    "y": 200,
+    "width": 25,
+    "height": 34,
+    "pixelRatio": 1,
+    "sdf": false
+  },
+  "POI_red": {
+    "x": 275,
+    "y": 200,
+    "width": 25,
+    "height": 34,
+    "pixelRatio": 1,
+    "sdf": false
   }
 }

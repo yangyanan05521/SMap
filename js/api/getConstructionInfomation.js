@@ -4,6 +4,7 @@
 var constructionContentData = '';
 var timequantumContentData = '';
 function  constructionInit() {
+    $('#ak').val(App.Config.construction.constructionAk);
     $('#constructionUsername').val(App.Config.construction.constructionUsername);
     $('#constructionPassword').val(App.Config.construction.constructionPassword);
     $('#constructionPageNum').val(App.Config.construction.constructionPageNum);

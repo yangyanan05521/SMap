@@ -5218,10 +5218,10 @@ var scenery ={
                 "tiles": ["http://minedata.cn/data/Worldcountries/{z}/{x}/{y}?token=25cc55a69ea7422182d00d6b7c0ffa93&solu=716"],
                 "type": "vector"
             },
-            "toll":{
-                "tiles": ["http://fs.navinfo.com/smapapi/tollgate/{z}/{x}/{y}"],
-                "type": "vector"
-            }
+            // "toll":{
+            //     "tiles": ["http://fs.navinfo.com/smapapi/tollgate/{z}/{x}/{y}"],
+            //     "type": "vector"
+            // }
         },
     "glyphs": "../data/map/{fontstack}/{range}.pbf",
     "sprite" : App.Config.appRoot + "/data/map/sprite/sprite",
@@ -6836,26 +6836,6 @@ var scenery ={
                 },
             },
 
-        },
-        {
-            "id": "scenery_test",
-            "source" : "toll",
-            'source-layer': 'toll',
-            "type": "symbol",
-            "minzoom": 0,
-            "maxzoom": 17.1,
-            "layout":
-                {
-                    "icon-image": "Tiananmen",
-                    "icon-size":1
-
-                },
-            "paint":
-                {
-                    'icon-color': '#ff2d2d',
-
-                },
-
-        },
+        }
     ]
 };
