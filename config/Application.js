@@ -7,7 +7,6 @@ App.dev={
     host:'192.168.15.41:9999'
 };
 
-
 // web app全局配置信息
 App.Config = {
     serviceUrl: 'http://fs.navinfo.com/smapapi',
@@ -50,7 +49,7 @@ App.Temp = {
 };
 App.Util = {
     getFullUrl: function (url) {
-        return App.Config.serviceUrl + '/' + url + '?ak=' + (App.Temp.accessToken || '');
+        return App.Config.sceneryUrl + '/' + url + '?ak=' + (App.Temp.accessToken || '');
     },
     //获取当前token
     getToken:function () {

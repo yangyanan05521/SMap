@@ -13,7 +13,7 @@ angular.module('dataService').service('dsEdit', ['$http', '$q', 'ajax', 'dsOutpu
         }
         ajax.post(url, param
         ).success(function (data) {
-            if (data.errcode == 200) {
+            if (data.errcode == 200 || data.code == 200) {
                 defer.resolve(data.data);
             } else {
                 defer.resolve(null);

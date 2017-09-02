@@ -598,7 +598,6 @@ tollGate.controller("tollGateController", ['$scope', 'dsEdit', '$location', '$an
                     display: 'none',
                 };
                 dsEdit.getProduct('tollgate/path/'+$scope.startPid+'/'+$scope.endPid).then(function (data) {
-                    console.log(data);
                     // map.flyTo({center: data[0].pointGeoJson.coordinates});
                     if(data.length === 0){
                         $scope.noSearchResult = {

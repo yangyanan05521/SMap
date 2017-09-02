@@ -43,77 +43,103 @@ li{
     list-style:none;
 }
 #container .introduce{
-    width:341px;
+    width:340px;
     background-color: #fff;
     left: 0px;
-    top:46px;
+    top:33px;
     position: absolute;
     z-index: 50;
-    border-radius: 10px;
-
 }
 #container .introduce .introTitle{
     color:#333;
-    font-size:16px;
+    font-size:14px;
     height: 30px;
     line-height:30px;
     text-overflow: ellipsis;
     overflow: hidden;
     white-space: nowrap;
-    padding:0px 7px;
+    position:relative;
+}
+#container .introduce .introTitle:after{
+    content:"";
+    position:absolute;
+    height:1px;
+    width:97%;
+    background-color: #d0e4ff;
+    left:0px;
+    bottom: 0px;
+
 }
 
 #container .introduce .introContent{
-    color:grey;
-    font-size:14px;
-    line-height: 25px;
-    padding:5px;
+    color:#999;
+    font-size:12px;
+    line-height:30px;
+}
 
+#container .introduce .introContent img{
+    vertical-align: middle;
+}
+#container .introduce .bestTime:after{
+    content:"";
+    position:absolute;
+    height:1px;
+    width:97%;
+    background-color: #d0e4ff;
+    left:0px;
+    bottom: 0px;
 }
 
 #container .introduce .scrollContent{
-    height: 110px;
-    overflow:auto;
+    height:60px;
+    color:#999;
+    font-size:12px;
+    line-height:20px;
+    padding-top: 10px;
+    margin-bottom: 10px;
+    overflow:hidden;
+    display: -webkit-box;
+    -webkit-line-clamp:3;
+    -webkit-box-orient: vertical;
+    word-break: break-all;
 }
 
 #container .introduce .imgDisplay{
-    width:100%;
-    height:198px;
+    padding:10px;
     position: relative;
+    height: 140px;
+    font-size:12px;
 
 }
 #container .introduce .imgDisplay img{
-    width:100%;
-    height:100%;
+    width:320px;
+    height: 150px;
 }
 #container .introduce .imgDisplay .backBtn{
     position: absolute;
-    left:10px;
-    top:10px;
+    left:16px;
+    top:16px;
     color:#fff;
-    background-color: rgba(51,51,51,.5);
-    padding:3px;
+    background-image:url(../img/scenery/icon_back.png);
+    width:50px;
+    height: 24px;
     cursor: pointer;
-}
-#container .introduce .imgDisplay a{
-    text-decoration: none;
-    color:white;
-}
-#container .introduce .imgDisplay a:hover{
-    color:cornflowerblue;
+    text-indent:18px;
+    line-height: 24px;
 }
 #container .introduce .imgDisplay .morePic{
     position: absolute;
-    left:10px;
-    bottom:10px;
+    right:16px;
+    bottom:6px;
     color:#fff;
-    padding:3px;
     cursor: pointer;
+    background-image:url(../img/scenery/icon_photos.png);
+    width:42px;
+    height: 24px;
+    line-height: 24px;
+    text-indent:23px;
 }
-#container .introduce .imgDisplay .morePic img{
-    width:25px;
-    height:25px;
-}
+
 .ng-cloak{
     display: none;
 }
@@ -285,7 +311,7 @@ li{
     border-color:rgba(255,255,255,0.9) transparent transparent;
 }
 #container .swiperPic{
-    background: rgba(0,0,0,0.7);
+    background: rgba(37,57,110,0.2);
     position: absolute;
     top: 0;
     left: 0;
@@ -297,7 +323,7 @@ li{
     vertical-align: middle;
 }
 #container .swiperPic .centerBlock{
-    width:65%;
+    width:840px;
     display:inline-block;
     vertical-align: middle;
     position: relative;
@@ -308,19 +334,22 @@ li{
     vertical-align: middle;
     display:inline-block;
 }
+#container .swiperPic .disPic{
+    height: 420px;
+}
 #container .swiperPic .disPic img{
-    width:90%;
-    height:480px;
+    width:680px;
+    height:420px;
 }
 #container .swiperPic .centerBlock ul{
     display: flex;
-    justify-content: space-around;
+    justify-content:space-between;
     overflow: hidden;
     padding: 0;
-    width:90%;
+    width:100%;
     margin:10px auto;
     flex-wrap: wrap;
-    height:139px;
+    height:80px;
 }
 #container .swiperPic .centerBlock ul li{
     width:16%;
@@ -328,36 +357,35 @@ li{
     margin: 0;
 }
 #container .swiperPic .centerBlock ul img{
-    width:100%;
-    height:135px;
+    width:112px;
+    height:80px;
 }
 
-#container .swiperPic .centerBlock .btn_left{
+#container .swiperPic .centerBlock .btn_all{
     display: block;
-    width:24px;
-    height:43px;
-    background:url(../img/scenery/left.png);
+    width:40px;
+    height:100px;
     position:absolute;
-    left:2px;
-    z-index: 10;
-    bottom:56px;
-
+    top:158px;
+}
+#container .swiperPic .centerBlock .btn_all:hover{
+    background-color:rgba(37,57,110,0.7);
+}
+#container .swiperPic .centerBlock .btn_left{
+    background:url(../img/scenery/icon_arrow_left.png) no-repeat center;
+    background-color:rgba(37,57,110,0.3);
+    left:0px;
 }
 
 #container .swiperPic .centerBlock .btn_right{
-    display: block;
-    width:24px;
-    height:43px;
-    background:url(../img/scenery/arrow-next.png);
-    position:absolute;
-    right:10px;
-    z-index: 10;
-    bottom:56px;
+    background:url(../img/scenery/icon_arrow_right.png) no-repeat center;
+    background-color:rgba(37,57,110,0.3);
+    right:0px;
 }
 #container .swiperPic .centerBlock .closePic{
     position: absolute;
-    right: 0px;
-    top:0px;
+    right: 10px;
+    top:10px;
     cursor: pointer;
 
 }

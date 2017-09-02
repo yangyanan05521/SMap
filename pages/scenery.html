@@ -3,14 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <!-- build:css ../style/trafficLimited.css -->
-
     <link href='../lib/mapbox/mapbox-gl.css' rel='stylesheet' />
     <link href="../style/scenery.css" rel="stylesheet" />
-    <link rel="stylesheet" href="../lib/swiper/swiper-3.4.2.min.css"/>
-    <link rel="stylesheet" type="text/css" href="../fonts/font_scenery/iconfont.css">
-
     <!-- endbuild -->
-
     <title>SMap</title>
 </head>
 <body ng-app="scenery" ng-controller="sceneryController">
@@ -41,6 +36,7 @@
                            class="fl"
                            id="keywordSearch"
                            style="font-size: 12px"
+                           ng-keypress="GoSearch($event)"
                     >
                     <img src="../img/scenery/searchbar_close.png" alt="" class="cancelButton fr" ng-click="clearInput()">
                 </div>
@@ -62,9 +58,9 @@
                 <span class="noResult">无搜索结果，请重新输入</span>
             </div>
 
-            <ul class="searchResult fade" ng-hide='item==0' >
+            <ul class="searchResult fade" ng-style='resultList' >
 
-                <li class="clear" ng-repeat="item in sceneryList" ng-click="lightLocation($index)" ng-mousemove="lightMark($index)" ng-mouseleave="removeMark($index)" >
+                <li class="clear" ng-repeat="item in sceneryList" ng-click="lightLocation($index,item)" ng-mousemove="lightMark($index)" ng-mouseleave="removeMark($index)" >
                     <div class="infoDes fl ng-cloak">
                         <div class="postName">
                             {{$index + 1}}.
@@ -75,11 +71,11 @@
                             <span>{{item.sight_class}}</span>
                         </div>
                         <div>
-                            <span>门票</span>
+                            <span>门票&nbsp;:&nbsp;</span>
                             <span> {{item.ticket_price}}</span>
                         </div>
                         <div>
-                            <span>开放时间</span>
+                            <span>开放时间&nbsp;:&nbsp;</span>
                             <span> {{item.open_hours}}</span>
                         </div>
                         <div class="dotDis">
@@ -96,7 +92,7 @@
 
                 </li>
 
-                <div class="moreResult ng-cloak">
+                <div class="moreResult ng-cloak" ng-style="moreResultlist">
                      <span class="allResult" ng-click="moreInfo()">查看全部搜索结果</span><span>[共{{resultNum}}条]</span>
                 </div>
 
@@ -106,42 +102,42 @@
                 <div class="imgDisplay">
                     <img src="../img/scenery/scene7.jpg" alt="">
                     <div class="backBtn" ng-click="toResultlist()">
-                        <i>
-                            <img src="../img/scenery/back.png" alt="" style="width:13px;height:13px">
-                        </i>
-                        <a href="">返回</a>
+                        返回
                     </div>
                     <div class="morePic" ng-click="scanPic()">
-                        <img src="../img/scenery/timg.jpg" alt="">
-                        <span>10</span>
+                        10
                     </div>
                 </div>
-                <div class="introTitle">
-                    <i class="iconfont icon-jingqu"></i>
-                    <span>大雁塔文化休闲景区  AAAA景区</span>
-                </div>
-                <div class="introContent">
-                    <i class="iconfont icon-leibie1"></i>
-                    <span>景区类别:&nbsp;风景名著</span>
-                </div>
-                <div class="introContent">
-                    <i class="iconfont icon-menpiao1"></i>
-                    <span>景点门票:&nbsp;100元/人</span>
-                </div>
-                <div class="introContent">
-                    <i class="iconfont icon-didian"></i>
-                    <span>景点地址:&nbsp;西安市雁塔区和平门外雁塔路南端大雁塔</span>
-                </div>
-                <div class="introContent">
-                    <i class="iconfont icon-dianhua"></i>
-                    <span>景区电话:&nbsp;029-67913178</span>
-                </div>
+                <div style="padding:0px 10px;">
+                    <div class="introTitle" ng-bind="deName">
+                    </div>
+                    <div class="introContent">
+                        <span style="margin-right:30px">{{sightLevel}}{{sightClass}}</span>
+                        <span>{{ticket}}元/人</span>
+                    </div>
+                    <div class="introContent">
+                        <img src="../img/scenery/icon_address.png" alt="">
+                        <span>西安市雁塔区和平门外雁塔路南端大雁塔</span>
+                    </div>
+                    <div class="introContent">
+                        <img src="../img/scenery/icon_phonenumber.png" alt="">
+                        <span>{{sightTel}}</span>
+                    </div>
+                    <div class="introContent">
+                        <span>开放时间&nbsp;:&nbsp;{{deTime}}</span>
+                    </div>
+                    <div class="introContent">
+                        <span>建议游玩时间&nbsp;:&nbsp;{{visitTime}}小时</span>
+                    </div>
+                    <div class="introContent bestTime" style="position: relative">
+                        <span>最佳旅游时间&nbsp;:&nbsp;&nbsp;{{season}}</span>
+                    </div>
 
-                <div class="introContent scrollContent">
-                    景区介绍:&nbsp;大雁塔作为现存最早、规模最大的唐代四方楼阁式砖塔，是佛塔这种古印度佛寺的建筑形式随佛教传入中原地区，并融入华夏文化的典型物证，是凝聚了中国古代劳动人民智慧结晶的标志性建筑。
+                    <div class="scrollContent">
+                        景区概况&nbsp;:&nbsp;{{overview}}
+                    </div>
+
                 </div>
-
-
             </div>
 
         </div>
@@ -155,10 +151,10 @@
             <ul>
                 <li ng-repeat="each in arrImg" ng-click="goImg($index)"><img  ng-src={{each}}  alt=""></li>
             </ul>
-            <a href="javascript:void(0);" class="btn_left" ng-click="goLeft()" ></a>
-            <a href="javascript:void(0);" class="btn_right" ng-click="goRight()"></a>
+            <a href="javascript:void(0);" class="btn_all btn_left" ng-click="goLeft()" ></a>
+            <a href="javascript:void(0);" class="btn_all btn_right" ng-click="goRight()"></a>
             <div class="closePic" ng-click="closePic()">
-                <img src="../img/scenery/light_close.png" alt="">
+                <img src="../img/scenery/icon_close_view.png" alt="">
             </div>
         </div>
         <span></span>
@@ -182,7 +178,6 @@
 <script src="../lib/jquery/jquery.js"></script>
 <script src='../lib/turf/turf.min.js'></script>
 <script src="../lib/angularjs/1.4.4/angular.js"></script>
-<script src="../lib/swiper/swiper-3.4.2.min.js"></script>
 <script src="../lib/angular-popups/angular-popups.js"></script>
 <script src="../lib/angular-nvd3/d3.js"></script>
 <script src="../lib/angular-nvd3/nv.d3.js"></script>
