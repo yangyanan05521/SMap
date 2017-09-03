@@ -91,17 +91,13 @@ li{
 }
 
 #container .introduce .scrollContent{
-    height:60px;
+    min-height:60px;
+    max-height:90px;
     color:#999;
     font-size:12px;
     line-height:20px;
     padding-top: 10px;
     margin-bottom: 10px;
-    overflow:hidden;
-    display: -webkit-box;
-    -webkit-line-clamp:3;
-    -webkit-box-orient: vertical;
-    word-break: break-all;
 }
 
 #container .introduce .imgDisplay{
@@ -213,7 +209,6 @@ li{
     border-radius:3px;
     background-color: #F4F5F7;
 }
-
 #container #content .searchList .searchResult img{
     width:140px;
     height:100px;
@@ -257,7 +252,7 @@ li{
     height: 100px;
 }
 #container #content .searchList .searchResult .dotDis{
-    width:160px;
+    width:170px;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;

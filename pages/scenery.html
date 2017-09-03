@@ -62,19 +62,19 @@
 
                 <li class="clear" ng-repeat="item in sceneryList" ng-click="lightLocation($index,item)" ng-mousemove="lightMark($index)" ng-mouseleave="removeMark($index)" >
                     <div class="infoDes fl ng-cloak">
-                        <div class="postName">
+                        <div class="postName dotDis">
                             {{$index + 1}}.
                             {{item.name}}
                         </div>
-                        <div>
+                        <div class="dotDis">
                             <span>{{item.sight_level+'景区'}}</span>
                             <span>{{item.sight_class}}</span>
                         </div>
-                        <div>
+                        <div class="dotDis">
                             <span>门票&nbsp;:&nbsp;</span>
                             <span> {{item.ticket_price}}</span>
                         </div>
-                        <div>
+                        <div class="dotDis">
                             <span>开放时间&nbsp;:&nbsp;</span>
                             <span> {{item.open_hours}}</span>
                         </div>
@@ -127,14 +127,16 @@
                         <span>开放时间&nbsp;:&nbsp;{{deTime}}</span>
                     </div>
                     <div class="introContent">
-                        <span>建议游玩时间&nbsp;:&nbsp;{{visitTime}}小时</span>
+                        <span>建议游玩时间&nbsp;:&nbsp;{{visitTime}}</span>
                     </div>
                     <div class="introContent bestTime" style="position: relative">
                         <span>最佳旅游时间&nbsp;:&nbsp;&nbsp;{{season}}</span>
                     </div>
 
                     <div class="scrollContent">
-                        景区概况&nbsp;:&nbsp;{{overview}}
+                        <span>景区概况&nbsp;:&nbsp;</span>
+                        <span id="detailIntro">{{overview}}</span>
+                        <a href="javascript:void(0)" id="allCnt"></a>
                     </div>
 
                 </div>

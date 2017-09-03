@@ -74,6 +74,10 @@ angular.module("scenery", ['dataService', 'nvd3', 'angular-popups', 'navApp'])
         //var reUrl = App.Config.sceneryUrl + "/scenic/search/realtime";
        // $http.post(reUrl,{parm: JSON.stringify({str: $scope.searchWord})}).then(function (data) {var res = data.data.data;})
         if ($scope.searchWord != '') {
+            $scope.resultList = {
+                display : "none"
+            }
+
             dsEdit.getProduct("scenic/search/realtime", {
                 parm: JSON.stringify({
                     str: $scope.searchWord
@@ -185,30 +189,51 @@ angular.module("scenery", ['dataService', 'nvd3', 'angular-popups', 'navApp'])
     addMyLayer();
 
     $scope.getLocationPopup = function () {
-        dsEdit.getProduct("scenic/search/searchall", {
-            parm: JSON.stringify({
-                str: $scope.searchWord
-            })
-        }).then(function (data) {
-            $scope.resultNum = data.length;
-            if (data.length === 0) {
-                $scope.noSearchResult = {
-                    display: 'block'
+        if ($scope.searchWord) {
+            dsEdit.getProduct("scenic/search/searchall", {
+                parm: JSON.stringify({
+                    str: $scope.searchWord
+                })
+            }).then(function (data) {
+                if (data) {
+                    $scope.resultNum = data.length;
+                    if (data.length === 0) {
+                        $scope.noSearchResult = {
+                            display: 'block'
+                        }
+                        $scope.relativeList = {
+                            display: 'none'
+                        }
+                        $scope.moreResultlist = {
+                            display: 'none'
+                        }
+                    } else if (data.length <= 3 && data.length > 0) {
+                        $scope.moreResultlist = {
+                            display: 'none'
+                        }
+                        $scope.sceneryList = data;
+                        locationMap(data);
+                    } else {
+                        var dataPart = data.slice(0, 3);
+                        $scope.sceneryList = dataPart;
+                        $scope.moreResultlist = {
+                            display: 'block'
+                        }
+                        locationMap(dataPart);
+                    }
                 }
-            } else if (data.length <= 3 && data.length > 0) {
-                $scope.moreResultlist = {
-                    display: 'none'
-                }
-                $scope.sceneryList = data;
-                locationMap(data);
-            } else {
-                $scope.sceneryList = data.slice(0, 3);
-                locationMap(data);
-            }
 
-        })
-        $scope.relativeList = {
-            display: 'none'
+            })
+            $scope.relativeList = {
+                display: 'none'
+            }
+        }else{
+            $scope.noSearchResult = {
+                display: "block"
+            }
+            $scope.resultList = {
+                display : "none"
+            }
         }
     };
 
@@ -227,7 +252,8 @@ angular.module("scenery", ['dataService', 'nvd3', 'angular-popups', 'navApp'])
                     'icon-normal': 'POI_red',
                     'icon-active': 'POI_blue',
                     "mark": i,             //if图片编号用参数，用于mousemove事件取
-                    'numMark': i + 1
+                    'numMark': i + 1,
+                    'poiId': val[i].poi_pid
                 },
                 "geometry": {
                     "type": "Point",
@@ -251,12 +277,11 @@ angular.module("scenery", ['dataService', 'nvd3', 'angular-popups', 'navApp'])
         }
         var mbox = turf.bbox(mush);
         var b1 = new mapboxgl.LngLatBounds([mbox[0], mbox[1]], [mbox[2], mbox[3]]);
-        map.fitBounds(b1, {padding: 10});
+        map.fitBounds(b1, {padding: 280});
 
     }
     //click popUp
     map.on('click', 'pointSelected', function (e) {
-        //console.log(e.features[0].properties.sceneryName); 传数据到详情页
         var pid = e.features[0].properties.id;
         var prop;
         for (var i = 0; i < mySourceData.features.length; i++) {
@@ -280,8 +305,9 @@ angular.module("scenery", ['dataService', 'nvd3', 'angular-popups', 'navApp'])
             .setDOMContent(titleDes)
             .addTo(map);
 
-        $('.introduce').show();
-        $('.searchResult').hide();
+        var poiId = e.features[0].properties.poiId;
+        detailsDis( poiId );
+
 
     })
 
@@ -306,27 +332,33 @@ angular.module("scenery", ['dataService', 'nvd3', 'angular-popups', 'navApp'])
             .setDOMContent(titleDes)
             .addTo(map);
 
-        //to details
-        dsEdit.getProduct("scenic/search/poidetail", {
-            parm: JSON.stringify({
-                poi_pid: item.poi_pid
-            })
-        }).then(function (data) {
-            console.log(data);
-            $scope.deName = data[0].name;
-            $scope.deTime = data[0].open_hours;
-            $scope.overview = data[0].overview;
-            $scope.sightClass = data[0].sight_class;
-            $scope.ticket = data[0].ticket_price;
-            $scope.visitTime = data[0].time_for_visits;
-            $scope.sightLevel = data[0].sight_level;
-            $scope.season = data[0].seasons;
-            $scope.sightTel = data[0].telephone;
-        })
-        $('.introduce').show();
-        $('.searchResult').hide();
-
+        var poiId = item.poi_pid ;
+        detailsDis( poiId );
     }
+
+    //to details
+     var detailsDis = function( poiId ) {
+         dsEdit.getProduct("scenic/search/poidetail", {
+             parm: JSON.stringify({
+                 poi_pid: poiId
+             })
+         }).then(function (data) {
+             $scope.deName = data[0].name;
+             $scope.deTime = data[0].open_hours;
+             $scope.overview = data[0].overview;
+             $scope.sightClass = data[0].sight_class;
+             $scope.ticket = data[0].ticket_price;
+             $scope.visitTime = data[0].time_for_visits;
+             $scope.sightLevel = data[0].sight_level;
+             $scope.season = data[0].seasons;
+             $scope.sightTel = data[0].telephone;
+             moreContent(data[0].overview);
+         })
+         $('.introduce').show();
+         $('.searchResult').hide();
+
+     }
+
 
     //to search
     $scope.searchScenery = function () {
@@ -474,6 +506,33 @@ angular.module("scenery", ['dataService', 'nvd3', 'angular-popups', 'navApp'])
         popupClick.remove();
 
     }
+
+    //see moreContent
+    var moreContent = function(str){
+        var len = 72 ;
+        var content = document.getElementById('detailIntro');
+        var aTag = document.getElementById('allCnt');
+        var contentLen = str.length;
+        if(contentLen > len){
+            content.innerHTML = str.substring(0,len)+'...';
+            aTag.innerHTML = '[全文]';
+            aTag.style.color = '#1478FF';
+            aTag.href = "javascript:void(0)";
+            aTag.onclick = function(){
+                if(aTag.innerHTML.indexOf("全文")>0){
+                    content.innerHTML = str;
+                    aTag.innerHTML = "收起";
+                }else{
+                    aTag.innerHTML = '[全文]';
+                    content.innerHTML = str.substring(0,len)+'...';
+                }
+            }
+        }
+
+
+
+    }
+
 
 
 }]);
