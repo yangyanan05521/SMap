@@ -5124,12 +5124,6 @@ var scenery ={
     "name" : "Bright",
     "sources" :
         {
-            "platelimit" :
-                {
-                    "type":"vector",
-                    "tiles":
-                        ['http://fastmap.navinfo.com/smap_p/plateres/web/condition/{z}/{x}/{y}?'+ App.Config.platelimit],
-                },
             "Worldannotation": {
                 "tiles": ["http://minedata.cn/data/Worldannotation/{z}/{x}/{y}?token=25cc55a69ea7422182d00d6b7c0ffa93&solu=716"],
                 "type": "vector"
@@ -5217,11 +5211,7 @@ var scenery ={
             "Worldcountries": {
                 "tiles": ["http://minedata.cn/data/Worldcountries/{z}/{x}/{y}?token=25cc55a69ea7422182d00d6b7c0ffa93&solu=716"],
                 "type": "vector"
-            },
-            // "toll":{
-            //     "tiles": ["http://fs.navinfo.com/smapapi/tollgate/{z}/{x}/{y}"],
-            //     "type": "vector"
-            // }
+            }
         },
     "glyphs": "../data/map/{fontstack}/{range}.pbf",
     "sprite" : App.Config.appRoot + "/data/map/sprite/sprite",
@@ -6803,39 +6793,6 @@ var scenery ={
             "minzoom": 3,
             "type": "symbol",
             "filter": ["all", ["in", "capital", 0], ["==", "type", 0]]
-        },{
-            "id": 'polygon_Limited_Layer',
-            "type": 'fill',
-            "source" : "platelimit",
-            'source-layer': 'platelimit_polygon',
-            "minzoom": 5,
-            "maxzoom": 17.1,
-            'layout': {},
-            'paint': {
-                'fill-color': '#FF0000',
-                'fill-opacity': 0.2,
-            }
-
-        },{
-            "id": 'line_Limited_Layer',
-            "type": 'line',
-            "source" : "platelimit",
-            'source-layer': 'platelimit_line',
-            "minzoom": 5,
-            "maxzoom": 17.1,
-            "layout": {
-                "line-join": "round",
-                "visibility": "visible",
-                "line-cap": "round"
-            },
-            "paint": {
-                "line-color": "#FF0000",
-                "line-width": {
-                    "stops": [[6, 1.5], [20, 10]],
-                    "base": 1.2
-                },
-            },
-
         }
     ]
 };

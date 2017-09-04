@@ -39,6 +39,7 @@ angular.module("scenery", ['dataService', 'nvd3', 'angular-popups', 'navApp'])
     $scope.sightLevel = '';
     $scope.season = '';
     $scope.sightTel = '';
+    $scope.deAddress = '';
     $scope.noSearchResult = {
         display: 'none'
     };
@@ -46,6 +47,9 @@ angular.module("scenery", ['dataService', 'nvd3', 'angular-popups', 'navApp'])
         display: 'none'
     };
     $scope.resultList = {
+        display: 'none'
+    }
+    $scope.introDis = {
         display: 'none'
     }
     $scope.clearInput = function () {
@@ -71,33 +75,32 @@ angular.module("scenery", ['dataService', 'nvd3', 'angular-popups', 'navApp'])
     };
     //联想关键词input
     $scope.relativeWords = function () {
-        //var reUrl = App.Config.sceneryUrl + "/scenic/search/realtime";
-       // $http.post(reUrl,{parm: JSON.stringify({str: $scope.searchWord})}).then(function (data) {var res = data.data.data;})
         if ($scope.searchWord != '') {
             $scope.resultList = {
                 display : "none"
             }
-
             dsEdit.getProduct("scenic/search/realtime", {
                 parm: JSON.stringify({
                     str: $scope.searchWord
                 })
             }).then(function (data) {
-                if (data.length === 0) {
-                    $scope.relativeList = {
-                        display: "none"
+                if(data) {
+                    if (data.length === 0) {
+                        $scope.relativeList = {
+                            display: "none"
+                        }
+                        $scope.noSearchResult = {
+                            display: "block"
+                        }
+                    } else {
+                        $scope.relativeList = {
+                            display: 'block'
+                        };
+                        $scope.noSearchResult = {
+                            display: "none"
+                        }
+                        $scope.keywordsArr = data.slice(0, 10);
                     }
-                    $scope.noSearchResult = {
-                        display: "block"
-                    }
-                } else {
-                    $scope.relativeList = {
-                        display: 'block'
-                    };
-                    $scope.noSearchResult = {
-                        display: "none"
-                    }
-                    $scope.keywordsArr = data.slice(0, 10);
                 }
             })
         } else {
@@ -207,11 +210,15 @@ angular.module("scenery", ['dataService', 'nvd3', 'angular-popups', 'navApp'])
                         $scope.moreResultlist = {
                             display: 'none'
                         }
+                        $scope.resultList = {
+                            display: 'none'
+                        }
                     } else if (data.length <= 3 && data.length > 0) {
                         $scope.moreResultlist = {
                             display: 'none'
                         }
                         $scope.sceneryList = data;
+                        $('.searchResult').show();
                         locationMap(data);
                     } else {
                         var dataPart = data.slice(0, 3);
@@ -219,6 +226,7 @@ angular.module("scenery", ['dataService', 'nvd3', 'angular-popups', 'navApp'])
                         $scope.moreResultlist = {
                             display: 'block'
                         }
+                        $('.searchResult').show();
                         locationMap(dataPart);
                     }
                 }
@@ -277,7 +285,7 @@ angular.module("scenery", ['dataService', 'nvd3', 'angular-popups', 'navApp'])
         }
         var mbox = turf.bbox(mush);
         var b1 = new mapboxgl.LngLatBounds([mbox[0], mbox[1]], [mbox[2], mbox[3]]);
-        map.fitBounds(b1, {padding: 280});
+        map.fitBounds(b1, {padding: 200});
 
     }
     //click popUp
@@ -352,6 +360,7 @@ angular.module("scenery", ['dataService', 'nvd3', 'angular-popups', 'navApp'])
              $scope.sightLevel = data[0].sight_level;
              $scope.season = data[0].seasons;
              $scope.sightTel = data[0].telephone;
+             $scope.deAddress = data[0].address;
              moreContent(data[0].overview);
          })
          $('.introduce').show();
@@ -362,6 +371,8 @@ angular.module("scenery", ['dataService', 'nvd3', 'angular-popups', 'navApp'])
 
     //to search
     $scope.searchScenery = function () {
+        popupClick.remove();
+        $('.introduce').hide();
         $scope.resultList = {
             display: 'block'
         }
@@ -371,6 +382,8 @@ angular.module("scenery", ['dataService', 'nvd3', 'angular-popups', 'navApp'])
     $scope.GoSearch = function (event) {
         var e = window.event || event ;
         if(e.keyCode == 13){
+            $('.introduce').hide();
+            popupClick.remove();
             $scope.resultList = {
                 display: 'block'
             }
@@ -509,7 +522,7 @@ angular.module("scenery", ['dataService', 'nvd3', 'angular-popups', 'navApp'])
 
     //see moreContent
     var moreContent = function(str){
-        var len = 72 ;
+        var len = 70 ;
         var content = document.getElementById('detailIntro');
         var aTag = document.getElementById('allCnt');
         var contentLen = str.length;
@@ -528,9 +541,6 @@ angular.module("scenery", ['dataService', 'nvd3', 'angular-popups', 'navApp'])
                 }
             }
         }
-
-
-
     }
 
 

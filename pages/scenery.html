@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <!-- build:css ../style/trafficLimited.css -->
+    <!-- build:css ../style/scenery.css -->
     <link href='../lib/mapbox/mapbox-gl.css' rel='stylesheet' />
     <link href="../style/scenery.css" rel="stylesheet" />
     <!-- endbuild -->
@@ -43,7 +43,7 @@
 
                 <div class="fr searchButton"  ng-click="searchScenery()">搜索</div>
             </div>
-            <ul ng-style="relativeList" style="padding:0px;margin:0">
+            <ul class="ng-cloak" ng-style="relativeList" style="padding:0px;margin:0">
                 <li
                         class="relativeResult"
                         ng-repeat="each in keywordsArr"
@@ -53,12 +53,12 @@
                     <span class="choiceWord" ng-bind="each.name"></span>
                 </li>
             </ul>
-            <div class="noSearchResult" ng-style="noSearchResult">
+            <div class="noSearchResult ng-cloak" ng-style="noSearchResult">
                 <span class="logo"></span>
                 <span class="noResult">无搜索结果，请重新输入</span>
             </div>
 
-            <ul class="searchResult fade" ng-style='resultList' >
+            <ul class="searchResult ng-cloak" ng-style='resultList' >
 
                 <li class="clear" ng-repeat="item in sceneryList" ng-click="lightLocation($index,item)" ng-mousemove="lightMark($index)" ng-mouseleave="removeMark($index)" >
                     <div class="infoDes fl ng-cloak">
@@ -79,7 +79,7 @@
                             <span> {{item.open_hours}}</span>
                         </div>
                         <div class="dotDis">
-                            <span>陕西省西安市雁塔区雁塔西路雁塔西路雁塔西路雁塔西路雁塔西路</span>
+                            <span>{{item.address}}</span>
                         </div>
 
                     </div>
@@ -98,7 +98,7 @@
 
 
             </ul>
-            <div class="introduce" style="display: none">
+            <div class="introduce ng-cloak" ng-style="introDis">
                 <div class="imgDisplay">
                     <img src="../img/scenery/scene7.jpg" alt="">
                     <div class="backBtn" ng-click="toResultlist()">
@@ -112,12 +112,12 @@
                     <div class="introTitle" ng-bind="deName">
                     </div>
                     <div class="introContent">
-                        <span style="margin-right:30px">{{sightLevel}}{{sightClass}}</span>
-                        <span>{{ticket}}元/人</span>
+                        <span style="margin-right:30px">{{sightLevel}}景区&nbsp;{{sightClass}}</span>
+                        <span>{{ticket}}</span>
                     </div>
                     <div class="introContent">
                         <img src="../img/scenery/icon_address.png" alt="">
-                        <span>西安市雁塔区和平门外雁塔路南端大雁塔</span>
+                        <span ng-bind="deAddress"></span>
                     </div>
                     <div class="introContent">
                         <img src="../img/scenery/icon_phonenumber.png" alt="">
@@ -134,7 +134,7 @@
                     </div>
 
                     <div class="scrollContent">
-                        <span>景区概况&nbsp;:&nbsp;</span>
+                        <span>景区概况:</span>
                         <span id="detailIntro">{{overview}}</span>
                         <a href="javascript:void(0)" id="allCnt"></a>
                     </div>
@@ -173,7 +173,7 @@
 </div>
 </body>
 
-<!-- build:js ../js/trafficLimited.js -->
+<!-- build:js ../js/scenery.js -->
 <script src='../lib/mapbox/mapbox-gl.js'></script>
 <script src="../config/Application.js"></script>
 <script src="../config/layer.js"></script>
@@ -189,6 +189,7 @@
 <script src="../js/scenery.js"></script>
 <script src="../js/directives/nav/nav.js"></script>
 <!-- endbuild -->
+<script src="../js/directives/nav/nav.js"></script>
 
 
 
