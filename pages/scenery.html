@@ -17,7 +17,7 @@
             <li style="font-size: 14px;color:rgba(0,0,0,0.7)">您现在的位置:</li>
             <li style="font-size: 14px;padding-left: 5px;color:rgba(0,0,0,0.7)">在线体验</li>
 
-            <li style="font-size: 20px;padding:0 4px 0 9px;margin-top: -6px; ;color:rgba(0,0,0,1)">></li>
+            <li style="font-size: 20px;padding:0 4px 0 9px;margin-top: -4px;color:rgba(0,0,0,1)">></li>
             <li style="font-size: 14px;padding-left: 5px; color:rgba(0,0,0,0.7)">景区专题地图</li>
         </ul>
     </div>
@@ -35,7 +35,7 @@
                            ng-change="relativeWords('change')"
                            class="fl"
                            id="keywordSearch"
-                           style="font-size: 12px"
+                           style="font-size: 12px;width: 205px"
                            ng-keypress="GoSearch($event)"
                     >
                     <img src="../img/scenery/searchbar_close.png" alt="" class="cancelButton fr" ng-click="clearInput()">
@@ -84,7 +84,7 @@
 
                     </div>
                     <div class="imgDes fr">
-                        <img src="../img/scenery/scene2.jpg" alt="">
+                        <img ng-src="{{item.url}}" src="../img/scenery/tim.jpg" alt="">
                     </div>
                     <div class="borderLine">
 
@@ -100,7 +100,7 @@
             </ul>
             <div class="introduce ng-cloak" ng-style="introDis">
                 <div class="imgDisplay">
-                    <img src="../img/scenery/scene7.jpg" alt="">
+                    <img ng-src="{{deImg}}" alt="">
                     <div class="backBtn" ng-click="toResultlist()">
                         返回
                     </div>

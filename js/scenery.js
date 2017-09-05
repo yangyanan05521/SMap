@@ -4,7 +4,7 @@ var map = new mapboxgl.Map({
     zoom: 10,
     center: [108.94704, 34.25943],
     maxZoom: 17,
-    minZoom: 5,
+    minZoom: 0,
     repaint: true,
     pitch: 0
 });
@@ -40,6 +40,8 @@ angular.module("scenery", ['dataService', 'nvd3', 'angular-popups', 'navApp'])
     $scope.season = '';
     $scope.sightTel = '';
     $scope.deAddress = '';
+    $scope.deImg = '';
+   // $scope.arrImg = [];
     $scope.noSearchResult = {
         display: 'none'
     };
@@ -57,6 +59,10 @@ angular.module("scenery", ['dataService', 'nvd3', 'angular-popups', 'navApp'])
         $scope.noSearchResult = {
             display: 'none'
         }
+        $scope.resultList = {
+            display: 'none'
+        }
+        $('.introduce').hide();
     };
 
     //添加定位点图层
@@ -285,7 +291,7 @@ angular.module("scenery", ['dataService', 'nvd3', 'angular-popups', 'navApp'])
         }
         var mbox = turf.bbox(mush);
         var b1 = new mapboxgl.LngLatBounds([mbox[0], mbox[1]], [mbox[2], mbox[3]]);
-        map.fitBounds(b1, {padding: 200});
+        map.fitBounds(b1,{maxZoom:15,padding:100});
 
     }
     //click popUp
@@ -344,6 +350,14 @@ angular.module("scenery", ['dataService', 'nvd3', 'angular-popups', 'navApp'])
         detailsDis( poiId );
     }
 
+   // var arrImg = [] ;
+           var arrImg = ["../img/scenery/slide1.jpg", "../img/scenery/slide2.jpg",
+               "../img/scenery/slide3.jpg", "../img/scenery/slide4.jpg", "../img/scenery/slide5.jpg", '../img/scenery/slide6.jpg',
+               "../img/scenery/slide7.jpg", "../img/scenery/slide8.jpg", "../img/scenery/slide9.jpg", '../img/scenery/slide10.jpg'];
+
+    $scope.arrImg= ["../img/scenery/slide1.jpg", "../img/scenery/slide2.jpg",
+        "../img/scenery/slide3.jpg", "../img/scenery/slide4.jpg", "../img/scenery/slide5.jpg", '../img/scenery/slide6.jpg',
+        "../img/scenery/slide7.jpg", "../img/scenery/slide8.jpg", "../img/scenery/slide9.jpg", '../img/scenery/slide10.jpg'];
     //to details
      var detailsDis = function( poiId ) {
          dsEdit.getProduct("scenic/search/poidetail", {
@@ -351,17 +365,35 @@ angular.module("scenery", ['dataService', 'nvd3', 'angular-popups', 'navApp'])
                  poi_pid: poiId
              })
          }).then(function (data) {
-             $scope.deName = data[0].name;
-             $scope.deTime = data[0].open_hours;
-             $scope.overview = data[0].overview;
-             $scope.sightClass = data[0].sight_class;
-             $scope.ticket = data[0].ticket_price;
-             $scope.visitTime = data[0].time_for_visits;
-             $scope.sightLevel = data[0].sight_level;
-             $scope.season = data[0].seasons;
-             $scope.sightTel = data[0].telephone;
-             $scope.deAddress = data[0].address;
-             moreContent(data[0].overview);
+             if(data!= '') {
+                 $scope.deName = data[0].name;
+                 $scope.deTime = data[0].open_hours;
+                 $scope.overview = data[0].overview;
+                 $scope.sightClass = data[0].sight_class;
+                 $scope.ticket = data[0].ticket_price;
+                 $scope.visitTime = data[0].time_for_visits;
+                 $scope.sightLevel = data[0].sight_level;
+                 $scope.season = data[0].seasons;
+                 $scope.sightTel = data[0].telephone;
+                 $scope.deAddress = data[0].address;
+              //   $scope.deImg = data[0].url[0];
+              //   $scope.arrImg = data[0].url;
+                 moreContent(data[0].overview);
+              //   arrImg = data[0].url ;
+             }else{                               //后期优化
+                 $scope.deName = '';
+                 $scope.deTime = '';
+                 $scope.overview = '';
+                 $scope.sightClass = '';
+                 $scope.ticket = '';
+                 $scope.visitTime = '';
+                 $scope.sightLevel = '';
+                 $scope.season = '';
+                 $scope.sightTel = '';
+                 $scope.deAddress = '';
+                 $("#detailIntro").html('');
+                 $('#allCnt').html('');
+             }
          })
          $('.introduce').show();
          $('.searchResult').hide();
@@ -451,12 +483,7 @@ angular.module("scenery", ['dataService', 'nvd3', 'angular-popups', 'navApp'])
     }
 
     //scan big(more) picture
-    $scope.arrImg = ["../img/scenery/slide1.jpg", "../img/scenery/slide2.jpg",
-        "../img/scenery/slide3.jpg", "../img/scenery/slide4.jpg", "../img/scenery/slide5.jpg", '../img/scenery/slide6.jpg',
-        "../img/scenery/slide7.jpg", "../img/scenery/slide8.jpg", "../img/scenery/slide9.jpg", '../img/scenery/slide10.jpg'];
-    var arrImg = ["../img/scenery/slide1.jpg", "../img/scenery/slide2.jpg",
-        "../img/scenery/slide3.jpg", "../img/scenery/slide4.jpg", "../img/scenery/slide5.jpg", '../img/scenery/slide6.jpg',
-        "../img/scenery/slide7.jpg", "../img/scenery/slide8.jpg", "../img/scenery/slide9.jpg", '../img/scenery/slide10.jpg'];
+
     $scope.scanPic = function (event) {
         var e = window.event || event;
         if (e.stopPropagation) {
