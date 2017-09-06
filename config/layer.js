@@ -5211,6 +5211,10 @@ var scenery ={
             "Worldcountries": {
                 "tiles": ["http://minedata.cn/data/Worldcountries/{z}/{x}/{y}?token=25cc55a69ea7422182d00d6b7c0ffa93&solu=716"],
                 "type": "vector"
+            },
+            "poiNew" :{
+                "type" : "vector",
+                "tiles": ["http://192.168.15.41:9999/smapapi/scenic/pbf/poi/{z}/{x}/{y}"]
             }
         },
     "glyphs": "../data/map/{fontstack}/{range}.pbf",
@@ -6793,6 +6797,23 @@ var scenery ={
             "minzoom": 3,
             "type": "symbol",
             "filter": ["all", ["in", "capital", 0], ["==", "type", 0]]
+        },   {
+            id: 'poiNew_layer',
+            type: 'symbol',
+            interactive: true,
+            "source" : "poiNew",
+            'source-layer': 'poi',
+            minzoom: 0,
+            maxzoom: 17.1,
+            layout:
+                {
+                    'icon-image': 'restaurant-15',
+                },
+            paint:
+                {
+                    'icon-color': '#ff2d2d',
+                },
+
         }
     ]
 };

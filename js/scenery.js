@@ -19,10 +19,6 @@ angular.module("scenery", ['dataService', 'nvd3', 'angular-popups', 'navApp'])
     $scope.popuArr = [];
     $scope.startFlag = false;
     $scope.endFlag = false;
-    $scope.isReadySearchFlag = false;
-    $scope.isSearchStartTollGate = true;
-    $scope.chooseStartTollGate = false;
-    $scope.chooseEndTollGate = false;
     $scope.visible = 'true';
     $scope.searchParameter = {};
     $scope.linksArr = [];
@@ -41,7 +37,7 @@ angular.module("scenery", ['dataService', 'nvd3', 'angular-popups', 'navApp'])
     $scope.sightTel = '';
     $scope.deAddress = '';
     $scope.deImg = '';
-   // $scope.arrImg = [];
+    $scope.morePic = '';
     $scope.noSearchResult = {
         display: 'none'
     };
@@ -345,19 +341,16 @@ angular.module("scenery", ['dataService', 'nvd3', 'angular-popups', 'navApp'])
         popupClick.setLngLat(everPoint.geometry.coordinates)
             .setDOMContent(titleDes)
             .addTo(map);
-
+        map.flyTo({
+            center: everPoint.geometry.coordinates,
+            zoom: 16,
+            speed: 1.5
+        });
         var poiId = item.poi_pid ;
         detailsDis( poiId );
     }
 
-   // var arrImg = [] ;
-           var arrImg = ["../img/scenery/slide1.jpg", "../img/scenery/slide2.jpg",
-               "../img/scenery/slide3.jpg", "../img/scenery/slide4.jpg", "../img/scenery/slide5.jpg", '../img/scenery/slide6.jpg',
-               "../img/scenery/slide7.jpg", "../img/scenery/slide8.jpg", "../img/scenery/slide9.jpg", '../img/scenery/slide10.jpg'];
-
-    $scope.arrImg= ["../img/scenery/slide1.jpg", "../img/scenery/slide2.jpg",
-        "../img/scenery/slide3.jpg", "../img/scenery/slide4.jpg", "../img/scenery/slide5.jpg", '../img/scenery/slide6.jpg',
-        "../img/scenery/slide7.jpg", "../img/scenery/slide8.jpg", "../img/scenery/slide9.jpg", '../img/scenery/slide10.jpg'];
+    var arrImg = [] ;
     //to details
      var detailsDis = function( poiId ) {
          dsEdit.getProduct("scenic/search/poidetail", {
@@ -365,10 +358,8 @@ angular.module("scenery", ['dataService', 'nvd3', 'angular-popups', 'navApp'])
                  poi_pid: poiId
              })
          }).then(function (data) {
-             if(data!= '') {
                  $scope.deName = data[0].name;
                  $scope.deTime = data[0].open_hours;
-                 $scope.overview = data[0].overview;
                  $scope.sightClass = data[0].sight_class;
                  $scope.ticket = data[0].ticket_price;
                  $scope.visitTime = data[0].time_for_visits;
@@ -376,24 +367,21 @@ angular.module("scenery", ['dataService', 'nvd3', 'angular-popups', 'navApp'])
                  $scope.season = data[0].seasons;
                  $scope.sightTel = data[0].telephone;
                  $scope.deAddress = data[0].address;
-              //   $scope.deImg = data[0].url[0];
-              //   $scope.arrImg = data[0].url;
-                 moreContent(data[0].overview);
-              //   arrImg = data[0].url ;
-             }else{                               //后期优化
-                 $scope.deName = '';
-                 $scope.deTime = '';
-                 $scope.overview = '';
-                 $scope.sightClass = '';
-                 $scope.ticket = '';
-                 $scope.visitTime = '';
-                 $scope.sightLevel = '';
-                 $scope.season = '';
-                 $scope.sightTel = '';
-                 $scope.deAddress = '';
-                 $("#detailIntro").html('');
-                 $('#allCnt').html('');
-             }
+                 $scope.arrImg = data[0].url;
+                 $scope.morePic = data[0].url.length;
+                 arrImg = data[0].url ;
+                 if(data[0].overview){
+                     moreContent(data[0].overview);
+                 }else{
+                     $('#detailIntro').html('') ;
+                     $('#allCnt').html('');
+                 }
+                 if(data[0].url[0] == undefined){
+                     $("#bigPic").attr('src','../img/scenery/tim.jpg');
+                 }else {
+                      $("#bigPic").attr('src', data[0].url[0]);
+                 }
+
          })
          $('.introduce').show();
          $('.searchResult').hide();
@@ -474,10 +462,7 @@ angular.module("scenery", ['dataService', 'nvd3', 'angular-popups', 'navApp'])
             })
             $('.allResult').html('已展开全部搜索结果');
             $('.moreResult').css('color', '#1478ff');
-        } else {
-            $scope.getLocationPopup();
-            $('.allResult').html('查看全部搜索结果');
-            $('.moreResult').css('color', '#999');
+            $('.searchResult').css('height','calc(100% - 41px)');
         }
 
     }
@@ -485,22 +470,35 @@ angular.module("scenery", ['dataService', 'nvd3', 'angular-popups', 'navApp'])
     //scan big(more) picture
 
     $scope.scanPic = function (event) {
-        var e = window.event || event;
-        if (e.stopPropagation) {
-            e.stopPropagation();
-        } else {
-            e.cancelBubble = true;
+        if($scope.morePic > 0) {
+            var e = window.event || event;
+            if (e.stopPropagation) {
+                e.stopPropagation();
+            } else {
+                e.cancelBubble = true;
+            }
+            $('.swiperPic').show();
+            var oImg = $('.centerBlock>ul img');
+
+            /////////////
+         //   $('.disPic>img')[0].src = arrImg[0];         !!!!!!!!!!
+            var testImg = '../img/scenery/slide1.jpg'
+
+            var img = new Image();
+
+
+            img.src = '../img/scenery/slide1.jpg';
+            alert('width:'+img.width+',height:'+img.height);
+
+            $('.disPic>img')[0].src = testImg ;
         }
-        $('.swiperPic').show();
-        var oImg = $('.centerBlock>ul img');
-        $('.disPic>img')[0].src = arrImg[0];
 
     }
     $scope.goImg = function (index) {
         var oImg = $('.centerBlock>ul img');
         $('.disPic>img')[0].src = oImg[index].src;
         oImg.css({'border': 'none', 'padding': '0px'});
-        oImg.eq(index).css({'border': '4px solid #1478ff', 'box-sizing': 'border-box'});
+        oImg.eq(index).css({'border': '4px solid #1478ff'});
     }
 
     $scope.goLeft = function () {
@@ -561,7 +559,7 @@ angular.module("scenery", ['dataService', 'nvd3', 'angular-popups', 'navApp'])
             aTag.onclick = function(){
                 if(aTag.innerHTML.indexOf("全文")>0){
                     content.innerHTML = str;
-                    aTag.innerHTML = "收起";
+                    aTag.innerHTML = "[收起]";
                 }else{
                     aTag.innerHTML = '[全文]';
                     content.innerHTML = str.substring(0,len)+'...';
