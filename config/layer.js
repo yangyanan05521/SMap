@@ -5215,7 +5215,16 @@ var scenery ={
             "poiNew" :{
                 "type" : "vector",
                 "tiles": ["http://192.168.15.41:9999/smapapi/scenic/pbf/poi/{z}/{x}/{y}"]
+            },
+            "carportline":{
+                "type" : "vector",
+                "tiles": ["http://192.168.15.41:9999/smapapi/scenic/pbf/carportline/{z}/{x}/{y}"]
+            },
+            "outarea" :{
+                "type" : "vector",
+                "tiles": ["http://192.168.15.41:9999/smapapi/scenic/pbf/outarea/{z}/{x}/{y}"]
             }
+
         },
     "glyphs": "../data/map/{fontstack}/{range}.pbf",
     "sprite" : App.Config.appRoot + "/data/map/sprite/sprite",
@@ -6807,13 +6816,51 @@ var scenery ={
             maxzoom: 17.1,
             layout:
                 {
-                    'icon-image': 'restaurant-15',
+                    'icon-image': 'museum-15',
+                    "text-field": "{name}",
+                    'text-size':12,
+                    "text-offset":[0,1.5],
+                    "text-justify": "center"
                 },
             paint:
                 {
                     'icon-color': '#ff2d2d',
+                    "text-halo-width": 0.5,
+                    "text-color": "#704f17",
                 },
-
+        },
+        {
+            id: "carportline_layer",
+            maxzoom: 17.5,
+            interactive: true,
+            'source': "carportline",
+            'source-layer': "carportline",
+            layout: {
+                "line-join": "round",
+                "visibility": "visible",
+                "line-cap": "round"
+            },
+            paint: {
+                "line-color": "#DE5246",
+                "line-width": 1.0
+            },
+            minzoom: 3,
+            type: "line"
+        },
+        {
+            id: "outarea_layer",
+            maxzoom: 17,
+            interactive: true,
+            'source': "outarea",
+            'source-layer': "outarea",
+            layout: {
+                "visibility": "visible"
+            },
+            paint: {
+                "fill-color": "#000"
+            },
+            minzoom: 3,
+            type: "fill"
         }
     ]
 };

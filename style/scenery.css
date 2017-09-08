@@ -6,7 +6,8 @@ html,body{
 }
 body{
     overflow-y: scroll;
-    font-family: 'Microsoft YaHei', 'Helvetica Neue', 'Hiragino Sans GB', '微软雅黑', '黑体', Arial, sans-serif !important;
+    /*font-family: 'Microsoft YaHei', 'Helvetica Neue', 'Hiragino Sans GB', '微软雅黑', '黑体', Arial, sans-serif !important;*/
+    font-family: 'Microsoft YaHei','微软雅黑',Arial,sans-serif;
 }
 #logo{
     float: left;
@@ -46,10 +47,12 @@ li{
 #container .introduce{
     width:340px;
     background-color: #fff;
-    left: 0px;
-    top:33px;
+    left: 10px;
+    top:38px;
     position: absolute;
-    z-index: 50;
+    z-index: 5;
+    max-height: calc(100% - 41px);
+    overflow-y: auto;
 }
 #container .introduce .introTitle{
     color:#333;
@@ -65,7 +68,7 @@ li{
     content:"";
     position:absolute;
     height:1px;
-    width:97%;
+    width:100%;
     background-color: #d0e4ff;
     left:0px;
     bottom: 0px;
@@ -85,7 +88,7 @@ li{
     content:"";
     position:absolute;
     height:1px;
-    width:97%;
+    width:100%;
     background-color: #d0e4ff;
     left:0px;
     bottom: 0px;
@@ -193,6 +196,7 @@ li{
     left:10px;
     top:38px;
     background-color: #fff;
+    max-height: calc(100% - 41px);
 }
 ::-webkit-scrollbar {
     width:6px;
@@ -260,7 +264,6 @@ li{
     text-align: center;
     height:30px;
     line-height:30px;
-    cursor: pointer;
 }
 .mapboxgl-map .mapboxgl-popup .mapboxgl-popup-content{
     padding:0;
@@ -337,7 +340,7 @@ li{
     margin-top: 10px;
     width:100%;
     flex-wrap: wrap;
-    height:85px;
+    height:90px;
 }
 #container .swiperPic .centerBlock ul li{
     padding: 0;
@@ -348,7 +351,8 @@ li{
 #container .swiperPic .centerBlock ul img{
     width:112px;
     height:80px;
-
+    border: 4px solid rgba(37,57,110,0);
+    padding: 0px ;
 }
 
 #container .swiperPic .centerBlock .btn_all{
@@ -379,7 +383,9 @@ li{
     cursor: pointer;
 
 }
-
+#container #content .searchList .relativeResult{
+    height: 30px;
+}
 #container #content .searchList .relativeResult .logo{
     display: inline-block;
     width: 30px;
@@ -749,16 +755,16 @@ li{
     display: none;
 }
 input::-webkit-input-placeholder { /* WebKit browsers */
-    　　color:red;
+    　　color:#999;
 }
 input:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
-    　　color:red;
+    　　color:#999;
 }
 input::-moz-placeholder { /* Mozilla Firefox 19+ */
-    　　color:red;
+    　　color:#999;
 }
 input:-ms-input-placeholder { /* Internet Explorer 10+ */
-    　　color:red;
+    　　color:#999;
 }
 
 
