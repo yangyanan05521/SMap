@@ -5214,7 +5214,9 @@ var scenery ={
             },
             "poiNew" :{
                 "type" : "vector",
-                "tiles": ["http://192.168.15.41:9999/smapapi/scenic/pbf/poi/{z}/{x}/{y}"]
+                "tiles": ["http://192.168.15.41:9999/smapapi/scenic/pbf/poi/{z}/{x}/{y}"],
+                'minzoom':15,
+                'maxzoom':15
             },
             "carportline":{
                 "type" : "vector",
@@ -5223,7 +5225,11 @@ var scenery ={
             "outarea" :{
                 "type" : "vector",
                 "tiles": ["http://192.168.15.41:9999/smapapi/scenic/pbf/outarea/{z}/{x}/{y}"]
-            }
+            },
+            "route":{
+                "type" : "vector",
+                "tiles": ["http://192.168.15.41:9999/smapapi/scenic/pbf/route/{z}/{x}/{y}"]
+            },
 
         },
     "glyphs": "../data/map/{fontstack}/{range}.pbf",
@@ -6812,15 +6818,15 @@ var scenery ={
             interactive: true,
             "source" : "poiNew",
             'source-layer': 'poi',
-            minzoom: 0,
-            maxzoom: 17.1,
+            zoom: 15,
             layout:
                 {
                     'icon-image': 'museum-15',
                     "text-field": "{name}",
                     'text-size':12,
                     "text-offset":[0,1.5],
-                    "text-justify": "center"
+                    "text-justify": "center",
+                    "visibility": "visible"
                 },
             paint:
                 {
@@ -6830,8 +6836,23 @@ var scenery ={
                 },
         },
         {
+            id: "outarea_layer",
+            maxzoom: 17,
+            interactive: true,
+            'source': "outarea",
+            'source-layer': "outarea",
+            layout: {
+                "visibility": "none"
+            },
+            paint: {
+                "fill-color": "#f5eaaf"
+            },
+            minzoom: 3,
+            type: "fill"
+        },
+        {
             id: "carportline_layer",
-            maxzoom: 17.5,
+            maxzoom: 17,
             interactive: true,
             'source': "carportline",
             'source-layer': "carportline",
@@ -6841,26 +6862,30 @@ var scenery ={
                 "line-cap": "round"
             },
             paint: {
-                "line-color": "#DE5246",
+                "line-color": "yellow",
                 "line-width": 1.0
             },
             minzoom: 3,
             type: "line"
         },
         {
-            id: "outarea_layer",
+            id: "route_layer",
             maxzoom: 17,
             interactive: true,
-            'source': "outarea",
-            'source-layer': "outarea",
+            'source': "route",
+            'source-layer': "route",
             layout: {
-                "visibility": "visible"
+                "line-join": "round",
+                "visibility": "none",
+                "line-cap": "round"
             },
             paint: {
-                "fill-color": "#000"
+                "line-color": "blue",
+                "line-width": 1.0
             },
             minzoom: 3,
-            type: "fill"
+            type: "line"
         }
+
     ]
 };

@@ -7,6 +7,10 @@
     <link href="../style/scenery.css" rel="stylesheet" />
     <!-- endbuild -->
     <title>SMap</title>
+    <style>
+
+
+    </style>
 </head>
 <body ng-app="scenery" ng-controller="sceneryController">
 <nav-bar loc="locFlag"></nav-bar>
@@ -47,16 +51,6 @@
 
                 <div class="fr searchButton"  ng-click="searchScenery()">搜索</div>
             </div>
-            <ul class="ng-cloak" ng-style="relativeList" style="padding:0px;margin:2px 0px 0px 0px">
-                <li
-                        class="relativeResult"
-                        ng-repeat="each in keywordsArr"
-                        ng-click="toSearch(each)"
-                >
-                    <span class="logo"></span>
-                    <span class="choiceWord" ng-bind="each.name"></span>
-                </li>
-            </ul>
             <div class="noSearchResult ng-cloak" ng-style="noSearchResult">
                 <span class="logo"></span>
                 <span class="noResult">无搜索结果，请重新输入</span>
@@ -66,7 +60,7 @@
             <li class="clear" ng-repeat="item in sceneryList" ng-click="lightLocation($index,item)" ng-mousemove="lightMark($index)" ng-mouseleave="removeMark($index)" >
                 <div class="infoDes fl ng-cloak">
                     <div class="postName dotDis">
-                        {{$index + 1}}.
+                        <i class='numTitle' style="font-family: Arial;font-style:normal">{{$index + 1}}.</i>
                         {{item.name}}
                     </div>
                     <div class="dotDis">
@@ -99,18 +93,28 @@
                 <span class="allResult" ng-click="moreInfo()">查看全部搜索结果</span><span>[共{{resultNum}}条]</span>
             </div>
 
-
+        </ul>
+        <ul class="ng-cloak reltiveWords" ng-style="relativeList">
+            <li
+                    class="relativeResult"
+                    ng-repeat="each in keywordsArr"
+                    ng-click="toSearch(each)"
+            >
+                <span class="logo"></span>
+                <span class="choiceWord" ng-bind="each.name"></span>
+            </li>
         </ul>
         <div class="introduce ng-cloak" ng-style="introDis">
-            <div class="imgDisplay">
-                <img ng-src="{{deImg}}"  id="bigPic" alt="">
+            <div style="width:330px">
+            <div class="imgDisplay" style="padding-right: 0px">
+                <img ng-src="{{deImg}}"  id="bigPic" alt="" >
                 <div class="backBtn" ng-click="toResultlist()">
                     返回
                 </div>
                 <div class="morePic" ng-click="scanPic()" ng-bind="morePic">
                 </div>
             </div>
-            <div style="padding:0px 10px;">
+            <div style="padding:0px 0px 0px 10px;">
                 <div class="introTitle" ng-bind="deName">
                 </div>
                 <div class="introContent">
@@ -142,17 +146,18 @@
                 </div>
 
             </div>
-        </div>
-
+            </div>
     </div>
     <div class="swiperPic">
         <div class="centerBlock">
             <div class="disPic">
                 <img  alt=""   onload="AutoResizeImage(840,420,this)">
             </div>
-            <ul>
-                <li ng-repeat="each in arrImg" ng-click="goImg($index)"><img  ng-src={{each}}  alt=""></li>
-            </ul>
+            <div style="overflow: hidden;position: relative;height: 120px">
+                <ul>
+                    <li ng-repeat="each in arrImg" ng-click="goImg($index)"><img  ng-src={{each}}  alt=""></li>
+                </ul>
+            </div>
             <a href="javascript:void(0);" class="btn_all btn_left" ng-click="goLeft()" ></a>
             <a href="javascript:void(0);" class="btn_all btn_right" ng-click="goRight()"></a>
             <div class="closePic" ng-click="closePic()">
@@ -160,16 +165,15 @@
             </div>
         </div>
         <span></span>
-
-
     </div>
-
+    </div>
     <div id="map">
         <div class="changeMapSizeDiv">
             <button class="addBtn" ng-click="changeZoom('add')"></button>
             <button class="subBtn" ng-click="changeZoom('sub')"></button>
         </div>
     </div>
+
 </div>
 </body>
 

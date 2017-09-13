@@ -52,13 +52,18 @@ angular.module("scenery", ['dataService', 'nvd3', 'angular-popups', 'navApp'])
     }
     $scope.clearInput = function () {
         $('#keywordSearch').val('');
+        $('#keywordSearch').focus();
         $scope.noSearchResult = {
             display: 'none'
         }
         $scope.resultList = {
             display: 'none'
         }
+        $scope.relativeList = {
+            display: 'none'
+        }
         $('.introduce').hide();
+        $('.searchResult').hide();
     };
 
     //添加定位点图层
@@ -70,12 +75,31 @@ angular.module("scenery", ['dataService', 'nvd3', 'angular-popups', 'navApp'])
             'icon-size': 1,
             'text-justify': 'center',
             'text-field': '{numMark}',
+            'text-size': 12
             // 'text-font' : ['Arial Unicode MS Regular']
         },
         'paint': {
             'text-color': "#fff"
         }
     };
+
+    //添加高亮图层
+   var lightHeightLayer = {
+       "id": "lightHeightId",
+       "type": "symbol",
+       'layout': {
+           'icon-image': 'POI_blue',
+           'icon-size': 1,
+           'text-justify': 'center',
+           'text-field': '{numMark}',
+           'text-size': 12
+           // 'text-font' : ['Arial Unicode MS Regular']
+       },
+       'paint': {
+           'text-color': "#fff"
+       }
+   };
+
     //联想关键词input
     $scope.relativeWords = function () {
         if ($scope.searchWord != '') {
@@ -331,15 +355,24 @@ angular.module("scenery", ['dataService', 'nvd3', 'angular-popups', 'navApp'])
         titleDes.innerHTML = '<div class="feePopDeep">' + e.features[0].properties.sceneryName + '</div>' +
                              '<div class="tipPopDeep"></div>';
 
-        $scope.siteLocation = [];
-        $scope.siteLocation.push(e.lngLat.lng);
-        $scope.siteLocation.push(e.lngLat.lat);
-
         map.getCanvas().style.cursor = 'pointer';
-        popupClick.setLngLat($scope.siteLocation)
-                  .setDOMContent(titleDes)
-                  .addTo(map);
-        map.flyTo({center: e.features[0].geometry.coordinates,zoom: 16, speed: 1.5});
+        map.flyTo({
+            center: e.features[0].geometry.coordinates,
+            zoom: 16,
+            speed: 1.5
+        },map.on('zoomend',function (data) {
+            for(var i=0,len = data.queryRenderedFeatures.length; i < 5 ;i++) {   //循环次数待改
+                if (data.queryRenderedFeatures()[i].properties.id == pid) {
+                    popupClick.setLngLat(data.queryRenderedFeatures()[i].geometry.coordinates)
+                        .setDOMContent(titleDes)
+                        .addTo(map);
+                    break;
+                }
+           }
+
+        }));
+
+
         var poiId = e.features[0].properties.poiId;
         detailsDis( poiId );
 
@@ -418,10 +451,23 @@ angular.module("scenery", ['dataService', 'nvd3', 'angular-popups', 'navApp'])
     $scope.searchScenery = function () {
         popupClick.remove();
         $('.introduce').hide();
-        $scope.resultList = {
+        $scope.relativeList = {
             display: 'none'
         }
-        $scope.getLocationPopup();
+
+        if($('#keywordSearch').val() == ''){
+            $scope.noSearchResult = {
+                display: 'block'
+            }
+            $scope.resultList = {
+                display :'none'
+            }
+            $('.searchResult').hide();
+        }else{
+            $scope.getLocationPopup();
+        }
+
+
     }
 
     $scope.GoSearch = function (event) {
@@ -431,6 +477,9 @@ angular.module("scenery", ['dataService', 'nvd3', 'angular-popups', 'navApp'])
             popupClick.remove();
             $scope.resultList = {
                 display: 'block'
+            }
+            $scope.relativeList = {
+                display: 'none'
             }
             $scope.getLocationPopup();
         }
@@ -448,7 +497,42 @@ angular.module("scenery", ['dataService', 'nvd3', 'angular-popups', 'navApp'])
         for (var i = 0; i < mySourceData.features.length; i++) {
             prop = mySourceData.features[i].properties;
             if (prop.id === listId) {
-                prop.icon = prop['icon-active'];
+               // prop.icon = prop['icon-active'];
+                $scope.geojson = {
+                    "type": "FeatureCollection",
+                    "features": []
+                };
+                var source = {
+                        "type": "geojson",
+                        "data": {
+                            "type": "Feature",
+                            "geometry": {
+                                "type": "Point",
+                                "coordinates": mySourceData.features[i].geometry.coordinates
+                            },
+                            "properties": {
+                                "numMark": index+1
+                            }
+                        }
+                    };
+                var sourceJ = {
+                    "type": "Feature",
+                    "geometry": {
+                        "type": "Point",
+                        "coordinates": mySourceData.features[i].geometry.coordinates
+                    },
+                    "properties": {
+                        "numMark": index + 1
+                    }
+                };
+                if (!map.getSource('lightHeightId')){
+                    lightHeightLayer.source = source;
+                    map.addLayer(lightHeightLayer);
+                } else {
+                    $scope.geojson.features.push(sourceJ)
+                    map.getSource('lightHeightId').setData($scope.geojson);
+                }
+
             } else {
                 prop.icon = prop['icon-normal'];
             }
@@ -456,6 +540,7 @@ angular.module("scenery", ['dataService', 'nvd3', 'angular-popups', 'navApp'])
         resetMySourceData(mySourceData);
 
         var titleDes = window.document.createElement('div');
+      //  titleDes.setAttribute('class', 'popTollGateIconHeightLight');
         var everPoint = mySourceData.features[index];
         titleDes.innerHTML = '<div class="feePopDeep">' + everPoint.properties.sceneryName + '</div>' +
             '<div class="tipPopDeep"></div>';
@@ -465,16 +550,28 @@ angular.module("scenery", ['dataService', 'nvd3', 'angular-popups', 'navApp'])
             .addTo(map);
 
         //让当前li的上下分割线消失
-         $('.borderLine').show();
-         $('.borderLine').eq(index).hide();
-         $('.borderLine').eq(index-1).hide();
-
+        if(index == 0){
+            $('.borderLine').show();
+            $('.borderLine').eq(index).hide();
+        }else{
+            $('.borderLine').show();
+            $('.borderLine').eq(index).hide();
+            $('.borderLine').eq(index-1).hide();
+        }
     }
 
     //mouseleave list
     $scope.removeMark = function (index) {
         popupName.remove(index);
         $('.borderLine').show();
+        var geojson = {
+            "type": "FeatureCollection",
+            "features": []
+        };
+        if (map.getSource('lightHeightId')) {
+            map.getSource('lightHeightId').setData(geojson);
+        }
+        // map.removeLayer('lightHeightId');
     }
 
 
@@ -492,13 +589,13 @@ angular.module("scenery", ['dataService', 'nvd3', 'angular-popups', 'navApp'])
                 locationMap(data);
             })
             $('.allResult').html('已展开全部搜索结果');
-            $('.moreResult').css({'color':'#1478ff','cursor':'auto'});
+            $('.moreResult').css({'color':'#1478ff','cursor':'default'});
         }
 
     }
 
     //scan big(more) picture
-
+    var index=0;
     $scope.scanPic = function (event) {
         if($scope.morePic > 0) {
             var e = window.event || event;
@@ -508,44 +605,81 @@ angular.module("scenery", ['dataService', 'nvd3', 'angular-popups', 'navApp'])
                 e.cancelBubble = true;
             }
             $('.swiperPic').show();
-            var oImg = $('.centerBlock>ul img');
+            var oImg = $('.centerBlock ul img');
            $('.disPic>img')[0].src = arrImg[0];
-           $('.centerBlock>ul img').eq(0).css('border', '4px solid #1478ff');
+           $('.centerBlock ul img').eq(0).css('border', '4px solid #1478ff');
+           $('.btn_left').hide();
+           $('.btn_right').show();
+           index = 0;
         }
 
     }
-    $scope.goImg = function (index) {
-        var oImg = $('.centerBlock>ul img');
-        $('.disPic>img')[0].src = oImg[index].src;
+
+    $scope.goImg = function (parm) {
+        index = parm;
+        console.log(parm);
+        var oImg = $('.centerBlock ul img');
+        $('.disPic>img')[0].src = oImg[parm].src;
         oImg.css('border', '4px solid rgba(37,57,110,0)');
-        oImg.eq(index).css('border', '4px solid #1478ff');
+        oImg.eq(parm).css('border', '4px solid #1478ff');
+        if(parm == 0){
+            $('.btn_left').hide();
+            $('.btn_right').show();
+        }else if(parm == arrImg.length-1){
+            $('.btn_right').hide();
+            $('.btn_left').show();
+        }else {
+            $('.btn_right').show();
+            $('.btn_left').show();
+        }
     }
 
     $scope.goLeft = function () {
-        var oImg = $('.centerBlock>ul img');
-        for (var i = 1; i < arrImg.length; i++) {
-            var temp = arrImg[arrImg.length - 1];
-            arrImg[arrImg.length - 1] = arrImg[arrImg.length - 1 - i];
-            arrImg[arrImg.length - 1 - i] = temp;
-        }
-        $('.disPic>img')[0].src = arrImg[0];
+        var oImg = $('.centerBlock ul img');
+        index--;
+        $('.disPic>img')[0].src = arrImg[index];
 
+        oImg.css('border', '4px solid rgba(37,57,110,0)');
+        oImg.eq(index).css('border', '4px solid #1478ff');
+        if(index == 0){
+            $('.btn_left').hide();
+
+        }else{
+            $('.btn_left').show();
+            $('.btn_right').show();
+        }
+        var num = 5 - index;
+        if(index < num){
+            $('.centerBlock ul').animate({
+                left: '0px'
+            }, 300 );
+        }
     }
     $scope.goRight = function () {
-        var oImg = $('.centerBlock>ul img');
-        for (var i = 0; i < arrImg.length - 1; i++) {
-            var temp = arrImg[0];
-            arrImg[0] = arrImg[i + 1];
-            arrImg[i + 1] = temp;
+        var oImg = $('.centerBlock ul img');
+        index++;
+        oImg.css('border', '4px solid rgba(37,57,110,0)');
+        oImg.eq(index).css('border', '4px solid #1478ff');
+        if(index == arrImg.length-1){
+            $('.btn_right').hide();
+        }else {
+            $('.btn_right').show();
+            $('.btn_left').show();
         }
-        $('.disPic>img')[0].src = arrImg[0];
-         console.log(oImg.length);
+        $('.disPic>img')[0].src = arrImg[index];
+
+        if(index>5){
+            var num = (index-5);
+            $('.centerBlock ul').animate({
+                left: -145 * num +'px'
+            }, 300 );
+        }
 
     }
 
     $scope.closePic = function () {
         $('.swiperPic').hide();
-        var oImg = $('.centerBlock>ul img');
+        var oImg = $('.centerBlock ul img');
         oImg.css('border', '4px solid rgba(37,57,110,0)');
 
     }
@@ -553,11 +687,8 @@ angular.module("scenery", ['dataService', 'nvd3', 'angular-popups', 'navApp'])
         var _con = $('.centerBlock');
         if (!_con.is(event.target) && _con.has(event.target).length === 0) {
             $('.swiperPic').hide();
-            var oImg = $('.centerBlock>ul img');
+            var oImg = $('.centerBlock ul img');
             oImg.css('border', '4px solid rgba(37,57,110,0)');
-            for (var i = 0; i < arrImg.length; i++) {
-                oImg[i].src = arrImg[i];
-            }
         }
     });
 
@@ -571,7 +702,7 @@ angular.module("scenery", ['dataService', 'nvd3', 'angular-popups', 'navApp'])
 
     //see moreContent
     var moreContent = function(str){
-        var len = 70 ;
+        var len = 66 ;
         var content = document.getElementById('detailIntro');
         var aTag = document.getElementById('allCnt');
         var contentLen = str.length;

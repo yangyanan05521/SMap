@@ -129,7 +129,7 @@ li{
 }
 #container .introduce .imgDisplay .morePic{
     position: absolute;
-    right:16px;
+    right:6px;
     bottom:6px;
     color:#fff;
     cursor: pointer;
@@ -170,7 +170,7 @@ li{
 #container #content .searchList input{
     margin:0px;
     height: 30px;
-    line-height:30px;
+    line-height:14px;
     padding: 0;
     letter-spacing: .5px;
     font-size: 14px;
@@ -197,6 +197,7 @@ li{
     top:38px;
     background-color: #fff;
     max-height: calc(100% - 41px);
+    box-shadow: 0 1px 2px rgba(84, 98, 137, 0.3);
 }
 ::-webkit-scrollbar {
     width:6px;
@@ -209,6 +210,19 @@ li{
     border-radius:3px;
     background-color: #F4F5F7;
 }
+#container #content  .reltiveWords{
+    padding:0px;
+    margin:2px 0px 0px 0px;
+    font-size:14px;
+    color:#333;
+    width:340px;
+    z-index: 5;
+    position:absolute;
+    left:10px;
+    top:38px;
+    background-color: #fff;
+    box-shadow: 0 1px 2px rgba(84, 98, 137, 0.3);
+}
 #container #content  .searchResult img{
     width:140px;
     height:100px;
@@ -216,6 +230,7 @@ li{
 #container #content .searchResult li{
     position: relative;
     padding:0px 10px 10px;
+    cursor: pointer;
 }
 #container #content  .searchResult li .borderLine{
     position:absolute;
@@ -230,6 +245,9 @@ li{
      background-color:#4393ff;
  }
 #container #content .searchResult li:hover div{
+    color:#fff;
+}
+#container #content .searchResult li:hover .numTitle{
     color:#fff;
 }
 #container #content .searchResult li:hover span{
@@ -309,7 +327,7 @@ li{
     position: absolute;
     top: 0;
     left: 0;
-    z-index: 9999;
+    z-index: 100;
     width: 100%;
     height: 100%;
     display: none;
@@ -335,16 +353,17 @@ li{
 #container .swiperPic .centerBlock ul{
     display: flex;
     justify-content:flex-start;
-    overflow: hidden;
     padding: 0;
     margin-top: 10px;
     width:100%;
-    flex-wrap: wrap;
     height:90px;
+    position: absolute;
+    left:0;
+    top: 0px;
 }
 #container .swiperPic .centerBlock ul li{
     padding: 0;
-    margin:0px 45px 0px 0px;
+    margin:0px 32px 30px 0px;
     width:112px;
     height:80px;
 }
@@ -353,6 +372,9 @@ li{
     height:80px;
     border: 4px solid rgba(37,57,110,0);
     padding: 0px ;
+}
+#container .swiperPic .centerBlock ul li:nth-of-type(1) img{
+    border: 4px solid #1478ff;
 }
 
 #container .swiperPic .centerBlock .btn_all{
@@ -369,6 +391,7 @@ li{
     background:url(../img/scenery/icon_arrow_left.png) no-repeat center;
     background-color:rgba(37,57,110,0.3);
     left:0px;
+    display: none;
 }
 
 #container .swiperPic .centerBlock .btn_right{
@@ -383,10 +406,10 @@ li{
     cursor: pointer;
 
 }
-#container #content .searchList .relativeResult{
+#container #content .reltiveWords .relativeResult{
     height: 30px;
 }
-#container #content .searchList .relativeResult .logo{
+#container #content .reltiveWords .relativeResult .logo{
     display: inline-block;
     width: 30px;
     height: 30px;
@@ -395,19 +418,20 @@ li{
     background-image: url("../img/scenery/search_normal.png");
     background-repeat: no-repeat;
     background-position: center ;
+    vertical-align:middle;
 }
-#container #content .searchList .relativeResult:hover{
+#container #content .reltiveWords .relativeResult:hover{
     background-color:#3385ff;
 }
-#container #content .searchList .relativeResult:hover .logo{
+#container #content .reltiveWords .relativeResult:hover .logo{
     background-image: url("../img/scenery/search_active.png");
     background-repeat: no-repeat;
     background-position: center ;
 }
-#container #content .searchList .relativeResult:hover span{
+#container #content .reltiveWords .relativeResult:hover span{
     color:#fff;
 }
-#container #content .searchList .relativeResult .choiceWord{
+#container #content .reltiveWords .relativeResult .choiceWord{
     display: inline-block;
     font-size: 12px;
     line-height: 30px;
@@ -417,6 +441,7 @@ li{
     text-overflow: ellipsis;
     overflow: hidden;
     color:#333;
+    vertical-align:middle;
 }
 
 #container #content .searchList .noSearchResult .logo{
@@ -642,103 +667,24 @@ li{
     color: #333333;
     font-size: 12px;
 }
-/***********分割线****/
-.limitCondition ul{
-    margin:0;
-    padding: 0;
-    list-style: none;
-    /*  border: 1px solid rgba(15, 51, 26, 0.2);*/
-}
 
-.limitCondition{
-    position: absolute;
-    z-index: 30;
-    right: 10px;
-    top: 60px;
-}
-.limitCondition ul li.firstCondation{
-    margin:0;
-    padding: 0;
-    list-style: none;
-    text-align: center;
-    width: 80px;
-    color: #666666;
-    font-size: 12px;
-    line-height: 30px;
-    background: #ffffff;
-    cursor: pointer;
+.mapboxgl-popup .mapboxgl-popup-content .popTollGateIconHeightLight{
+
     position: relative;
-    box-sizing: border-box;
-    border-top: 1px solid rgba(15, 51, 26, 0.2);
-    border-left: 1px solid rgba(15, 51, 26, 0.2);
-    border-right: 1px solid rgba(15, 51, 26, 0.2);
-}
-.limitCondition ul li.firstCondation:last-child{
-    border-bottom: 1px solid rgba(15, 51, 26, 0.2);
-}
-.limitCondition ul li div.conditionHeightLight{
-    background-color: #0164de;
-    color: #ffffff;
-}
-.limitCondition ul li.listHeightLight{
-    border-top: 1px solid #0164de;
-}
-.limitCondition ul li ul li div.subConditionHeightLight{
-    color: #0164de;
-}
-.limitCondition ul li .IconOpenStyle{
-    width: 9px;
-    height: 5px;
-    position: absolute;
-    right: 5px;
-    top: 13px;
-    background-image: url("../img/trafficLimited/blue_arror.png");
-    background-size: contain;
-}
-.limitCondition ul li .IconCloseStyle{
-    width: 9px;
-    height: 5px;
-    right: 5px;
-    top: 15px;
-    position: absolute;
-    background-image: url("../img/trafficLimited/gray_arrow.png");
-    background-size: contain;
-    transform: rotate(90deg);
-}
-.limitCondition ul li.firstCondation ul li{
-    text-align: center;
-    width: 78px;
+    z-index: 500;
+    background:url("../img/onlineMap/POI_blue.png");
+    width: 25px;
+    height: 34px;
+    font-family: Arial, sans-serif;
     font-size: 12px;
-    line-height: 30px;
-    background: #f5f5f5;
+    line-height: 25px;
+    color: #ffffff;
+    position: relative;
+    z-index: 500;
+    text-align:center;
     cursor: pointer;
-    border-top: 1px solid rgba(15, 51, 26, 0.2);
-    box-sizing: border-box;
-    box-shadow: 0 3px 2px  rgba(84, 98, 137, 0.3);
-}
-.limitCondition ul li.firstCondation ul li div.checked{
-    display: inline-block;
-    width: 13px;
-    height: 12px;
-    background-image: url("../img/trafficLimited/checked.png");
-    -ms-background-position-x:0;
-    background-position-x:0;
-    background-position-y: 1px;
-    background-size: contain;
-    background-repeat: no-repeat ;
-}
-.limitCondition ul li.firstCondation ul li div.normal{
-    display: inline-block;
-    width: 13px;
-    height: 12px;
-    background-image: url("../img/trafficLimited/check.png");
-    -ms-background-position-x:0;
-    background-position-x:0;
-    background-position-y: 1px;
-    background-size: contain;
-    background-repeat: no-repeat ;
-}
 
+}
 /***************************判断是否显示删除按钮****************************************************/
 .deleteBtn{
     display: none;
@@ -754,16 +700,19 @@ li{
 .hideDeleteBtn {
     display: none;
 }
-input::-webkit-input-placeholder { /* WebKit browsers */
+input{
+    color:#333;
+}
+::-webkit-input-placeholder { /* WebKit browsers */
     　　color:#999;
 }
-input:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
     　　color:#999;
 }
-input::-moz-placeholder { /* Mozilla Firefox 19+ */
+::-moz-placeholder { /* Mozilla Firefox 19+ */
     　　color:#999;
 }
-input:-ms-input-placeholder { /* Internet Explorer 10+ */
+:-ms-input-placeholder { /* Internet Explorer 10+ */
     　　color:#999;
 }
 
