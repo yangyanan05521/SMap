@@ -10,8 +10,8 @@ var map = new mapboxgl.Map({
 });
 
 angular.module("scenery", ['dataService', 'nvd3', 'angular-popups', 'navApp'])
-       .controller("sceneryController", ["$scope", "$location", "dsEdit", "$anchorScroll", "$http",
-       function ($scope, $location, dsEdit, $anchorScroll, $http) {
+       .controller("sceneryController", ["$scope", "$location", "dsEdit", "$anchorScroll", "$http","$timeout",
+       function ($scope, $location, dsEdit, $anchorScroll, $http,$timeout) {
     $scope.locFlag = 'sceneryFlag';
     $scope.startTollGate = '';
     $scope.endTollGate = '';
@@ -106,6 +106,7 @@ angular.module("scenery", ['dataService', 'nvd3', 'angular-popups', 'navApp'])
             $scope.resultList = {
                 display : "none"
             }
+            $('.searchResult').hide();
             dsEdit.getProduct("scenic/search/realtime", {
                 parm: JSON.stringify({
                     str: $scope.searchWord
@@ -472,8 +473,9 @@ angular.module("scenery", ['dataService', 'nvd3', 'angular-popups', 'navApp'])
 
     $scope.GoSearch = function (event) {
         var e = window.event || event ;
-        if(e.keyCode == 13){
+        if(e.keyCode === 13){
             $('.introduce').hide();
+            $('.reltiveWords').hide();
             popupClick.remove();
             $scope.resultList = {
                 display: 'block'
@@ -483,7 +485,7 @@ angular.module("scenery", ['dataService', 'nvd3', 'angular-popups', 'navApp'])
             }
             $scope.getLocationPopup();
         }
-        if(e.keyCode == 8){
+        if(e.keyCode === 8){
             $scope.resultList = {
                 display: 'none'
             }
@@ -722,6 +724,65 @@ angular.module("scenery", ['dataService', 'nvd3', 'angular-popups', 'navApp'])
             }
         }
     }
+
+
+    //测试景区特色路线
+           $scope.lineLayer = {
+               "id": 'line_Limited_Layer',
+               "type": 'line',
+               "source": "platelimit",
+               'source-layer': 'route',
+               "minzoom": 5,
+               "maxzoom": 17.1,
+               "layout": {
+                   "line-join": "round",
+                   "visibility": "visible",
+                   "line-cap": "round"
+               },
+               "paint": {
+                   "line-color": "#FF0000",
+                   "line-width": {
+                       "stops": [[6, 1.5], [20, 10]],
+                       "base": 1.2
+                   },
+               },
+           };
+           $scope.searchClass = [
+               '佛教文化游',
+               '浪漫夜晚游',
+               '人文景观游',
+               '浪漫之旅路线',
+               '文化之旅路线',
+               '休闲之旅路线',
+                '游览车路线',
+           ]
+
+           $scope.changeSearch = function (index) {
+               $scope.focus = index;
+               var param;
+               if (index == 0) {
+                   param = '2017061901'
+               } else if(index == 1) {
+                   param = '2017061902'
+               }else if(index == 2) {
+                   param = '2017061903'
+               }else if (index == 3){
+                   param = '2017071301'
+               }else if(index == 4){
+                   param = '2017071302'
+               }else if(index == 5){
+                   param = '2017071303'
+               }else{
+                   param = '2017071304'
+               }
+
+               map.style.sourceCaches.platelimit._source.tiles[0] = 'http://192.168.15.41:9999/smapapi/scenic/pbf/singleRoute/{z}/{x}/{y}?routeId=' + param;
+
+               map.removeLayer('line_Limited_Layer');
+               $timeout(function () {
+                   map.addLayer($scope.lineLayer);
+               }, 0);
+           }
        }]);
 
 //调节预览图片尺寸

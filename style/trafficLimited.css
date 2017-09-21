@@ -42,10 +42,40 @@ body{
     top: 10px;
     position: absolute;
     z-index: 50;
+    color:#6d788a;
+    font-size: 12px;
+}
+
+.selectedDiv .limitToday{
+    text-align: center;
+    height: 30px;
+    line-height: 30px;
+    background: #ffffff;
+    cursor: pointer;
+    background-image:url("../img/trafficLimited/icon_trafficcontrols.png");
+    background-repeat: no-repeat;
+    background-size: 10px 10px;
+    background-position: 10px 10px;
+    padding-left:26px;
+}
+.selectedDiv .limitToday span{
+    text-align: center;
+    height: 30px;
+    line-height: 30px;
+    background: #ffffff;
+    cursor: pointer;
+    border-right: 1px solid #cacbcc;
+    padding-right: 10px;
+}
+.selectedDiv .limitToday span:hover{
+    color: #ff7474
+}
+.selectedDiv .limitToday span:active{
+    color: #ff7474
 }
 .selectedDiv .nowCity{
     padding-right: 13px;
-    text-align: center;
+    padding-left: 10px;
     width: 80px;
     height: 30px;
     line-height: 30px;
@@ -55,10 +85,8 @@ body{
     background-repeat: no-repeat;
     background-position: 60px 13px;
     box-sizing: border-box;
-    box-shadow: 0 3px 2px  rgba(84, 98, 137, 0.3);
 }
 .selectedDiv .nowCity >span{
-    color: rgb(51,51,51);
     font-size: 12px;
 }
 .selectedDiv .choosedCity {
@@ -111,7 +139,7 @@ body{
     width: 20px;
     height: 20px;
     font-size: 12px;
-    text-align: center;
+    text-align: left;
     cursor: pointer;
     line-height: 20px;
 }
@@ -149,16 +177,17 @@ body{
 .allCities .allCitiesList{
     margin: 0;
     padding: 0;
-    padding-top: 10px;
+    padding-top: 5px;
 }
 .allCities .allCitiesList > li{
     list-style-type: none;
     width: 100%;
+    line-height: 20px;
 }
 .allCities .allCitiesList > li .indexLetter{
     display: inline-block;
     font-size: 12px;
-    color: #cccccc;
+    color: #6d788a;
     width: 15px;
     padding: 0;
     text-decoration: none;
@@ -175,7 +204,7 @@ body{
     display: inline-block;
     font-size: 12px;
     list-style-type: none;
-    color: #333333;
+    color: #6d788a;
     padding-left: 8px;
     cursor:pointer ;
 }
@@ -186,10 +215,7 @@ body{
 .allCities .allCitiesList > li .citiesBox ul li> span:active{
     color: #1478FF;
 }
-.allCities .allCitiesList > li .citiesBox ul li > span{
-    color: #333333;
-    font-size: 12px;
-}
+
 /***********分割线****/
 .limitCondition ul{
     margin:0;
@@ -286,3 +312,353 @@ body{
     background-size: contain;
     background-repeat: no-repeat ;
 }
+
+
+/*******************testLimited*********************/
+.ng-cloak{
+    display: none;
+}
+.fl {
+    float: left; }
+
+.fr {
+    float: right; }
+
+.clear:after {
+    content: "";
+    clear: both;
+    display: block;
+    height: 0;
+    overflow: hidden;
+    visibility: hidden; }
+li{
+    list-style: none;
+}
+#content .testLimited{
+    position: absolute;
+    z-index: 30;
+    left: 10px;
+    top: 10px;
+    padding:0px;
+    margin:0px;
+    width:350px;
+}
+#content .testLimited ul{
+    padding:13px 20px 14px;
+    margin:0px;
+    background: #ffffff;
+
+}
+#content .testLimited li{
+    float: left;
+    padding: 0px;
+    padding-right: 24px;
+    list-style: none;
+    text-align: center;
+    color: #666666;
+    font-size: 12px;
+    cursor: pointer;
+    position: relative;
+    box-sizing: border-box;
+
+}
+#content .testLimited li a{
+    font-size: 12px;
+    text-decoration: none;
+    color: #6d788a;
+    padding-bottom: 6px;
+}
+#content .testLimited li a:hover{
+    color:#1478FF;
+    border-bottom: 2px solid #1478ff;
+}
+#content .testLimited  input{
+    margin:0px;
+    height: 30px;
+    line-height:14px;
+    padding: 0;
+    letter-spacing: .5px;
+    font-size: 14px;
+    border:none;
+    outline: none;
+}
+
+#content  .searchInput{
+    box-shadow: 0 3px 2px rgba(84, 98, 137, 0.3);
+    background-color: #fff;
+    padding: 8px 20px;
+
+}
+#content .searchInput .searchButton{
+    width:50px;
+    height:24px;
+    cursor: pointer;
+    background:#3385ff;
+    color:#fff;
+    line-height: 24px;
+    text-align: center;
+    font-size: 12px;
+}
+ #content .searchInput input{
+    margin:0px;
+    height: 22px;
+    line-height:14px;
+    padding: 0;
+    letter-spacing: .5px;
+    font-size: 14px;
+    border:none;
+    outline: none;
+
+}
+ #content .searchInput .searchBar{
+    display:inline-block;
+    width:20px;
+    margin:0px 10px;
+    padding-top: 5px;
+}
+
+#content .testLimited  .active{
+    background: #FFFFFF;
+    border-bottom: none;
+    color:#1478FF;
+}
+#content .selectedDiv .limitDaySec{
+    width: 165px;
+    padding: 5px 10px 0px 10px;
+    background-color: #ffffff;
+    display: none;
+    position: absolute;
+    z-index: -1;
+    top:30px;
+    right: 0;
+    box-sizing: border-box;
+    box-shadow: 0 1px 2px rgba(84, 98, 137, 0.3);
+
+}
+#content .selectedDiv .limitDaySec ul{
+    margin: 0px;
+    padding: 0px;
+    padding-bottom: 2px;
+    border-bottom: 1px solid #d0e4ff;
+}
+#content .selectedDiv .limitDaySec li{
+    margin: 0px;
+    padding: 0px;
+    line-height: 20px;
+}
+#content .selectedDiv .limitDaySec .moreInfo{
+    width: 100%;
+    text-align: right;
+    line-height: 30px;
+    color: #1478ff;
+    cursor: pointer;
+}
+.heightLightColor{
+    color:#ff7474;
+}
+#content .resultList {
+    position: absolute;
+    left: 10px;
+    top: 93px;
+    z-index: 5;
+    background-color: #fff;
+    color: #6d788a;
+    width:350px;
+    font-size: 12px;
+    box-shadow: 0 1px 2px rgba(84, 98, 137, 0.3);
+    overflow-y: auto;
+    max-height: calc(100% - 96px);
+}
+#content .resultList ul{
+    padding: 5px 20px;
+    margin: 0px;
+    cursor: pointer;
+}
+#content .resultList ul:hover{
+    background-color: #498cff;
+    color:#fff;
+}
+#content .resultList ul li{
+    line-height: 20px;
+}
+
+#content .noSearchResult{
+    position: absolute;
+    left: 10px;
+    top: 93px;
+    z-index: 5;
+    background-color: #fff;
+    color: #6d788a;
+    width:350px;
+    font-size: 12px;
+    box-shadow: 0 1px 2px rgba(84, 98, 137, 0.3);
+    cursor: auto;
+    height:30px;
+}
+#content .noSearchResult .logo{
+    display: inline-block;
+    vertical-align:middle;
+    width: 30px;
+    height: 30px;
+    background-image: url("../img/onlineMap/search_normal.png");
+    background-repeat: no-repeat;
+    background-position: center ;
+
+}
+#content .noSearchResult .noResult{
+    display: inline-block;
+    color:#333;
+    font-size: 12px;
+    line-height:30px;
+    height:30px;
+    color: #6d788a;
+}
+#content .resultList .MoreChange{
+    color:#1478FF;
+    width:312px;
+    margin-left:19px;
+    font-size:12px;
+    height: 30px;
+    line-height: 30px;
+    text-align: center;
+    border-top:1px solid #d0e4ff;
+    cursor:pointer;
+}
+
+.deleteBtn{
+    display: none;
+}
+.showDeleteBtn {
+    cursor: pointer;
+    display: inline-block;
+    margin-right: 8px;
+    margin-top: 7px;
+    cursor: pointer;
+    float: right;
+}
+.hideDeleteBtn {
+    display: none;
+}
+#content .testLimited li .selected{
+    color:#1478FF;
+    border-bottom: 2px solid #1478ff;
+}
+
+.limitTodayLists{
+    position: absolute;
+    right:220px;
+    top:102px;
+    width:174px;
+    height: calc(100% - 146px);
+    border: 1px solid #c5cee6;
+    box-sizing: border-box;
+    margin-left: 10px;
+    display: none;
+    overflow-y: auto;
+}
+.limitTodayLists .closeIcon{
+    position: fixed;
+    right: 232px;
+    top: 111px;
+    cursor:pointer;
+}
+.limitTodayLists .limitList{
+    padding: 5px 10px;
+    margin: 0;
+    color: #6d788a;
+    font-size: 12px;
+    cursor:pointer;
+}
+.limitTodayLists .limitList:hover{
+    color:#fff;
+    background-color:#498cff;
+}
+.limitTodayLists .limitList li{
+    padding: 0;
+    margin: 0;
+    line-height: 20px;
+}
+.limitTodayLists .noMore{
+    color:#1478FF;
+    width:155px;
+    margin-left:5px;
+    font-size:12px;
+    height: 30px;
+    line-height: 30px;
+    text-align: center;
+    border-top:1px solid #d0e4ff;
+    cursor: auto;
+}
+
+input{
+   color:#6d788a;
+}
+
+::-webkit-input-placeholder {
+    　　color:#6d788a;
+}
+:-moz-placeholder {
+    　　color:#6d788a;
+}
+::-moz-placeholder {
+    　　color:#6d788a;
+}
+:-ms-input-placeholder {
+    　　color:#6d788a;
+}
+
+/*滚动条*/
+
+*::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+    background:#F4F5F7;
+    padding-top: 3px;
+    padding-bottom: 3px;
+}
+
+*::-webkit-scrollbar-thumb {
+    -moz-border-radius: 3px;
+    -webkit-border-radius: 3px;
+    border-radius: 3px;
+    background:rgba(189,196,210,0.5);
+}
+
+/***************************右下角按钮****************************/
+.changeMapSizeDiv {
+    position: absolute;
+    z-index: 15;
+    width: 20px;
+    height: 50px;
+    right: 10px;
+    bottom: 10px ;
+}
+.addBtn{
+    width: 20px;
+    height: 20px;
+    background-image: url("../img/onlineMap/button_max_normal.png");
+    background-position: center;
+    background-size: cover;
+    outline: none;
+    margin-bottom: 10px;
+    border: 0;
+    box-shadow: 0 1px 3px rgba(84, 98, 137, 0.3);
+}
+.addBtn:hover,.addBtn:active{
+    background-image: url("../img/onlineMap/button_max_active.png");
+}
+.subBtn{
+    width: 20px;
+    height: 20px;
+    background-image: url("../img/onlineMap/button_min_normal.png");
+    background-position: center;
+    outline: none;
+    border: 0;
+    box-shadow: 0 1px 2px rgba(84, 98, 137, 0.3);
+}
+.subBtn:hover,.subBtn:active{
+    background-image: url("../img/onlineMap/button_min_active.png");
+}
+
+
+

@@ -6,8 +6,15 @@
     font-family: "Microsoft YaHei", 微软雅黑, Arial, sans-serif;
 }
 .guide{
-    font-size: 18px;
-    border-bottom: 1px solid #bdc3d3;
+    /*font-size: 18px;*/
+    /*border-bottom: 1px solid #bdc3d3;*/
+    /*width: 200px;*/
+
+    height: 40px;
+    line-height: 40px;
+    color: #74666c;
+    font-size: 24px;
+    padding-left: 20px;
     width: 200px;
 }
 .titleContainer{

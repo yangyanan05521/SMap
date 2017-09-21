@@ -10,7 +10,7 @@
 
     <title>SMap</title>
 </head>
-<body ng-app="trafficLimited" ng-controller="trafficLimitedController">
+<body ng-app="trafficLimited" ng-controller="trafficLimitedController" ng-keypress="GoSearch($event)">
 <nav-bar loc="locFlag"></nav-bar>
 
 <div id="container">
@@ -19,15 +19,68 @@
             <li style="font-size: 14px;color:rgba(0,0,0,0.7)">您现在的位置:</li>
             <li style="font-size: 14px;padding-left: 5px;color:rgba(0,0,0,0.7)">在线体验</li>
 
-            <li style="font-size: 20px;padding:0 4px 0 9px;margin-top: -6px; ;color:rgba(0,0,0,1)">></li>
+            <li style="font-size: 20px;padding:0 4px 0 9px;margin-top: -4px; ;color:rgba(0,0,0,1)">></li>
             <li style="font-size: 14px;padding-left: 5px; color:rgba(0,0,0,0.7)">限行数据展示</li>
         </ul>
     </div>
     <div id="content">
-        <div class="selectedDiv">
-            <div class="nowCity" ng-style="nowCity" ng-click="showChoosedCity('nowCity')">
-                <span ng-bind="nowProvince"></span>
+        <div class="testLimited">
+            <ul class="clear">
+                <li style="padding-right:23px"><a href="javascript:void(0);" ng-click="searchByClass('1')" class="selected">全部</a></li>
+                <li style="padding-right:23px"><a href="javascript:void(0);" ng-click="searchByClass('3')">卡车</a></li>
+                <li><a href="javascript:void(0);" ng-click="searchByClass('2')">小客车</a></li>
+                <li><a href="javascript:void(0);" ng-click="searchByClass('4')">外地车</a></li>
+                <li><a href="javascript:void(0);" ng-click="searchByClass('5')">工作日</a></li>
+                <li style="padding:0px"><a href="javascript:void(0);" ng-click="searchByClass('6')">节假日</a></li>
+            </ul>
+            <div class="searchInput clear">
+                <div class="fl clear" style="width: 259px;border:1px solid #1478FF;height: 22px;border-right:0px;">
+                    <input type="text"
+                           placeholder="搜索限行区域、政策、车辆"
+                           class="fl"
+                           id="keywordSearch"
+                           ng-model="searchWord"
+                           style="font-size: 12px;width: 235px;text-indent: 10px"
+                    >
+                    <img src="../img/scenery/searchbar_close.png" alt=""
+                         ng-class="{true: 'showDeleteBtn', false: 'hideDeleteBtn'}[searchWord.length !== 0]"
+                         ng-click="clearInput()"
+                         class="closeList"
+                    >
+                </div>
+                <div class="fr searchButton"  ng-click="searchInfo()">搜索</div>
             </div>
+
+        </div>
+        <div class="resultList ng-cloak" ng-style="resultStyle">
+            <ul ng-click="mapLocation(item)" ng-repeat="item in searchList">
+                <li>[限行<span style="font-family: Arial">{{$index+1}}</span>]</li>
+                <li>限行区域： {{item.platelimit_area}}</li>
+                <li>限行车辆： {{item.pl_condition}}</li>
+                <li>限行政策： {{item.principle}}</li>
+            </ul>
+            <div class="MoreChange" ng-click="loadData()">
+
+            </div>
+        </div>
+        <div class="noSearchResult ng-cloak" ng-style="noSearchResult">
+            <span class="logo"></span>
+            <span class="noResult">无搜索结果，请重新输入</span>
+        </div>
+        <div class="selectedDiv">
+            <div class="clear" style="box-shadow: 0 3px 2px  rgba(84, 98, 137, 0.3);">
+                <div class="limitToday fl">
+                    <span ng-click="toTodayLimit()"
+                          ng-style="changColor"
+                    >
+                        今日限行
+                    </span>
+                </div>
+                <div class="nowCity fl" ng-style="nowCity" ng-click="showChoosedCity('nowCity')">
+                    <span ng-bind="nowProvince"></span>
+                </div>
+            </div>
+
             <div class="choosedCity" ng-style="choosedCity">
                 <span ng-bind="nowProvince"></span>
                 <img class="hideCityList" ng-click="showChoosedCity('choosedCity')" src="../img/onlineMap/arrow_active.png">
@@ -53,41 +106,41 @@
                     </ul>
                 </div>
             </div>
-        </div>
-        <div class="limitCondition">
-            <ul>
-                <li ng-repeat="childrenItem in limitKind" class="firstCondation"
-                    ng-class="{true: 'listHeightLight',false: ''}[childrenItem.isLimit &&!childrenItem.children]">
-                    <div ng-bind="childrenItem.kind"
-                         ng-click="changeCondition($index)"
-                         ng-class="{true: 'conditionHeightLight',false: ''}[childrenItem.isLimit && !childrenItem.children]"
-                    >
-                    </div>
-                    <div ng-class="{true: 'IconOpenStyle', false: 'IconCloseStyle'}[childrenItem.childrenIsOpen]">
-                    </div>
-                    <ul>
-                        <li ng-show="childrenItem.childrenIsOpen"
-                            ng-repeat="item in childrenItem.children"
-                            ng-click="changeDetailKind(item.kind)"
-                        >
-                            <!--<div ng-model="item.flag"  ng-class="{true: 'checked', false: 'normal'}[item.flag]">
-                            </div>-->
-                            <div style="display: inline-block;" ng-model="item.flag"  ng-class="{true: 'checked', false: 'normal'}[item.flag]">
-                                <!--<img ng-src="{{item.flag ? '../img/trafficLimited/checked.png': '../img/trafficLimited/check.png'}}"
-                                     ng-class="{true: 'checked', false: 'normal'}[item.flag]"
-                                />-->
-                            </div>
-                            <div ng-bind="item.kind"
-                                 ng-class="{true: 'subConditionHeightLight',false: ''}[item.flag]"
-                                 style="display: inline-block"></div>
-                        </li>
-                    </ul>
-                </li>
-            </ul>
+            <div class="limitDaySec" ng-style="limitDayList">
+                <ul class="limitDayContent">
+                    <li style="color:#1478FF">[限行区域]</li>
+                    <li ng-bind="initArea"></li>
+                    <li style="color:#1478FF">[限行车辆]</li>
+                    <li ng-bind="initCar"></li>
+                    <li style="color:#1478FF">[限行政策]</li>
+                    <li ng-bind="initPrinciple"></li>
+                </ul>
+                <div class="moreInfo" ng-click="moreInfo()">查看更多</div>
+
+            </div>
         </div>
     </div>
     <div id="map">
+        <div class="changeMapSizeDiv">
+            <button class="addBtn" ng-click="changeZoom('add')"></button>
+            <button class="subBtn" ng-click="changeZoom('sub')"></button>
+        </div>
     </div>
+</div>
+<div class="limitTodayLists">
+    <div class="closeIcon" ng-click="closeList()">
+        <img src="../img/trafficLimited/icon_close_gray.png" alt="">
+    </div>
+    <ul class="limitList" ng-repeat="each in limitList" ng-click="mapLocation(each)">
+        <li>[限行<span style="font-family: Arial">{{$index+1}}</span>]</li>
+        <li>限行区域： {{each.platelimit_area}}</li>
+        <li>限行车辆： {{each.pl_condition}}</li>
+        <li>限行政策： {{each.principle}}</li>
+    </ul>
+    <div class="noMore">
+        已显示全部结果
+    </div>
+
 </div>
 </body>
 
@@ -97,7 +150,10 @@
 <script src="../config/layer.js"></script>
 <script src="../config/peovince.js"></script>
 <script src="../lib/jquery/jquery.js"></script>
+<script src='../lib/turf/turf.min.js'></script>
 <script src="../lib/angularjs/1.4.4/angular.js"></script>
+<script src="../js/service/dataService.js"></script>
+<script src="../js/service/dataService-sMap.js"></script>
 <script src="../js/trafficLimited.js"></script>
 <script src="../js/directives/nav/nav.js"></script>
 <!-- endbuild -->

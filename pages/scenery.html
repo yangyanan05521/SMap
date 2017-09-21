@@ -12,7 +12,7 @@
 
     </style>
 </head>
-<body ng-app="scenery" ng-controller="sceneryController">
+<body ng-app="scenery" ng-controller="sceneryController" ng-keypress="GoSearch($event)">
 <nav-bar loc="locFlag"></nav-bar>
 
 <div id="container">
@@ -40,7 +40,6 @@
                            class="fl"
                            id="keywordSearch"
                            style="font-size: 12px;width: 205px;"
-                           ng-keypress="GoSearch($event)"
                     >
                     <img src="../img/scenery/searchbar_close.png" alt=""
                          ng-class="{true: 'showDeleteBtn', false: 'hideDeleteBtn'}[searchWord.length !== 0]"
@@ -166,6 +165,16 @@
         </div>
         <span></span>
     </div>
+        <div class="routeSpecial">
+            <ul class="clear" ng-init='searchHolder ="搜索全部限行信息" '>
+                <li  ng-click="changeSearch($index)"
+                     ng-repeat="each in searchClass"
+                     ng-bind="each"
+                     ng-class="{active : $index == focus}"
+                >
+                </li>
+            </ul>
+        </div>
     </div>
     <div id="map">
         <div class="changeMapSizeDiv">
