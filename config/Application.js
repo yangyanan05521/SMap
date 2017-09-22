@@ -13,7 +13,7 @@ App.Config = {
     sceneryUrl:'http://' + App.dev.host + '/smapapi',
     appRoot:'http://localhost:63342/SMAP',
     // appRoot: 'http://fs.navinfo.com/smap',
-    // appRoot:'http://' + App.dev.host ,
+    //appRoot:'http://' + App.dev.host ,
     mapboxToken:'pk.eyJ1IjoiZmFuZ2xhbmsiLCJhIjoiY2lpcjc1YzQxMDA5NHZra3NpaDAyODB4eSJ9.z6uZHccXvtyVqA5zmalfGg',
     checkServiceUrl:'http://' + App.dev.host + '/smapapi/sync/user/',
     platelimit: 'type=6&parm=0', //限行限号初始化数据为其他限行方式

@@ -338,7 +338,6 @@ angular.module("trafficLimited",["dataService","navApp"])
                 "type": "geojson",
                 "data": {
                     "type": "Feature",
-                    "properties": {},
                     "geometry": {
                         "type": "LineString",
                         "coordinates": []
@@ -411,10 +410,17 @@ angular.module("trafficLimited",["dataService","navApp"])
                var obj = $scope.originLayer;
                obj.paint['line-color'] = '#ff7474';
                $scope.originLayer.source.data = bounds;
-               if (!map.getSource('route')) {
+               if (!map.getSource('plate') && !map.getSource('route')) {
                    map.addLayer($scope.originLayer);
-               } else {
+               }else if(map.getSource('route') && map.getSource('route')._data.features.length!==0) {
                    $scope.clearLines();
+                   map.getSource('route').setData(bounds);
+               }else if(map.getSource('plate') && map.getSource('plate')._data.features.length!==0){
+                   $scope.clearPolygon();
+                   map.getSource('route').setData(bounds);
+               }else{
+                   $scope.clearLines();
+                   $scope.clearPolygon();
                    map.getSource('route').setData(bounds);
                }
                var bbox = turf.bbox(bounds);
@@ -438,9 +444,14 @@ angular.module("trafficLimited",["dataService","navApp"])
                $scope.polygonNewLayer.source.data = bounds;
                if (!map.getSource('plate') && !map.getSource('route')) {
                    map.addLayer($scope.polygonNewLayer);
-               } else if(map.getSource('route')){
+               } else if(map.getSource('route') && map.getSource('route')._data.features.length!==0){
                    $scope.clearLines();
+                   map.getSource('plate').setData(bounds);
+               }else if(map.getSource('plate') && map.getSource('plate')._data.features.length!==0){
+                   $scope.clearPolygon();
+                   map.getSource('plate').setData(bounds);
                }else{
+                   $scope.clearLines();
                    $scope.clearPolygon();
                    map.getSource('plate').setData(bounds);
                }
@@ -473,7 +484,7 @@ angular.module("trafficLimited",["dataService","navApp"])
                  $scope.noSearchResult = {
                      display:'block'
                  }
-             }else if($scope.sumCount > 10){
+             }else if($scope.sumCount > 20){
                  $scope.noSearchResult = {
                      display:'none'
                  }
@@ -482,7 +493,7 @@ angular.module("trafficLimited",["dataService","navApp"])
                  }
                  $('#content .resultList .MoreChange').css('cursor','pointer');
                  $('.MoreChange').html('查看全部搜索结果[共'+ $scope.sumCount +'条]');
-             }else if($scope.sumCount >0 && $scope.sumCount <=10){
+             }else if($scope.sumCount >0 && $scope.sumCount <= 20){
                  $scope.noSearchResult = {
                      display:'none'
                  }
@@ -494,7 +505,7 @@ angular.module("trafficLimited",["dataService","navApp"])
 
              }
          })
-         $http.post('http://fastmap.navinfo.com/smap_p/plateres/web/cond/geo?pageNum=1&pageSize=10&type='+str+'&cond='+$scope.searchWord).then(function (data) {
+         $http.post('http://fastmap.navinfo.com/smap_p/plateres/web/cond/geo?pageNum=1&pageSize=20&type='+str+'&cond='+$scope.searchWord).then(function (data) {
              $scope.searchList = [];
              var val = data.data.data;
              for (var i = 0; i < val.platelimit.length; i++) {
@@ -512,12 +523,12 @@ angular.module("trafficLimited",["dataService","navApp"])
         $scope.loadData = function(){
             pageParm = pageParm +1 ;
             console.log(pageParm);
-            var mostPage = Math.ceil($scope.sumCount/10);
+            var mostPage = Math.ceil($scope.sumCount/20);
             console.log(mostPage);
             if(pageParm > mostPage){
                 return ;
             }
-            if($scope.sumCount/10 > 2){
+            if($scope.sumCount/20 > 2){
                 if(pageParm == mostPage){
                     $('.MoreChange').html('已显示全部结果');
                     $('#content .resultList .MoreChange').css('cursor','default');
@@ -529,7 +540,7 @@ angular.module("trafficLimited",["dataService","navApp"])
                 $('#content .resultList .MoreChange').css('cursor','default');
             }
 
-            $http.post('http://fastmap.navinfo.com/smap_p/plateres/web/cond/geo?pageNum='+pageParm+'&pageSize=10&type='+$scope.typeParam+'&cond='+$scope.searchWord).then(function (data) {
+            $http.post('http://fastmap.navinfo.com/smap_p/plateres/web/cond/geo?pageNum='+pageParm+'&pageSize=20&type='+$scope.typeParam+'&cond='+$scope.searchWord).then(function (data) {
                 var val = data.data.data ;
                 for(var j=0;j<val.platelimit.length;j++){
                     $scope.searchList.push(val.platelimit[j]);
@@ -674,10 +685,10 @@ angular.module("trafficLimited",["dataService","navApp"])
             if(val.platelimit[0].type== "LineString") {
                 if (!map.getSource('plate') && !map.getSource('route')) {
                     $scope.addlines(lineCol);
-                } else if (map.getSource('route')) {
+                } else if (map.getSource('route') && map.getSource('route')._data.features.length!==0) {
                     $scope.clearLines();
                     $scope.addlines(lineCol);
-                } else if(map.getSource('plate')){
+                } else if(map.getSource('plate') && map.getSource('plate')._data.features.length!==0){
                     $scope.clearPolygon();
                     $scope.addlines(lineCol);
                 }else{
@@ -688,10 +699,10 @@ angular.module("trafficLimited",["dataService","navApp"])
             }else{
                 if (!map.getSource('plate') && !map.getSource('route')) {
                     $scope.addPolygon(lineCol);
-                } else if (map.getSource('route')) {
+                } else if (map.getSource('route') && map.getSource('route')._data.features.length!==0) {
                     $scope.clearLines();
                     $scope.addPolygon(lineCol);
-                }  else if(map.getSource('plate')){
+                }  else if(map.getSource('plate') && map.getSource('plate')._data.features.length!==0){
                     $scope.clearPolygon();
                     $scope.addPolygon(lineCol);
                 }else{
@@ -704,22 +715,11 @@ angular.module("trafficLimited",["dataService","navApp"])
         })
 
     }
-
         $scope.clearLines = function () {
             var bounds = {
                 type: 'FeatureCollection',
                 features: [],
             };
-            var source = {
-                "type": "Feature",
-                "geometry": {
-                    "type": "LineString",
-                    "coordinates": ''
-                },
-            };
-            var obj = $scope.originLayer;
-            obj.layout['visibility'] = 'none';
-            bounds.features.push(source);
             map.getSource('route').setData(bounds);
         };
 
@@ -728,16 +728,6 @@ angular.module("trafficLimited",["dataService","navApp"])
                 type: 'FeatureCollection',
                 features: [],
             };
-            var source = {
-                "type": "Feature",
-                "geometry": {
-                    "type": "Polygon",
-                    "coordinates": ''
-                },
-            };
-            var obj = $scope.polygonNewLayer;
-            obj.layout['visibility'] = 'none';
-            bounds.features.push(source);
             map.getSource('plate').setData(bounds);
         };
 
