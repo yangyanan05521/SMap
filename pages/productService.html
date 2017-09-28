@@ -64,7 +64,7 @@
                         </div>
                     </div>
                     <div ng-repeat="item in service.children" ng-click="showArrowDirect(item, $index)" >
-                        <div  style="height: 40px;width: 100% border-bottom: 1px solid #c2c7d6" class="clear">
+                        <div  style="height: 40px;width: 100%;" class="clear">
                             <div style="display: inline-block;">
                                 <div style="float: left;width: 55px;height: 40px;line-height: 40px;">
                                     <div class="dot"></div>
@@ -74,7 +74,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div style="width: 100% border-bottom: 1px solid #c2c7d6">
+                        <div style="width: 100%">
                             <div  class="showTypeList">
                                 <div ng-repeat="obj in item.children" ng-click="changeDataApiPage(item.name,obj.type, obj.name)" ng-class="{true:'selectedBg'}[obj.type === dataServiceFlag]">
                                     {{obj.name}}
@@ -117,7 +117,7 @@
                          </div>-->
                         <div  ng-click="jumpToDiv(jump.id)"
                               ng-bind="jump.name"
-                              ng-class="{true: 'jumpStyleActive', false: 'jumpStyle'}[jump.id === jumpFlag]"
+                              ng-class="{true: 'jumpStyleActive2', false: 'jumpStyle2'}[jump.id === jumpFlag]"
                         >
                         </div>
                     </div>

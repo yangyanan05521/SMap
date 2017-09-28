@@ -58,11 +58,13 @@ productServiceApp.controller('selectedController',function ($scope,JumpConstant)
         },
         {
             name: '最新施工信息',
-            id: 'constructionNumber'
+            id: 'useCase'
+          //  id: 'constructionNumber'
         },
         {
             name: '历史施工信息',
-            id: 'timequantum'
+            id: 'instructions'
+          //  id: 'timequantum'
         }
     ];
     $scope.dataServiceFlag = '';
@@ -133,7 +135,6 @@ productServiceApp.controller('selectedController',function ($scope,JumpConstant)
                 $scope.jumpFlag = id;
                 window.scrollTo(0,$('#' + id).position().top-40);
                 $scope.highLightTeg();
-
             }
         }else{
             if(id === 'apiName'){
@@ -159,7 +160,7 @@ productServiceApp.controller('selectedController',function ($scope,JumpConstant)
         var apiPage = document.getElementById('apiPage');
         var tegArr = [];
         var indexPosition = [];
-        var scrollHeight = document.body.scrollTop;
+        var scrollHeight = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop;
         var bodyHeight = document.body.clientHeight;
         var j = 0;
         for (var i = 0; i < apiPage.children.length; i++) {
@@ -171,6 +172,7 @@ productServiceApp.controller('selectedController',function ($scope,JumpConstant)
                 }
             }
         }
+
         if(bodyHeight <= 1000){ //不满足滚动条件
             if(scrollHeight === 0){
                 indexList
