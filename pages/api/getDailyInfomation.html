@@ -29,19 +29,14 @@
             </div>
             <div>
                 <div class="dotGrayDivtop"></div>
-                获取下载信息API：输入需要下载的产品ID，获取下载文件的链接信息，必须在有效期内完成下载，否则失效。
+                获取下载信息API：输入需要下载的文件名称，获取下载文件的链接信息，必须在有效期内完成下载，否则失效。
             </div>
 
         </div>
     </div>
 </div>
 
-
-
-
-
-
-<div class="apiContainer" id="useCase" style="height: 1850px">
+<div class="apiContainer" id="useCase" style="height: 1940px">
     <div class="titleContainer">
         <div class="titleContent">
             查询下载列表
@@ -65,7 +60,7 @@
             </div>
         </div>
         <div style="padding-left: 20px">
-            <table id="tableDailyRequire"
+            <table id="tableDailyRequireX"
                    data-toggle="table"
                    data-url="../data/dailyRequireParam.js"
             >
@@ -89,24 +84,47 @@
             </div>
         </div>
         <div style="padding-left: 20px">
-            <table id="dailyReturnTable"
+            <table id="tableDailyRequire"
                    data-toggle="table"
                    data-url="../data/dailyReturnParam.js"
             >
                 <thead>
                 <tr >
                     <th data-field="paramName1">一级参数</th>
-                    <th data-field="paramName2">二级参数</th>
-                    <th data-field="paramName3">三级参数</th>
                     <th data-field="type" >类型</th>
-                    <th data-field="description">说明</th>
+                    <th data-field="description">规则说明</th>
                 </tr>
                 </thead>
             </table>
         </div>
-    </div>
-    <div class="apiParamContainer">
-
+        <div style="padding-left: 20px;margin-top: 26px">
+            <table id="tableDailyRequire1"
+                   data-toggle="table"
+                   data-url="../data/dailyReturnParam1.js"
+            >
+                <thead>
+                <tr >
+                    <th data-field="paramName1">二级参数</th>
+                    <th data-field="type" >类型</th>
+                    <th data-field="description">规则说明</th>
+                </tr>
+                </thead>
+            </table>
+        </div>
+        <div style="padding-left: 20px;margin-top: 26px">
+            <table id="tableDailyRequire2"
+                   data-toggle="table"
+                   data-url="../data/dailyReturnParam2.js"
+            >
+                <thead>
+                <tr >
+                    <th data-field="paramName1">三级参数</th>
+                    <th data-field="type" >类型</th>
+                    <th data-field="description">规则说明</th>
+                </tr>
+                </thead>
+            </table>
+        </div>
     </div>
 
     <div style="padding:40px 10px 20px 10px;width: 690px; height:288px;">
@@ -120,20 +138,19 @@
             <div style="height: 30px;text-align: center;font-weight: normal;background: #eafaf5;color: #33c993;line-height: 30px;font-size: 14px;">返回正确结果</div>
             <textarea readonly style="width: 315px;height: 245px;resize: none;border:none">
 {
+  "code": 200,
   "data": {
     "ProductList": [
       {
-        "create_time": "2017-03-20 19:14:59",
-        "file_type": "mif/mid",
-        "product_id": "MIFG_17SUM_Q_BJ_MIF_0315_2",
+        "create_time": "2017-09-14 10:34:55",
+        "file_name": "MIFG_CSV_17Q3_AH_D_3_0914.csv",
+        "file_type": "csv",
         "version": "17SUM"
       }
     ]
   },
-  "errcode": 200,
-  "errmsg": "OK: Successful processing of the request"
+  "msg": "OK: Successful processing of the request"
 }
-
 
             </textarea>
         </div>
@@ -141,21 +158,14 @@
             <div style="height: 30px;text-align: center;font-weight: normal;background: #fcf0f4;color: #ff6699;line-height: 30px;font-size: 14px;">返回错误结果</div>
              <textarea readonly style="width: 315px;height: 245px;resize: none;border:none">
 {
-  "code": "401",
-  "data": "%E7%94%A8%E6%88%B7%E5%AF%86%E9%92%A5%E4%B8%8D%E5%AD%98%E5%9C%A8%EF%BC%8C%E8%AF%B7%E6%A3%80%E6%9F%A5",
-  "msg": "Unauthorized: The requested resource needs authentication"
+  "code": "102",
+  "data": null,
+  "msg": "User key is invalid"
 }
-
-
             </textarea>
         </div>
     </div>
     <div style="width:678px;font-size: 12px;color: #e66a98;margin-top: 10px;padding-left: 20px;">注: 这里的描述是经过URL编码的，解码之后的意思是“用户密钥不存在，请检查”。</div>
-
-
-
-
-
     <div class="apiParamContainer">
         <div class="apiServiceExampleContainer">
             <div class="dotGrayDiv"></div>
@@ -169,9 +179,15 @@
         <div class="apiExampleRequireParam">请求参数</div>
         <div style="width: 690px;padding: 0px 100px 0px 64px">
             <div class="apiExampleRequireParamContainer">
-                <div class="apiExampleParamList">ak</div>
+                <div class="apiExampleParamList">Username</div>
                 <div class="apiInputWidth">
-                    <input type="text" class="api_Input" id="ak">
+                    <input type="text" class="api_Input" id="username">
+                </div>
+            </div>
+            <div class="apiExampleRequireParamContainer">
+                <div class="apiExampleParamList">Password</div>
+                <div class="apiInputWidth">
+                    <input type="text" class="api_Input" id="Password1">
                 </div>
             </div>
             <div class="apiExampleRequireParamContainer">
@@ -187,52 +203,44 @@
             <div class="apiResultButtonsContainer">
                 <div class="apiButtonOfUndo" onclick="limitResult()">运行</div>
                 <div style="float: left;padding: 0px 0px 0px 20px;width: 60px">
-                    <div class="apiButtonOfReset" onclick="resetResult()">重置</div>
+                    <div class="apiButtonOfReset" onclick="resetResult(0)">重置</div>
                 </div>
             </div>
             <div class="apiShowResultName">返回结果</div>
             <div class="apiResultOfContainer" >
                 <textarea  readonly class="textContent" id="limitContent">
 {
+  "code": 200,
   "data": {
-    "download": {
-      "file_md5": "3ed6d641f2c3f72a582b876549e4f340",
-      "file_name": "mifg_17sum_bj_d_9.csv",
-      "file_size": "170",
-      "file_type": "csv",
-      "url": "http://fs.navinfo.com/smapapi/data/download/file/idbg_17sum_bj_q_1.idbg.sq3.tar.gz?ak=E782445785fetch087mkde11&p1=idbg&p2=sqlite_17sum_bj_d_1&signature=CVskGmFCMBm0Pufg3H1G5g&expires=1492140507 "
-    },
-    "product": {
-      "format": "nimif-g",
-      "product_id": "MIFG_17SUM_D_BJ_CSV_0317_10",
-      "updateImportance": "General",
-      "updateType": "Increment",
-      "version": "17SUM"
-    },
-    "release": {
-      "provider": "CoreMap",
-      "create_time": "2017-03-20 21:05:06"
-    }
+    "ProductList": [
+      {
+        "create_time": "2017-09-14 10:34:55",
+        "file_name": "MIFG_CSV_17Q3_AH_D_3_0914.csv",
+        "file_type": "csv",
+        "version": "17SUM"
+      },
+      {
+        "create_time": "2017-09-14 10:34:55",
+        "file_name": "MIFG_CSV_17Q3_ZJ1_D_5_0914.csv",
+        "file_type": "csv",
+        "version": "17SUM"
+      },
+      {
+        "create_time": "2017-09-14 10:34:55",
+        "file_name": "MIFG_CSV_17Q3_ZJ2_D_6_0914.csv",
+        "file_type": "csv",
+        "version": "17SUM"
+      }
+    ]
   },
-  "errcode": 200,
-  "errmsg": "OK: Successful processing of the request"
+  "msg": "OK: Successful processing of the request"
 }
-
 
                 </textarea>
             </div>
         </div>
     </div>
 </div>
-
-
-
-
-
-
-
-
-
 <div class="apiContainer" id="instructions" style="height: 1850px">
     <div class="titleContainer">
         <div class="titleContent">
@@ -257,7 +265,7 @@
             </div>
         </div>
         <div style="padding-left: 20px">
-            <table id="tableDailyRequire"
+            <table id="tableDailyRequireO"
                    data-toggle="table"
                    data-url="../data/dailyCheckParam.js"
             >
@@ -287,10 +295,36 @@
                 <thead>
                 <tr >
                     <th data-field="paramName1">一级参数</th>
-                    <th data-field="paramName2">二级参数</th>
-                    <th data-field="paramName3">三级参数</th>
                     <th data-field="type" >类型</th>
-                    <th data-field="description">说明</th>
+                    <th data-field="description">规则说明</th>
+                </tr>
+                </thead>
+            </table>
+        </div>
+        <div style="padding-left: 20px;margin-top: 26px">
+            <table id="dailyReturnTable1"
+                   data-toggle="table"
+                   data-url="../data/dailyReturnCheckParam1.js"
+            >
+                <thead>
+                <tr >
+                    <th data-field="paramName1">二级参数</th>
+                    <th data-field="type" >类型</th>
+                    <th data-field="description">规则说明</th>
+                </tr>
+                </thead>
+            </table>
+        </div>
+        <div style="padding-left: 20px;margin-top: 26px">
+            <table id="dailyReturnTable2"
+                   data-toggle="table"
+                   data-url="../data/dailyReturnCheckParam2.js"
+            >
+                <thead>
+                <tr >
+                    <th data-field="paramName1">三级参数</th>
+                    <th data-field="type" >类型</th>
+                    <th data-field="description">规则说明</th>
                 </tr>
                 </thead>
             </table>
@@ -311,29 +345,30 @@
             <div style="height: 30px;text-align: center;font-weight: normal;background: #eafaf5;color: #33c993;line-height: 30px;font-size: 14px;">返回正确结果</div>
             <textarea readonly style="width: 315px;height: 245px;resize: none;border:none">
 {
+  "code": 200,
   "data": {
     "download": {
-      "file_md5": "3ed6d641f2c3f72a582b876549e4f340",
-      "file_name": "mifg_17sum_bj_d_9.csv",
-      "file_size": "170",
+      "file_md5": "76ef1ec3ccab4340b845749867f08e7f",
+      "file_name": "MIFG_CSV_17Q3_AH_D_3_0914.csv",
+      "file_size": "1",
       "file_type": "csv",
-      "url": "http://fs.navinfo.com/smapapi/data/download/file/idbg_17sum_bj_q_1.idbg.sq3.tar.gz?ak=E782445785fetch087mkde11&p1=idbg&p2=sqlite_17sum_bj_d_1&signature=CVskGmFCMBm0Pufg3H1G5g&expires=1492140507 "
+      "url": "http://fs.navinfo.com/smapapi/data/download/file/MIFG_CSV_17Q3_AH_D_3_0914.csv?ak=E502475242fetch147ycdf58&p1=mifg&p2=csv_17sum_ah_d_28&signature=8C3-tZ-AYsaSKwm35zZnhQ&expires=1505358326"
     },
     "product": {
       "format": "nimif-g",
-      "product_id": "MIFG_17SUM_D_BJ_CSV_0317_10",
+      "product_id": "MIFG_CSV_17Q3_AH_D_3_0914",
       "updateImportance": "General",
       "updateType": "Increment",
       "version": "17SUM"
     },
     "release": {
-      "provider": "CoreMap",
-      "create_time": "2017-03-20 21:05:06"
+      "create_time": "2017-09-14 10:34:55",
+      "provider": "CoreMap"
     }
   },
-  "errcode": 200,
-  "errmsg": "OK: Successful processing of the request"
+  "msg": "OK: Successful processing of the request"
 }
+
 
             </textarea>
         </div>
@@ -342,18 +377,14 @@
              <textarea readonly style="width: 315px;height: 245px;resize: none;border:none">
 {
   "code": "404",
-  "data": " %E6%9C%AA%E6%89%BE%E5%88%B0%E8%AF%B7%E6%B1%82%E7%9A%84%E8%B5%84%E6%BA%90%EF%BC%8C%E8%AF%B7%E7%A1%AE%E8%AE%A4%EF%BC%81",
+  "data": null,
   "msg": "Not Found: The requested resource was not found"
 }
+
             </textarea>
         </div>
     </div>
     <div style="width:678px;font-size: 12px;color: #e66a98;margin-top: 10px;padding-left: 20px;">注：这里的描述是经过URL编码的，解码之后的意思是“未找到请求的资源，请确认！</div>
-
-
-
-
-
     <div class="apiParamContainer">
         <div class="apiServiceExampleContainer">
             <div class="dotGrayDiv"></div>
@@ -367,15 +398,21 @@
         <div class="apiExampleRequireParam">请求参数</div>
         <div style="width: 690px;padding: 0px 100px 0px 64px">
             <div class="apiExampleRequireParamContainer">
-                <div class="apiExampleParamList">ak</div>
+                <div class="apiExampleParamList">username</div>
                 <div class="apiInputWidth">
-                    <input readonly type="text" class="api_Input" value="E782445785fetch087mkde11">
+                    <input type="text" class="api_Input"  id="loadUsername">
                 </div>
             </div>
             <div class="apiExampleRequireParamContainer">
-                <div class="apiExampleParamList">spec</div>
+                <div class="apiExampleParamList">password</div>
                 <div class="apiInputWidth">
-                    <input readonly type="text" class="api_Input" value="MIFG_17SUM_D_BJ_CSV_0317_10">
+                    <input type="text" class="api_Input" id="loadPassword">
+                </div>
+            </div>
+            <div class="apiExampleRequireParamContainer">
+                <div class="apiExampleParamList">file_name</div>
+                <div class="apiInputWidth">
+                    <input type="text" class="api_Input" id="loadFileName">
                 </div>
             </div>
         </div>
@@ -392,29 +429,30 @@
             <div class="apiResultOfContainer" >
                 <textarea  readonly class="textContent">
 {
+  "code": 200,
   "data": {
     "download": {
-      "file_md5": "3ed6d641f2c3f72a582b876549e4f340",
-      "file_name": "mifg_17sum_bj_d_9.csv",
-      "file_size": "170",
+      "file_md5": "76ef1ec3ccab4340b845749867f08e7f",
+      "file_name": "MIFG_CSV_17Q3_AH_D_3_0914.csv",
+      "file_size": "1",
       "file_type": "csv",
-      "url": "http://fs.navinfo.com/smapapi/data/download/file/idbg_17sum_bj_q_1.idbg.sq3.tar.gz?ak=E782445785fetch087mkde11&p1=idbg&p2=sqlite_17sum_bj_d_1&signature=CVskGmFCMBm0Pufg3H1G5g&expires=1492140507 "
+      "url": "http://fs.navinfo.com/smapapi/data/download/file/MIFG_CSV_17Q3_AH_D_3_0914.csv?ak=E502475242fetch147ycdf58&p1=mifg&p2=csv_17sum_ah_d_28&signature=8C3-tZ-AYsaSKwm35zZnhQ&expires=1505358326"
     },
     "product": {
       "format": "nimif-g",
-      "product_id": "MIFG_17SUM_D_BJ_CSV_0317_10",
+      "product_id": "MIFG_CSV_17Q3_AH_D_3_0914",
       "updateImportance": "General",
       "updateType": "Increment",
       "version": "17SUM"
     },
     "release": {
-      "provider": "CoreMap",
-      "create_time": "2017-03-20 21:05:06"
+      "create_time": "2017-09-14 10:34:55",
+      "provider": "CoreMap"
     }
   },
-  "errcode": 200,
-  "errmsg": "OK: Successful processing of the request"
+  "msg": "OK: Successful processing of the request"
 }
+
 
                 </textarea>
             </div>

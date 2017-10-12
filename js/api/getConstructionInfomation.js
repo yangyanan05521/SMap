@@ -4,6 +4,7 @@
 var constructionContentData = '';
 var timequantumContentData = '';
 function  constructionInit() {
+    $('#apiVersion').html('版本信息：V1.0.4');
     $('#ak').val(App.Config.construction.constructionAk);
     $('#constructionUsername').val(App.Config.construction.constructionUsername);
     $('#constructionPassword').val(App.Config.construction.constructionPassword);

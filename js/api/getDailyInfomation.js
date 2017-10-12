@@ -5,13 +5,20 @@ var specData = "nimif-g";
 var dailyListContentData = '';
 var dailyparam2Data = "MIFG_17SUM_D_BJ_CSV_0317_10";
 var dailyContentData = '';
+var fileName = "MIFG_CSV_17Q3_AH_D_3_0914.csv";
 
 function initList() {
-    $("#ak").val(App.Config.daily.ak);
+    $("#username").val(App.Config.daily.username);
     $("#spec").val(specData);
+    $("#Password1").val(App.Config.daily.password);
+    $('#loadUsername').val(App.Config.daily.username);
+    $('#loadPassword').val(App.Config.daily.password);
+    $('#loadFileName').val(fileName);
+    $('#apiVersion').html('版本信息：V1.0.2');
 
     $.post(App.Config.daily.queryUrl, {
-        ak:App.Config.daily.ak,
+        username:App.Config.daily.username,
+        password:App.Config.daily.password,
         spec:specData
     }, function (data) {
         dailyListContentData = JSON.stringify(data, null, 4);
@@ -20,7 +27,7 @@ function initList() {
 }
 function dailyListResult() {
     $.post(App.Config.daily.queryUrl, {
-        ak: $('#ak').val(),
+        username: $('#username').val(),
         spec: $('#spec').val(),
     }, function (data) {
         $('#dailyListContent').val(JSON.stringify(data, null, 4));
@@ -28,21 +35,23 @@ function dailyListResult() {
 }
 function resetResult(type) {
     if( 0 === type) {
-        $("#ak").val(App.Config.daily.ak);
+        $("#username").val(App.Config.daily.username);
         $("#spec").val(specData);
+        $("#Password1").val(App.Config.daily.password);
         $('#dailyListContent').val(dailyListContentData);
         return;
     }
-    $("#dailyparam1").val(App.Config.daily.ak);
-    $("#dailyparam2").val(dailyparam2Data);
+    $("#loadUsername").val(App.Config.daily.username);
+    $('#loadPassword').val(App.Config.daily.password);
+    $('#loadFileName').val(fileName);
     $('#dailyContent').val(dailyContentData);
 }
 
 function initDl() {
-    $("#dailyparam1").val(App.Config.daily.ak);
+    $("#dailyparam1").val(App.Config.daily.username);
     $("#dailyparam2").val(dailyparam2Data);
     $.post(App.Config.daily.downloadUrl, {
-        ak:App.Config.daily.ak,
+        username:App.Config.daily.username,
         product_id:"MIFG_17SUM_D_BJ_CSV_0317_10"
     }, function (data) {
         dailyContentData = JSON.stringify(data, null, 4);
@@ -51,15 +60,16 @@ function initDl() {
 }
 $(function () {
     initList();
-    initDl();
+  //  initDl();
 });
 
 
 function dailyResult() {
     /*$.post(App.Util.getFullUrl('data/download'), param, function (data) {*/
     $.post(App.Config.daily.downloadUrl, {
-        ak: $('#dailyparam1').val(),
-        product_id: $('#dailyparam2').val(),
+        username: $('#loadUsername').val(),
+        password: $('#loadPassword').val(),
+        file_name: $('#loadFileName').val(),
     }, function (data) {
         $('#dailyContent').val(JSON.stringify(data, null, 4));
     });

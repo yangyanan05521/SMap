@@ -3,7 +3,7 @@
  */
 var App = {};
 App.dev={
-    //host:'123.207.83.126:8088'
+   // host:'123.207.83.126:8088'
     host:'192.168.15.41:9999'
 };
 
@@ -11,14 +11,16 @@ App.dev={
 App.Config = {
     serviceUrl: 'http://fs.navinfo.com/smapapi',
     sceneryUrl:'http://' + App.dev.host + '/smapapi',
-    //appRoot:'http://localhost:63342/SMAP',
-    // appRoot: 'http://fs.navinfo.com/smap',
-    appRoot:'http://' + App.dev.host ,
+    appRoot:'http://localhost:63342/SMAP',
+    //appRoot: 'http://fs.navinfo.com/smap',
+    //appRoot:'http://' + App.dev.host ,
     mapboxToken:'pk.eyJ1IjoiZmFuZ2xhbmsiLCJhIjoiY2lpcjc1YzQxMDA5NHZra3NpaDAyODB4eSJ9.z6uZHccXvtyVqA5zmalfGg',
-    checkServiceUrl:'http://' + App.dev.host + '/smapapi/sync/user/',
+    //checkServiceUrl:'http://' + App.dev.host + '/smapapi/sync/user/',
+    checkServiceUrl:'http://fs.navinfo.com/smapapi/sync/user/',
     platelimit: 'type=6&parm=0', //限行限号初始化数据为其他限行方式
     daily:{//日产品更新服务URL
-        ak:"E782445785fetch087mkde11",
+        username:"SMap",
+        password:"A502475242fetch147ycdf58",
         queryUrl:"http://fs.navinfo.com/smapapi/data/query",
         downloadUrl:"http://fs.navinfo.com/smapapi/data/download"
     },
@@ -50,7 +52,7 @@ App.Temp = {
 };
 App.Util = {
     getFullUrl: function (url) {
-        return App.Config.serviceUrl + '/' + url + '?ak=' + (App.Temp.accessToken || '');
+        return App.Config.sceneryUrl + '/' + url + '?ak=' + (App.Temp.accessToken || '');
     },
     //获取当前token
     getToken:function () {

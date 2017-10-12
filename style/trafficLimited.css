@@ -208,11 +208,14 @@ html,body{
     cursor:pointer ;
 }
 .allCities .allCitiesList > li .citiesBox ul li:not([title='北京']){
-    cursor:not-allowed ;
+    cursor: default ;
 }
 .allCities .allCitiesList > li .citiesBox ul li> span:hover,
 .allCities .allCitiesList > li .citiesBox ul li> span:active{
     color: #1478FF;
+}
+.allCities .allCitiesList > li .citiesBox ul li:not([title='北京']) span:hover{
+    color: #6d788a;
 }
 
 /***********分割线****/
@@ -425,7 +428,6 @@ li{
     width: 165px;
     padding: 5px 10px 0px 10px;
     background-color: #ffffff;
-    display: none;
     position: absolute;
     z-index: -1;
     top:30px;
@@ -439,6 +441,7 @@ li{
     padding: 0px;
     padding-bottom: 2px;
     border-bottom: 1px solid #d0e4ff;
+    text-align: justify;
 }
 #content .selectedDiv .limitDaySec li{
     margin: 0px;
@@ -469,14 +472,28 @@ li{
     max-height: calc(100% - 96px);
 }
 #content .resultList ul{
-    padding: 5px 20px;
+    padding: 5px 10px 5px 20px;
     margin: 0px;
     cursor: pointer;
+    text-align: justify;
 }
 #content .resultList ul:hover{
     background-color: #498cff;
     color:#fff;
 }
+#content .resultList ul:active{
+    background-color: #498cff;
+    color:#fff;
+}
+.ulActive{
+    background-color: #498cff;
+    color:#fff;
+}
+.ulNormal{
+    background-color: #fff;
+    color: #6d788a;
+}
+
 #content .resultList ul li{
     line-height: 20px;
 }
@@ -523,7 +540,9 @@ li{
     border-top:1px solid #d0e4ff;
     cursor:pointer;
 }
-
+#content .resultList .MoreChange .activeBorder{
+    border-bottom:1px solid rgba(20, 120, 255,0.8);
+}
 .deleteBtn{
     display: none;
 }
@@ -547,7 +566,7 @@ li{
     position: absolute;
     right:220px;
     top:102px;
-    width:174px;
+    width:11%;
     height: calc(100% - 146px);
     border: 1px solid #c5cee6;
     box-sizing: border-box;
@@ -577,8 +596,12 @@ li{
     margin: 0;
     line-height: 20px;
 }
+.limitTodayLists .todayActive{
+    background-color: #498cff;
+    color:#fff;
+}
 .limitTodayLists .noMore{
-    color:#1478FF;
+    color:#6d788a;
     width:155px;
     margin-left:5px;
     font-size:12px;

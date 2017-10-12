@@ -2,6 +2,8 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="renderer" content="webkit">
     <!-- build:css ../style/trafficLimited.css -->
 
     <link href='../lib/mapbox/mapbox-gl.css' rel='stylesheet' />
@@ -15,12 +17,12 @@
 
 <div id="container">
     <div style="height: 56px;text-align: left;font-weight: 400;margin-bottom: 2px">
-        <ul style="list-style: none;margin: 0;vertical-align: middle;padding: 22px 0 0 0;display: flex">
+        <ul style="list-style: none;margin: 0;vertical-align: middle;padding: 22px 0 0 0;display: flex; display: -ms-flexbox;">
             <li style="font-size: 14px;color:rgba(0,0,0,0.7)">您现在的位置:</li>
             <li style="font-size: 14px;padding-left: 5px;color:rgba(0,0,0,0.7)">在线体验</li>
 
             <li style="font-size: 20px;padding:0 4px 0 9px;margin-top: -4px; ;color:rgba(0,0,0,1)">></li>
-            <li style="font-size: 14px;padding-left: 5px; color:rgba(0,0,0,0.7)">限行数据展示</li>
+            <li style="font-size: 14px;padding-left: 5px; color:rgba(0,0,0,0.7)">限行数据查询</li>
         </ul>
     </div>
     <div id="content">
@@ -53,8 +55,8 @@
 
         </div>
         <div class="resultList ng-cloak" ng-style="resultStyle">
-            <ul ng-click="mapLocation(item)" ng-repeat="item in searchList">
-                <li>[限行<span style="font-family: Arial">{{$index+1}}</span>]</li>
+            <ul ng-click="mapLocation(item,$index)" ng-repeat="item in searchList">
+                <li>[&nbsp;限行<span style="font-family: Arial">{{$index+1}}</span>&nbsp;]</li>
                 <li>限行区域： {{item.platelimit_area}}</li>
                 <li>限行车辆： {{item.pl_condition}}</li>
                 <li>限行政策： {{item.principle}}</li>
@@ -108,11 +110,11 @@
             </div>
             <div class="limitDaySec" ng-style="limitDayList">
                 <ul class="limitDayContent">
-                    <li style="color:#1478FF">[限行区域]</li>
+                    <li style="color:#1478FF">[&nbsp;限行区域&nbsp;]</li>
                     <li ng-bind="initArea"></li>
-                    <li style="color:#1478FF">[限行车辆]</li>
+                    <li style="color:#1478FF">[&nbsp;限行车辆&nbsp;]</li>
                     <li ng-bind="initCar"></li>
-                    <li style="color:#1478FF">[限行政策]</li>
+                    <li style="color:#1478FF">[&nbsp;限行政策&nbsp;]</li>
                     <li ng-bind="initPrinciple"></li>
                 </ul>
                 <div class="moreInfo" ng-click="moreInfo()">查看更多</div>
@@ -131,8 +133,8 @@
     <div class="closeIcon" ng-click="closeList()">
         <img src="../img/trafficLimited/icon_close_gray.png" alt="">
     </div>
-    <ul class="limitList" ng-repeat="each in limitList" ng-click="mapLocation(each)">
-        <li>[限行<span style="font-family: Arial">{{$index+1}}</span>]</li>
+    <ul class="limitList" ng-repeat="each in limitList" ng-click="mapLocation(each,$index)">
+        <li>[&nbsp;限行<span style="font-family: Arial">{{$index+1}}</span>&nbsp;]</li>
         <li>限行区域： {{each.platelimit_area}}</li>
         <li>限行车辆： {{each.pl_condition}}</li>
         <li>限行政策： {{each.principle}}</li>
