@@ -52,7 +52,7 @@ App.Temp = {
 };
 App.Util = {
     getFullUrl: function (url) {
-        return App.Config.sceneryUrl + '/' + url + '?ak=' + (App.Temp.accessToken || '');
+        return App.Config.serviceUrl + '/' + url + '?ak=' + (App.Temp.accessToken || '');
     },
     //获取当前token
     getToken:function () {

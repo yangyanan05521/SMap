@@ -1,0 +1,12 @@
+{
+    "road": {
+        "road_add": "21.32",
+        "road_del": "324.11",
+        "road_update": "321.212"
+    },
+    "poi": {
+        "poi_add": "21",
+        "poi_del": "324",
+        "poi_update": "321"
+    }
+}

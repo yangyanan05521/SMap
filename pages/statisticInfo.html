@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="statistic" style="background-color: #fff">
+<head>
+    <meta charset="UTF-8">
+    <title>SMap</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="renderer" content="webkit">
+    <!-- build:css ../style/warehouse.css -->
+
+
+    <link rel="stylesheet" href="../lib/angular-nvd3/nv.d3.css">
+    <link rel="stylesheet" href="../style/index.css">
+    <!-- endbuild -->
+
+    <style>
+        [ng\:cloak], [ng-cloak], .ng-cloak {
+            display: none;
+        }
+        /*滚动条*/
+
+        *::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+            background:#F4F5F7;
+            padding-top: 2px;
+            padding-bottom: 2px;
+        }
+
+        *::-webkit-scrollbar-thumb {
+            -moz-border-radius: 3px;
+            -webkit-border-radius: 3px;
+            border-radius: 3px;
+            background:rgba(189,196,210,0.5);
+        }
+        li{
+            list-style: none;
+        }
+        body, h1, h2, h3, h4, h5, h6, p, ol, ul, dl, dt, input, p, dd {
+            margin: 0px;
+            padding: 0px;
+        }
+        .col{
+            float: left;
+            font-size: 14px;
+            width: 150px;
+            line-height: 50px;
+            color:rgba(0,0,0,0.8);
+            text-align: center;
+        }
+        .clear:after {
+            content: "";
+            clear: both;
+            display: block;
+            height: 0;
+            overflow: hidden;
+            visibility: hidden;
+        }
+        .picIntro{
+            display: inline-block;
+            width:15px;
+            height: 15px;
+            border-radius: 50%;
+        }
+        .hoverStyle li:hover{
+            background-color: #e5e5e5;
+            cursor: pointer;
+        }
+        .hoverStylePro li:hover{
+            background-color: #e5e5e5;
+            cursor: pointer;
+        }
+        .selected{
+            background-color: #e5e5e5;
+        }
+    </style>
+
+</head>
+<body ng-controller="statisticController" style="min-width: 1200px;text-align: center;background-color: #fff;overflow-y: scroll">
+<div  style="display: inline-block; width: 83%;margin-top:15px;background: white;">
+    <div class="clear" style="margin-bottom:20px">
+        <div style="float:left;width: 740px;background: white; text-align: left;">
+            <div style="width: 740px;">
+                <div  style="width: 640px;">
+                    <div style="padding: 0px 0px 16px 0px;">
+                        <div style="height: 30px; width: 100%;display: inline-block;padding-left: 8px;">
+                            <div class="produceListIcon"></div>
+                            <div class="productStrategyText"><span style="font-size: 18px;color: #74666c">日出品列表</span></div>
+                        </div>
+                    </div>
+                    <div>
+                        <div style="height: 40px;padding: 0px 0px 0px 0px">
+                            <div style="background: #74666c;height: 100%;width: 100%;display: inline-block">
+                                <div style="float: left;width:100px">
+                                    <div style="padding: 10px 0px 0px 10px;text-align: center">
+                                        <span>NO</span>
+                                    </div>
+                                </div>
+                                <div style="float: left;width:120px">
+                                    <div style="padding: 10px 0px 0px 10px;text-align: center">
+                                        <span>日期</span>
+                                    </div>
+                                </div>
+                                <div style="float: left;width:170px">
+                                    <div style="padding: 10px 0px 0px 0px;text-align: center">
+                                        <span>开始时间</span>
+                                    </div>
+                                </div>
+                                <div style="float: left;width:170px">
+                                    <div style="padding: 10px 0px 0px 30px;text-align: center">
+                                        <span>结束时间</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+                            <ul style="height: 246px;overflow:auto" class="hoverStyle">
+                                <li  style="height: 50px;" ng-repeat="item in dayProduceData" ng-click="showStaticInfo(item,$index)">
+                                    <div class="col" style="width:100px" ng-bind="$index+1"></div>
+                                    <div class="col" style="width:140px" ng-bind="item.belong_time"></div>
+                                    <div class="col" ng-bind="item.begin_time"></div>
+                                    <div class="col"  style="width:210px" ng-bind="item.end_time"></div>
+                                </li>
+                            </ul>
+                        </div>
+                        <div  style="border-top: 1px solid #74666c;padding-top: 20px">
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div style="float: left;background: white;">
+            <div style="float:left;width: 550px;height: 350px">
+                <div style="
+             position: fixed;
+             width: 550px;
+             height: 350px;
+             border: 1px solid #bdc3d3;
+             overflow: auto;
+             border-radius: 3px;
+             padding: 10px 20px 0px 20px">
+                    <div style="width: 100%; height: 30px; border-bottom: 1px solid #bdc3d3;">
+                        <div style="float: left" class="darkBlueIcon"></div>
+                        <div style="float: left;padding-left: 10px"><span style="font-size: 14px; color: #25396e">各要素比例</span></div>
+                    </div>
+                    <div style="width: 100%; height: 180px" class="clear">
+                        <div style="width:40%;height: 180px;float:left;margin-right: 5%" >
+                            <nvd3 options='options' data='chartPoitop'></nvd3>
+                        </div>
+                        <div style="width:40%;height: 180px;float:left" >
+                            <nvd3 options='options' data='chartRoadtop'></nvd3>
+                        </div>
+                        <ul style="font-size: 12px;color:rgba(0,0,0,0.8);" >
+                            <li style="margin:0px 10px 10px;padding-top: 10px;"><span class="picIntro" style="background-color:#FFA657;float:left"></span>新增</li>
+                            <li style="margin: 10px;"><span class="picIntro" style="background-color: #FFD0A1;float:left"></span>修改</li>
+                            <li style="margin: 10px;"><span class="picIntro" style="background-color: #6CBD6C;float:left" ></span>删除</li>
+                        </ul>
+                    </div>
+                    <div style="width: 100%; height: 30px;border-bottom: 1px solid #bdc3d3;display: inline-block">
+                        <div style="float: left; width: 50%;text-align: left"><span style="font-size: 14px; color: #25396e">POI</span></div>
+                        <div style="float: left;width: 50%;text-align: left"><span style="font-size: 14px; color: #25396e">道路</span></div>
+                    </div>
+                    <div style="width: 100%; height: 100px; display: inline-block">
+                        <div style="float: left; width: 50%;text-align: left">
+                            <div style="padding: 5px 0">
+                                <span style="font-size: 14px; color: #25396e" >新增:&nbsp;{{poiData.poi_add}}个</span>
+                            </div>
+                            <div style="padding: 5px 0">
+                                <span style="font-size: 14px; color: #25396e">删除:&nbsp;{{poiData.poi_del}}个</span>
+                            </div>
+                            <div style="padding: 5px 0">
+                                <span style="font-size: 14px; color: #25396e">修改:&nbsp;{{poiData.poi_update}}个</span>
+                            </div>
+                        </div>
+                        <div style="float: left; width: 50%;text-align: left">
+                            <div style="padding: 5px 0">
+                                <span style="font-size: 14px; color: #25396e">新增:&nbsp;{{roadData.road_add}}公里</span>
+                            </div>
+                            <div style="padding: 5px 0">
+                                <span style="font-size: 14px; color: #25396e">删除:&nbsp;{{roadData.road_del}}公里</span>
+                            </div>
+                            <div style="padding: 5px 0">
+                                <span style="font-size: 14px; color: #25396e">修改:&nbsp;{{roadData.road_update}}公里</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <div class="clear">
+        <div style="float:left;width: 740px;background: white; text-align: left;">
+            <div style="width: 740px;">
+                <div  style="width: 640px;">
+                    <div style="padding: 0px 0px 16px 0px;">
+                        <div style="height: 30px; width: 100%;display: inline-block;padding-left: 8px;">
+                            <div class="produceListIcon"></div>
+                            <div class="productStrategyText"><span style="font-size: 18px;color: #74666c">省份列表</span></div>
+                        </div>
+                    </div>
+                    <div>
+                        <div style="height: 40px;padding: 0px 0px 0px 0px">
+                            <div style="background: #74666c;height: 100%;width: 100%;display: inline-block">
+                                <div style="float: left;width:100px">
+                                    <div style="padding: 10px 0px 0px 10px;text-align: center">
+                                        <span>NO</span>
+                                    </div>
+                                </div>
+                                <div style="float: left;width:120px">
+                                    <div style="padding: 10px 0px 0px 10px;text-align: center">
+                                        <span>省份</span>
+                                    </div>
+                                </div>
+                                <div style="float: left;width:170px">
+                                    <div style="padding: 10px 0px 0px 0px;text-align: center">
+                                        <span>开始时间</span>
+                                    </div>
+                                </div>
+                                <div style="float: left;width:170px">
+                                    <div style="padding: 10px 0px 0px 30px;text-align: center">
+                                        <span>结束时间</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+                            <ul style="height: 246px;overflow:auto" class="hoverStylePro">
+                                <li  style="height: 50px" ng-click="showProInfo(one,$index)" ng-repeat="one in captionDetail">
+                                    <div class="col" style="width:100px" ng-bind="$index+1"></div>
+                                    <div class="col" style="width:130px" ng-bind="one.provincenm"></div>
+                                    <div class="col" ng-bind="one.begin_time"></div>
+                                    <div class="col"  style="width:222px" ng-bind="one.end_time"></div>
+                                </li>
+                            </ul>
+                        </div>
+                        <div  style="border-top: 1px solid #74666c;padding-top: 20px">
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div style="float: left;background: white;">
+            <div style="float:left;width: 550px;height: 350px">
+                <div style="
+             position: fixed;
+             width: 550px;
+             height: 350px;
+             border: 1px solid #bdc3d3;
+             overflow: auto;
+             border-radius: 3px;
+             padding: 10px 20px 0px 20px">
+                    <div style="width: 100%; height: 30px; border-bottom: 1px solid #bdc3d3;">
+                        <div style="float: left" class="darkBlueIcon"></div>
+                        <div style="float: left;padding-left: 10px"><span style="font-size: 14px; color: #25396e">各要素比例</span></div>
+                    </div>
+                    <div style="width: 100%; height: 180px;" class="clear">
+                        <div style="width:40%;height: 180px;float:left;margin-right: 5%" >
+                            <nvd3 options='options' data='data1'></nvd3>
+                        </div>
+                        <div style="width:40%;height: 180px;float:left" >
+                            <nvd3 options='options' data='data1'></nvd3>
+                        </div>
+                        <ul style="font-size: 12px;color:rgba(0,0,0,0.8);">
+                            <li style="margin:0px 10px 10px;padding-top: 10px"><span class="picIntro" style="background-color:#FFA657;float:left"></span>新增</li>
+                            <li style="margin: 10px"><span class="picIntro" style="background-color: #FFD0A1;float:left"></span>修改</li>
+                            <li style="margin: 10px"><span class="picIntro" style="background-color: #6CBD6C;float:left" ></span>删除</li>
+                        </ul>
+                    </div>
+                    <div style="width: 100%; height: 30px;border-bottom: 1px solid #bdc3d3;display: inline-block">
+                        <div style="float: left; width: 50%;text-align: left"><span style="font-size: 14px; color: #25396e">POI</span></div>
+                        <div style="float: left;width: 50%;text-align: left"><span style="font-size: 14px; color: #25396e">道路</span></div>
+                    </div>
+                    <div style="width: 100%; height: 100px; display: inline-block">
+                        <div style="float: left; width: 50%;text-align: left">
+                            <div style="padding: 5px 0">
+                                <span style="font-size: 14px; color: #25396e" >新增:&nbsp;{{poiCap.poi_add}}个</span>
+                            </div>
+                            <div style="padding: 5px 0">
+                                <span style="font-size: 14px; color: #25396e">删除:&nbsp;{{poiCap.poi_del}}个</span>
+                            </div>
+                            <div style="padding: 5px 0">
+                                <span style="font-size: 14px; color: #25396e">修改:&nbsp;{{poiCap.poi_update}}个</span>
+                            </div>
+                        </div>
+                        <div style="float: left; width: 50%;text-align: left">
+                            <div style="padding: 5px 0">
+                                <span style="font-size: 14px; color: #25396e">新增:&nbsp;{{roadCap.road_add}}公里</span>
+                            </div>
+                            <div style="padding: 5px 0">
+                                <span style="font-size: 14px; color: #25396e">删除:&nbsp;{{roadCap.road_del}}公里</span>
+                            </div>
+                            <div style="padding: 5px 0">
+                                <span style="font-size: 14px; color: #25396e">修改:&nbsp;{{roadCap.road_update}}公里</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+
+</body>
+<!-- build:js ../js/statisticInfo.js -->
+
+<script src="../lib/angularjs/1.4.4/angular.js"></script>
+<script src="../config/Application.js"></script>
+<script src="../lib/angular-popups/angular-popups.js"></script>
+<script src="../lib/angular-nvd3/d3.js"></script>
+<script src="../lib/angular-nvd3/nv.d3.js"></script>
+<script src="../lib/angular-nvd3/angular-nvd3.js"></script>
+<script src="../lib/jquery/jquery.js"></script>
+<script src="../config/Application.js"></script>
+<script src="../js/service/dataService.js"></script>
+<script src="../js/service/dataService-sMap.js"></script>
+<script src="../js/menu.js"></script>
+<script src="../js/statisticInfo.js"></script>
+<script src="../js/directives/nav/nav.js"></script>
+<!-- endbuild -->
+
+<script src="../js/directives/nav/nav.js"></script>
+
+<!-- endbuild -->
+
+</html>
