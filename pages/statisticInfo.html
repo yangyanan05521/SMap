@@ -38,6 +38,7 @@
         body, h1, h2, h3, h4, h5, h6, p, ol, ul, dl, dt, input, p, dd {
             margin: 0px;
             padding: 0px;
+            font-family: 'Microsoft YaHei','微软雅黑',Arial,sans-serif;
         }
         .col{
             float: left;
@@ -72,15 +73,45 @@
         .selected{
             background-color: #e5e5e5;
         }
+        .totalCount{
+            margin: 20px 0px;
+        }
+        .totalCount span{
+            font-size: 16px;
+            color:#25396e;
+        }
+
+        @media screen and (min-width: 1441px) {
+            .screenWidth {width:78%}
+        }
+
+        @media screen and (max-width: 1440px) {
+            .screenWidth {width: 88%}
+        }
+
     </style>
 
 </head>
-<body ng-controller="statisticController" style="min-width: 1200px;text-align: center;background-color: #fff;overflow-y: scroll">
-<div  style="display: inline-block; width: 83%;margin-top:15px;background: white;">
-    <div class="clear" style="margin-bottom:20px">
-        <div style="float:left;width: 740px;background: white; text-align: left;">
-            <div style="width: 740px;">
-                <div  style="width: 640px;">
+<body ng-controller="statisticController" style="min-width: 1300px;text-align: center;background-color: #fff;overflow-y: scroll">
+<div  class='screenWidth' style="display: inline-block; margin-top:15px;background: white;">
+    <div style="font-size:36px;color:red">日出品情况统计</div>
+    <div class="totalCount">
+        <span style="font-size: 20px">累计：</span>
+        <span style="display: inline-block;background-position: 50% 80%" class="darkBlueIcon"></span>
+        <span style="font-size: 20px;margin-right: 15px">POI</span>
+        <span class="ng-cloak" style="color:#EB3941;margin-right: 10px">新增：{{sumPoi.poi_add}}个</span>
+        <span class="ng-cloak" style="color:#EB3941;margin-right: 10px">修改：{{sumPoi.poi_update}}个</span>
+        <span class="ng-cloak" style="color:#EB3941;margin-right: 10px">删除：{{sumPoi.poi_del}}个</span>
+        <span style="display: inline-block;margin-left: 35px;background-position: 50% 80%" class="darkBlueIcon"></span>
+        <span style="font-size: 20px;margin-right: 15px">道路</span>
+        <span class="ng-cloak" style="color:#EB3941;margin-right: 10px">新增：{{sumRoad.road_add}}公里</span>
+        <span class="ng-cloak" style="color:#EB3941;margin-right: 10px">修改：{{sumRoad.road_update}}公里</span>
+        <span class="ng-cloak" style="color:#EB3941;margin-right: 10px">删除：{{sumRoad.road_del}}公里</span>
+    </div>
+    <div class="clear" style="margin:20px 0px">
+        <div style="float:left;width: 56%;background: white; text-align: left;">
+            <div>
+                <div  style="width:640px;">
                     <div style="padding: 0px 0px 16px 0px;">
                         <div style="height: 30px; width: 100%;display: inline-block;padding-left: 8px;">
                             <div class="produceListIcon"></div>
@@ -90,7 +121,7 @@
                     <div>
                         <div style="height: 40px;padding: 0px 0px 0px 0px">
                             <div style="background: #74666c;height: 100%;width: 100%;display: inline-block">
-                                <div style="float: left;width:100px">
+                                <div style="float: left;width:80px">
                                     <div style="padding: 10px 0px 0px 10px;text-align: center">
                                         <span>NO</span>
                                     </div>
@@ -115,7 +146,7 @@
                         <div>
                             <ul style="height: 246px;overflow:auto" class="hoverStyle">
                                 <li  style="height: 50px;" ng-repeat="item in dayProduceData" ng-click="showStaticInfo(item,$index)">
-                                    <div class="col" style="width:100px" ng-bind="$index+1"></div>
+                                    <div class="col" style="width:80px" ng-bind="$index+1"></div>
                                     <div class="col" style="width:140px" ng-bind="item.belong_time"></div>
                                     <div class="col" ng-bind="item.begin_time"></div>
                                     <div class="col"  style="width:210px" ng-bind="item.end_time"></div>
@@ -130,10 +161,10 @@
             </div>
         </div>
         <div style="float: left;background: white;">
-            <div style="float:left;width: 550px;height: 350px">
+            <div style="float:left;width:87%;height: 350px">
                 <div style="
-             position: fixed;
-             width: 550px;
+             position: absolute;
+             width: 33%;
              height: 350px;
              border: 1px solid #bdc3d3;
              overflow: auto;
@@ -163,24 +194,24 @@
                     <div style="width: 100%; height: 100px; display: inline-block">
                         <div style="float: left; width: 50%;text-align: left">
                             <div style="padding: 5px 0">
-                                <span style="font-size: 14px; color: #25396e" >新增:&nbsp;{{poiData.poi_add}}个</span>
+                                <span style="font-size: 14px; color: #25396e" class="ng-cloak" >新增:&nbsp;{{poiData.poi_add}}个</span>
                             </div>
                             <div style="padding: 5px 0">
-                                <span style="font-size: 14px; color: #25396e">删除:&nbsp;{{poiData.poi_del}}个</span>
+                                <span style="font-size: 14px; color: #25396e" class="ng-cloak">删除:&nbsp;{{poiData.poi_del}}个</span>
                             </div>
                             <div style="padding: 5px 0">
-                                <span style="font-size: 14px; color: #25396e">修改:&nbsp;{{poiData.poi_update}}个</span>
+                                <span style="font-size: 14px; color: #25396e" class="ng-cloak">修改:&nbsp;{{poiData.poi_update}}个</span>
                             </div>
                         </div>
                         <div style="float: left; width: 50%;text-align: left">
                             <div style="padding: 5px 0">
-                                <span style="font-size: 14px; color: #25396e">新增:&nbsp;{{roadData.road_add}}公里</span>
+                                <span style="font-size: 14px; color: #25396e" class="ng-cloak">新增:&nbsp;{{roadData.road_add}}公里</span>
                             </div>
                             <div style="padding: 5px 0">
-                                <span style="font-size: 14px; color: #25396e">删除:&nbsp;{{roadData.road_del}}公里</span>
+                                <span style="font-size: 14px; color: #25396e" class="ng-cloak">删除:&nbsp;{{roadData.road_del}}公里</span>
                             </div>
                             <div style="padding: 5px 0">
-                                <span style="font-size: 14px; color: #25396e">修改:&nbsp;{{roadData.road_update}}公里</span>
+                                <span style="font-size: 14px; color: #25396e" class="ng-cloak">修改:&nbsp;{{roadData.road_update}}公里</span>
                             </div>
                         </div>
                     </div>
@@ -190,9 +221,9 @@
 
     </div>
     <div class="clear">
-        <div style="float:left;width: 740px;background: white; text-align: left;">
-            <div style="width: 740px;">
-                <div  style="width: 640px;">
+        <div style="float:left;width: 56%;background: white; text-align: left;">
+            <div>
+                <div  style="width:640px;">
                     <div style="padding: 0px 0px 16px 0px;">
                         <div style="height: 30px; width: 100%;display: inline-block;padding-left: 8px;">
                             <div class="produceListIcon"></div>
@@ -202,7 +233,7 @@
                     <div>
                         <div style="height: 40px;padding: 0px 0px 0px 0px">
                             <div style="background: #74666c;height: 100%;width: 100%;display: inline-block">
-                                <div style="float: left;width:100px">
+                                <div style="float: left;width:80px">
                                     <div style="padding: 10px 0px 0px 10px;text-align: center">
                                         <span>NO</span>
                                     </div>
@@ -227,7 +258,7 @@
                         <div>
                             <ul style="height: 246px;overflow:auto" class="hoverStylePro">
                                 <li  style="height: 50px" ng-click="showProInfo(one,$index)" ng-repeat="one in captionDetail">
-                                    <div class="col" style="width:100px" ng-bind="$index+1"></div>
+                                    <div class="col" style="width:80px" ng-bind="$index+1"></div>
                                     <div class="col" style="width:130px" ng-bind="one.provincenm"></div>
                                     <div class="col" ng-bind="one.begin_time"></div>
                                     <div class="col"  style="width:222px" ng-bind="one.end_time"></div>
@@ -242,10 +273,10 @@
             </div>
         </div>
         <div style="float: left;background: white;">
-            <div style="float:left;width: 550px;height: 350px">
+            <div style="float:left;width:34%;height: 350px">
                 <div style="
-             position: fixed;
-             width: 550px;
+             position: absolute;
+             width: 33%;
              height: 350px;
              border: 1px solid #bdc3d3;
              overflow: auto;
@@ -257,10 +288,10 @@
                     </div>
                     <div style="width: 100%; height: 180px;" class="clear">
                         <div style="width:40%;height: 180px;float:left;margin-right: 5%" >
-                            <nvd3 options='options' data='data1'></nvd3>
+                            <nvd3 options='options' data='chartPoibot'></nvd3>
                         </div>
                         <div style="width:40%;height: 180px;float:left" >
-                            <nvd3 options='options' data='data1'></nvd3>
+                            <nvd3 options='options' data='chartRoadbot'></nvd3>
                         </div>
                         <ul style="font-size: 12px;color:rgba(0,0,0,0.8);">
                             <li style="margin:0px 10px 10px;padding-top: 10px"><span class="picIntro" style="background-color:#FFA657;float:left"></span>新增</li>
@@ -275,24 +306,24 @@
                     <div style="width: 100%; height: 100px; display: inline-block">
                         <div style="float: left; width: 50%;text-align: left">
                             <div style="padding: 5px 0">
-                                <span style="font-size: 14px; color: #25396e" >新增:&nbsp;{{poiCap.poi_add}}个</span>
+                                <span style="font-size: 14px; color: #25396e" class="ng-cloak">新增:&nbsp;{{poiCap.poi_add}}个</span>
                             </div>
                             <div style="padding: 5px 0">
-                                <span style="font-size: 14px; color: #25396e">删除:&nbsp;{{poiCap.poi_del}}个</span>
+                                <span style="font-size: 14px; color: #25396e" class="ng-cloak">删除:&nbsp;{{poiCap.poi_del}}个</span>
                             </div>
                             <div style="padding: 5px 0">
-                                <span style="font-size: 14px; color: #25396e">修改:&nbsp;{{poiCap.poi_update}}个</span>
+                                <span style="font-size: 14px; color: #25396e" class="ng-cloak">修改:&nbsp;{{poiCap.poi_update}}个</span>
                             </div>
                         </div>
                         <div style="float: left; width: 50%;text-align: left">
                             <div style="padding: 5px 0">
-                                <span style="font-size: 14px; color: #25396e">新增:&nbsp;{{roadCap.road_add}}公里</span>
+                                <span style="font-size: 14px; color: #25396e" class="ng-cloak">新增:&nbsp;{{roadCap.road_add}}公里</span>
                             </div>
                             <div style="padding: 5px 0">
-                                <span style="font-size: 14px; color: #25396e">删除:&nbsp;{{roadCap.road_del}}公里</span>
+                                <span style="font-size: 14px; color: #25396e" class="ng-cloak">删除:&nbsp;{{roadCap.road_del}}公里</span>
                             </div>
                             <div style="padding: 5px 0">
-                                <span style="font-size: 14px; color: #25396e">修改:&nbsp;{{roadCap.road_update}}公里</span>
+                                <span style="font-size: 14px; color: #25396e" class="ng-cloak">修改:&nbsp;{{roadCap.road_update}}公里</span>
                             </div>
                         </div>
                     </div>

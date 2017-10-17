@@ -4,6 +4,8 @@ statistic.controller("statisticController", ['$scope', 'dsEdit', '$location', "$
     //初始化表格数据
     $scope.poiData = [];
     $scope.roadData = [];
+    $scope.sumPoi = [] ;
+    $scope.sumRoad = [];
     $scope.dayProduceData = [];
     $scope.captionDetail = [];
     $scope.poiCap = [];
@@ -14,7 +16,7 @@ statistic.controller("statisticController", ['$scope', 'dsEdit', '$location', "$
     $scope.oneParam = '';
 
     //饼图参数配置
-    $scope.options= {
+    $scope.options = {
         chart: {
             type: "pieChart",
             height: 200,
@@ -28,101 +30,90 @@ statistic.controller("statisticController", ['$scope', 'dsEdit', '$location', "$
             y: function (d) {
                 return d.y;
             },
-            labelSunbeamLayout: true,
-                legend: {
-                 margin: {
-                    top:-10,
-                    right:0,
+            labelSunbeamLayout: false,
+            legend: {
+                margin: {
+                    top: -10,
+                    right: 0,
                     bottom: 0,
                     left: 0
                 },
             },
-            color:['#FFA657','#FFD0A1','#6CBD6C']
+            color: ['#FFA657', '#FFD0A1', '#6CBD6C']
         }
     }
     $scope.chartPoitop = [];
-    $scope.chartPoibot = [] ;
+    $scope.chartPoibot = [];
     $scope.chartRoadtop = [];
-    $scope.chartRoadbot = [] ;
-    $scope.data1 = [
-        {
-            key: "25%",
-            y: 8
-        },
-        {
-            key: "30%",
-            y: 3
-        },
-
-        {
-            key: "12%",
-            y: 9
-        }
-
-    ];
+    $scope.chartRoadbot = [];
 
     //初始化数据
-    $http.post('http://192.168.15.41:9999/smapapi/collect/smapquerystat?parm={"type":"S_ALL_LIST"}').then(function (data) {
+    $http.post('http://fastmap.navinfo.com/smap/collect/smapquerystat?parm={"type":"S_ALLDB_STAT"}').then(function (data) {
+        var val = data.data;
+        if (val.poi.poi_add == '') {
+            val.poi.poi_add = 0;
+        }
+        if (val.poi.poi_update == '') {
+            val.poi.poi_update = 0;
+        }
+        if (val.poi.poi_del == '') {
+            val.poi.poi_del = 0;
+        }
+        if (val.road.road_add == '') {
+            val.road.road_add = 0;
+        }
+        if (val.road.road_update == '') {
+            val.road.road_update = 0;
+        }
+        if (val.road.road_del == '') {
+            val.road.road_del = 0;
+        }
+        $scope.sumPoi = val.poi;
+        $scope.sumRoad = val.road;
+    })
+    $http.post('http://fastmap.navinfo.com/smap/collect/smapquerystat?parm={"type":"S_ALL_LIST"}').then(function (data) {
         var static = data.data;
         $scope.dayProduceData = static;
         $scope.convListId = static[0].conv_list_id;
-
-        // $http.post('http://192.168.15.41:9999/smapapi/collect/smapquerystat?parm={"type":"S_FULL_STAT","conv_list_id":' + $scope.convListId + '}').then(function (data) {
-        //     $('.hoverStyle li').eq(0).addClass('selected');
-        //     var val = data.data;
-        //     $scope.poiData = val.poi;
-        //     $scope.roadData = val.road;
-        // });
-        $http.post('testS1.json').then(function (data) {
+        //根据conv_list_id读取总数据
+        $http.post('http://fastmap.navinfo.com/smap/collect/smapquerystat?parm={"type":"S_FULL_STAT","conv_list_id":' + $scope.convListId + '}').then(function (data) {
             $('.hoverStyle li').eq(0).addClass('selected');
             var val = data.data;
             $scope.poiData = val.poi;
             $scope.roadData = val.road;
+            if (val.poi.poi_add == '') {
+                val.poi.poi_add = 0;
+            }
+            if (val.poi.poi_update == '') {
+                val.poi.poi_update = 0;
+            }
+            if (val.poi.poi_del == '') {
+                val.poi.poi_del = 0;
+            }
+            if (val.road.road_add == '') {
+                val.road.road_add = 0;
+            }
+            if (val.road.road_update == '') {
+                val.road.road_update = 0;
+            }
+            if (val.road.road_del == '') {
+                val.road.road_del = 0;
+            }
+
+            //获取poi饼图数据
             var addCount = parseInt(val.poi.poi_add);
             var updateCount = parseInt(val.poi.poi_update);
-            var delCount = parseInt(val.poi.poi_del) ;
-            var sum = addCount + updateCount + delCount;
-            var addPer = (addCount / sum * 100) ;
-            var updatePer = (updateCount / sum * 100) ;
-            var delPer = (delCount / sum * 100);
+            var delCount = parseInt(val.poi.poi_del);
+            $scope.pieData(addCount, updateCount, delCount, 'poiTop');
+            //获取road饼图数据
             var roadAdd = parseInt(val.road.road_add);
             var roadupdate = parseInt(val.road.road_update);
-            var roaddel = parseInt(val.road.road_del) ;
-            var sumRoad = roadAdd + roadupdate + roaddel ;
-            var roadAddper = (roadAdd / sumRoad * 100) ;
-            var roadUpdateper = (roadupdate / sumRoad * 100) ;
-            var roadDelper = (roaddel / sumRoad * 100) ;
-            $scope.chartPoitop = [
-                {
-                    key: addPer.toFixed(2)+'%' ,
-                    y: addCount
-                },
-                {
-                    key: updatePer.toFixed(2)+'%',
-                    y: updateCount
-                },
-                {
-                    key: delPer.toFixed(2)+'%' ,
-                    y: delCount
-                }
-            ];
-            $scope.chartRoadtop = [
-                {
-                    key: roadAddper.toFixed(2)+'%' ,
-                    y: roadAdd
-                },
-                {
-                    key: roadUpdateper.toFixed(2)+'%',
-                    y: roadupdate
-                },
-                {
-                    key: roadDelper.toFixed(2)+'%' ,
-                    y: roaddel
-                }
-            ];
+            var roaddel = parseInt(val.road.road_del);
+            $scope.pieData(roadAdd, roadupdate, roaddel, 'roadTop');
+
         })
     }).then(function () {
-        $http.post('http://192.168.15.41:9999/smapapi/collect/smapquerystat?parm={"type":"S_ONE_LIST","conv_list_id":' + $scope.convListId + '}').then(function (data) {
+        $http.post('http://fastmap.navinfo.com/smap/collect/smapquerystat?parm={"type":"S_ONE_LIST","conv_list_id":' + $scope.convListId + '}').then(function (data) {
             var caption = data.data;
             $scope.captionDetail = caption;
             $scope.runtimeId = caption[0].runtime_id;
@@ -130,10 +121,41 @@ statistic.controller("statisticController", ['$scope', 'dsEdit', '$location', "$
                 type: "S_ONE_STAT",
                 runtimeid: $scope.runtimeId
             });
-            $http.post('http://192.168.15.41:9999/smapapi/collect/smapquerystat?parm='+$scope.oneParam).then(function (data) {
+            $http.post('http://fastmap.navinfo.com/smap/collect/smapquerystat?parm=' + $scope.oneParam).then(function (data) {
+                $('.hoverStylePro li').eq(0).addClass('selected');
                 var oneState = data.data;
                 $scope.poiCap = oneState.poi;
                 $scope.roadCap = oneState.road;
+
+                if (oneState.poi.poi_add == '') {
+                    oneState.poi.poi_add = 0;
+                }
+                if (oneState.poi.poi_update == '') {
+                    oneState.poi.poi_update = 0;
+                }
+                if (oneState.poi.poi_del == '') {
+                    oneState.poi.poi_del = 0;
+                }
+                if (oneState.road.road_add == '') {
+                    oneState.road.road_add = 0;
+                }
+                if (oneState.road.road_update == '') {
+                    oneState.road.road_update = 0;
+                }
+                if (oneState.road.road_del == '') {
+                    oneState.road.road_del = 0;
+                }
+
+                //获取poi饼图数据
+                var addCount = parseInt(oneState.poi.poi_add);
+                var updateCount = parseInt(oneState.poi.poi_update);
+                var delCount = parseInt(oneState.poi.poi_del);
+                $scope.pieData(addCount, updateCount, delCount, 'poiBot');
+                //获取road饼图数据
+                var roadAdd = parseInt(oneState.road.road_add);
+                var roadupdate = parseInt(oneState.road.road_update);
+                var roaddel = parseInt(oneState.road.road_del);
+                $scope.pieData(roadAdd, roadupdate, roaddel, 'roadBot');
             });
         });
     });
@@ -142,32 +164,90 @@ statistic.controller("statisticController", ['$scope', 'dsEdit', '$location', "$
     $scope.showStaticInfo = function (item, index) {
         $('.hoverStyle li').eq(index).addClass('selected').siblings().removeClass('selected');
         console.log(item.conv_list_id);
-        $http.post('http://192.168.15.41:9999/smapapi/collect/smapquerystat?parm={"type":"S_FULL_STAT","conv_list_id":' + item.conv_list_id + '}').then(function (data) {
+        $http.post('http://fastmap.navinfo.com/smap/collect/smapquerystat?parm={"type":"S_FULL_STAT","conv_list_id":' + item.conv_list_id + '}').then(function (data) {
             var val = data.data;
             $scope.poiData = val.poi;
             $scope.roadData = val.road;
-            console.log(val);
+            if (val.poi.poi_add == '') {
+                val.poi.poi_add = 0;
+            }
+            if (val.poi.poi_update == '') {
+                val.poi.poi_update = 0;
+            }
+            if (val.poi.poi_del == '') {
+                val.poi.poi_del = 0;
+            }
+            if (val.road.road_add == '') {
+                val.road.road_add = 0;
+            }
+            if (val.road.road_update == '') {
+                val.road.road_update = 0;
+            }
+            if (val.road.road_del == '') {
+                val.road.road_del = 0;
+            }
+
+            //获取poi饼图数据
+            var addCount = parseInt(val.poi.poi_add);
+            var updateCount = parseInt(val.poi.poi_update);
+            var delCount = parseInt(val.poi.poi_del);
+            $scope.pieData(addCount, updateCount, delCount, 'poiTop');
+            //获取road饼图数据
+            var roadAdd = parseInt(val.road.road_add);
+            var roadupdate = parseInt(val.road.road_update);
+            var roaddel = parseInt(val.road.road_del);
+            $scope.pieData(roadAdd, roadupdate, roaddel, 'roadTop');
+
         }).then(function () {
-            $http.post('http://192.168.15.41:9999/smapapi/collect/smapquerystat?parm={"type":"S_ONE_LIST","conv_list_id":' + item.conv_list_id + '}').then(function (data) {
+            $http.post('http://fastmap.navinfo.com/smap/collect/smapquerystat?parm={"type":"S_ONE_LIST","conv_list_id":' + item.conv_list_id + '}').then(function (data) {
                 var dataList = data.data;
                 $scope.captionDetail = dataList;
-                if(dataList[0]) {                     //存在无省份的情况，无runtime_id
+                if (dataList[0]) {                     //存在无省份的情况，无runtime_id
                     var runId = dataList[0].runtime_id;
                     $scope.oneParam = JSON.stringify({
                         type: "S_ONE_STAT",
                         runtimeid: runId
                     });
-                    $http.post('http://192.168.15.41:9999/smapapi/collect/smapquerystat?parm=' + $scope.oneParam).then(function (data) {
+                    $http.post('http://fastmap.navinfo.com/smap/collect/smapquerystat?parm=' + $scope.oneParam).then(function (data) {
+                        $('.hoverStylePro li').eq(0).addClass('selected');
                         var oneState = data.data;
                         $scope.poiCap = oneState.poi;
                         $scope.roadCap = oneState.road;
+                        if (oneState.poi.poi_add == '') {
+                            oneState.poi.poi_add = 0;
+                        }
+                        if (oneState.poi.poi_update == '') {
+                            oneState.poi.poi_update = 0;
+                        }
+                        if (oneState.poi.poi_del == '') {
+                            oneState.poi.poi_del = 0;
+                        }
+                        if (oneState.road.road_add == '') {
+                            oneState.road.road_add = 0;
+                        }
+                        if (oneState.road.road_update == '') {
+                            oneState.road.road_update = 0;
+                        }
+                        if (oneState.road.road_del == '') {
+                            oneState.road.road_del = 0;
+                        }
+
+                        //获取poi饼图数据
+                        var addCount = parseInt(oneState.poi.poi_add);
+                        var updateCount = parseInt(oneState.poi.poi_update);
+                        var delCount = parseInt(oneState.poi.poi_del);
+                        $scope.pieData(addCount, updateCount, delCount, 'poiBot');
+                        //获取road饼图数据
+                        var roadAdd = parseInt(oneState.road.road_add);
+                        var roadupdate = parseInt(oneState.road.road_update);
+                        var roaddel = parseInt(oneState.road.road_del);
+                        $scope.pieData(roadAdd, roadupdate, roaddel, 'roadBot');
                     });
                 }
             });
         });
-
-
     }
+
     //点击省份列表
     $scope.showProInfo = function (item, index) {
         $('.hoverStylePro li').eq(index).addClass('selected').siblings().removeClass('selected');
@@ -175,12 +255,109 @@ statistic.controller("statisticController", ['$scope', 'dsEdit', '$location', "$
             type: "S_ONE_STAT",
             runtimeid: item.runtime_id
         });
-        $http.post('http://192.168.15.41:9999/smapapi/collect/smapquerystat?parm=' + $scope.thirdParam).then(function (data) {
+        $http.post('http://fastmap.navinfo.com/smap/collect/smapquerystat?parm=' + $scope.thirdParam).then(function (data) {
             var oneState = data.data;
             $scope.poiCap = oneState.poi;
             $scope.roadCap = oneState.road;
+            if (oneState.poi.poi_add == '') {
+                oneState.poi.poi_add = 0;
+            }
+            if (oneState.poi.poi_update == '') {
+                oneState.poi.poi_update = 0;
+            }
+            if (oneState.poi.poi_del == '') {
+                oneState.poi.poi_del = 0;
+            }
+            if (oneState.road.road_add == '') {
+                oneState.road.road_add = 0;
+            }
+            if (oneState.road.road_update == '') {
+                oneState.road.road_update = 0;
+            }
+            if (oneState.road.road_del == '') {
+                oneState.road.road_del = 0;
+            }
+
+            //获取poi饼图数据
+            var addCount = parseInt(oneState.poi.poi_add);
+            var updateCount = parseInt(oneState.poi.poi_update);
+            var delCount = parseInt(oneState.poi.poi_del);
+            $scope.pieData(addCount, updateCount, delCount, 'poiBot');
+            //获取road饼图数据
+            var roadAdd = parseInt(oneState.road.road_add);
+            var roadupdate = parseInt(oneState.road.road_update);
+            var roaddel = parseInt(oneState.road.road_del);
+            $scope.pieData(roadAdd, roadupdate, roaddel, 'roadBot');
         });
     }
 
+    //饼图poi数据
+    $scope.pieData = function (addCount, updateCount, delCount, param) {
+        var sum = addCount + updateCount + delCount;
+        var addPer = (addCount / sum * 100);
+        var updatePer = (updateCount / sum * 100);
+        var delPer = (delCount / sum * 100);
+        if (param === 'poiTop') {
+            $scope.chartPoitop = [
+                {
+                    key: addPer.toFixed(2) + '%',
+                    y: addCount
+                },
+                {
+                    key: updatePer.toFixed(2) + '%',
+                    y: updateCount
+                },
+                {
+                    key: delPer.toFixed(2) + '%',
+                    y: delCount
+                }
+            ];
+        } else if (param === 'roadTop') {
+            $scope.chartRoadtop = [
+                {
+                    key: addPer.toFixed(2) + '%',
+                    y: addCount
+                },
+                {
+                    key: updatePer.toFixed(2) + '%',
+                    y: updateCount
+                },
+                {
+                    key: delPer.toFixed(2) + '%',
+                    y: delCount
+                }
+            ];
+        } else if (param === 'poiBot') {
+            $scope.chartPoibot = [
+                {
+                    key: addPer.toFixed(2) + '%',
+                    y: addCount
+                },
+                {
+                    key: updatePer.toFixed(2) + '%',
+                    y: updateCount
+                },
+                {
+                    key: delPer.toFixed(2) + '%',
+                    y: delCount
+                }
+            ];
+        } else {
+            $scope.chartRoadbot = [
+                {
+                    key: addPer.toFixed(2) + '%',
+                    y: addCount
+                },
+                {
+                    key: updatePer.toFixed(2) + '%',
+                    y: updateCount
+                },
+                {
+                    key: delPer.toFixed(2) + '%',
+                    y: delCount
+                }
+            ];
+        }
+    }
 
 }]);
