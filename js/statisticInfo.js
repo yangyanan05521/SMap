@@ -101,14 +101,14 @@ statistic.controller("statisticController", ['$scope', 'dsEdit', '$location', "$
             }
 
             //获取poi饼图数据
-            var addCount = parseInt(val.poi.poi_add);
-            var updateCount = parseInt(val.poi.poi_update);
-            var delCount = parseInt(val.poi.poi_del);
+            var addCount = parseFloat(val.poi.poi_add);
+            var updateCount = parseFloat(val.poi.poi_update);
+            var delCount = parseFloat(val.poi.poi_del);
             $scope.pieData(addCount, updateCount, delCount, 'poiTop');
             //获取road饼图数据
-            var roadAdd = parseInt(val.road.road_add);
-            var roadupdate = parseInt(val.road.road_update);
-            var roaddel = parseInt(val.road.road_del);
+            var roadAdd = parseFloat(val.road.road_add);
+            var roadupdate = parseFloat(val.road.road_update);
+            var roaddel = parseFloat(val.road.road_del);
             $scope.pieData(roadAdd, roadupdate, roaddel, 'roadTop');
 
         })
@@ -147,14 +147,14 @@ statistic.controller("statisticController", ['$scope', 'dsEdit', '$location', "$
                 }
 
                 //获取poi饼图数据
-                var addCount = parseInt(oneState.poi.poi_add);
-                var updateCount = parseInt(oneState.poi.poi_update);
-                var delCount = parseInt(oneState.poi.poi_del);
+                var addCount = parseFloat(oneState.poi.poi_add);
+                var updateCount = parseFloat(oneState.poi.poi_update);
+                var delCount = parseFloat(oneState.poi.poi_del);
                 $scope.pieData(addCount, updateCount, delCount, 'poiBot');
                 //获取road饼图数据
-                var roadAdd = parseInt(oneState.road.road_add);
-                var roadupdate = parseInt(oneState.road.road_update);
-                var roaddel = parseInt(oneState.road.road_del);
+                var roadAdd = parseFloat(oneState.road.road_add);
+                var roadupdate = parseFloat(oneState.road.road_update);
+                var roaddel = parseFloat(oneState.road.road_del);
                 $scope.pieData(roadAdd, roadupdate, roaddel, 'roadBot');
             });
         });
@@ -163,7 +163,6 @@ statistic.controller("statisticController", ['$scope', 'dsEdit', '$location', "$
     //点击日出品列表
     $scope.showStaticInfo = function (item, index) {
         $('.hoverStyle li').eq(index).addClass('selected').siblings().removeClass('selected');
-        console.log(item.conv_list_id);
         $http.post('http://fastmap.navinfo.com/smap/collect/smapquerystat?parm={"type":"S_FULL_STAT","conv_list_id":' + item.conv_list_id + '}').then(function (data) {
             var val = data.data;
             $scope.poiData = val.poi;
@@ -188,14 +187,14 @@ statistic.controller("statisticController", ['$scope', 'dsEdit', '$location', "$
             }
 
             //获取poi饼图数据
-            var addCount = parseInt(val.poi.poi_add);
-            var updateCount = parseInt(val.poi.poi_update);
-            var delCount = parseInt(val.poi.poi_del);
+            var addCount = parseFloat(val.poi.poi_add);
+            var updateCount = parseFloat(val.poi.poi_update);
+            var delCount = parseFloat(val.poi.poi_del);
             $scope.pieData(addCount, updateCount, delCount, 'poiTop');
             //获取road饼图数据
-            var roadAdd = parseInt(val.road.road_add);
-            var roadupdate = parseInt(val.road.road_update);
-            var roaddel = parseInt(val.road.road_del);
+            var roadAdd = parseFloat(val.road.road_add);
+            var roadupdate = parseFloat(val.road.road_update);
+            var roaddel = parseFloat(val.road.road_del);
             $scope.pieData(roadAdd, roadupdate, roaddel, 'roadTop');
 
         }).then(function () {
@@ -233,14 +232,14 @@ statistic.controller("statisticController", ['$scope', 'dsEdit', '$location', "$
                         }
 
                         //获取poi饼图数据
-                        var addCount = parseInt(oneState.poi.poi_add);
-                        var updateCount = parseInt(oneState.poi.poi_update);
-                        var delCount = parseInt(oneState.poi.poi_del);
+                        var addCount = parseFloat(oneState.poi.poi_add);
+                        var updateCount = parseFloat(oneState.poi.poi_update);
+                        var delCount = parseFloat(oneState.poi.poi_del);
                         $scope.pieData(addCount, updateCount, delCount, 'poiBot');
                         //获取road饼图数据
-                        var roadAdd = parseInt(oneState.road.road_add);
-                        var roadupdate = parseInt(oneState.road.road_update);
-                        var roaddel = parseInt(oneState.road.road_del);
+                        var roadAdd = parseFloat(oneState.road.road_add);
+                        var roadupdate = parseFloat(oneState.road.road_update);
+                        var roaddel = parseFloat(oneState.road.road_del);
                         $scope.pieData(roadAdd, roadupdate, roaddel, 'roadBot');
                     });
                 }
@@ -279,14 +278,14 @@ statistic.controller("statisticController", ['$scope', 'dsEdit', '$location', "$
             }
 
             //获取poi饼图数据
-            var addCount = parseInt(oneState.poi.poi_add);
-            var updateCount = parseInt(oneState.poi.poi_update);
-            var delCount = parseInt(oneState.poi.poi_del);
+            var addCount = parseFloat(oneState.poi.poi_add);
+            var updateCount = parseFloat(oneState.poi.poi_update);
+            var delCount = parseFloat(oneState.poi.poi_del);
             $scope.pieData(addCount, updateCount, delCount, 'poiBot');
             //获取road饼图数据
-            var roadAdd = parseInt(oneState.road.road_add);
-            var roadupdate = parseInt(oneState.road.road_update);
-            var roaddel = parseInt(oneState.road.road_del);
+            var roadAdd = parseFloat(oneState.road.road_add);
+            var roadupdate = parseFloat(oneState.road.road_update);
+            var roaddel = parseFloat(oneState.road.road_del);
             $scope.pieData(roadAdd, roadupdate, roaddel, 'roadBot');
         });
     }

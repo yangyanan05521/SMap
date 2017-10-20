@@ -5188,8 +5188,8 @@ var scenery ={
             "poiNew" :{
                 "type" : "vector",
                 "tiles": ["http://192.168.15.41:9999/smapapi/scenic/pbf/poi/{z}/{x}/{y}"],
-                'minzoom':15,
-                'maxzoom':15
+                'minzoom':7,
+                'maxzoom':12
             },
             "carportline":{
                 "type" : "vector",
@@ -6791,7 +6791,7 @@ var scenery ={
             interactive: true,
             "source" : "poiNew",
             'source-layer': 'poi',
-            zoom: 15,
+            minzoom: 6,
             layout:
                 {
                     'icon-image': 'museum-15',
@@ -6807,6 +6807,54 @@ var scenery ={
                     "text-halo-width": 0.5,
                     "text-color": "#704f17",
                 },
+            filter: ["==", "sight_level", 5 ]
+        },
+        {
+            id: 'poiNew_layer4A',
+            type: 'symbol',
+            interactive: true,
+            "source" : "poiNew",
+            'source-layer': 'poi',
+            minzoom: 9,
+            layout:
+                {
+                    'icon-image': 'museum-15',
+                    "text-field": "{name}",
+                    'text-size':12,
+                    "text-offset":[0,1.5],
+                    "text-justify": "center",
+                    "visibility": "visible"
+                },
+            paint:
+                {
+                    'icon-color': '#ff2d2d',
+                    "text-halo-width": 0.5,
+                    "text-color": "#704f17",
+                },
+            filter: ["in", "sight_level",5,4 ]
+        },
+        {
+            id: 'poiNew_layerAll',
+            type: 'symbol',
+            interactive: true,
+            "source" : "poiNew",
+            'source-layer': 'poi',
+            minzoom: 11,
+            layout:
+                {
+                    'icon-image': 'museum-15',
+                    "text-field": "{name}",
+                    'text-size':12,
+                    "text-offset":[0,1.5],
+                    "text-justify": "center",
+                    "visibility": "visible"
+                },
+            paint:
+                {
+                    'icon-color': '#ff2d2d',
+                    "text-halo-width": 0.5,
+                    "text-color": "#704f17",
+                }
         },
         {
             id: "outarea_layer",
@@ -6835,7 +6883,7 @@ var scenery ={
                 "line-cap": "round"
             },
             paint: {
-                "line-color": "yellow",
+                "line-color": "#ff7474",
                 "line-width": 1.0
             },
             minzoom: 3,

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<style>
+    audio {
+        width: 50px;
+        height: 30px;
+    }
+
+    div {
+        width: 200px;
+        height: 30px;
+    }
+    #speak{
+        display: inline-block;
+        outline: 0;
+        left: 2px;
+        top: 1px;
+        width: 16px;
+        height: 16px;
+        background: url('../img/scenery/speak_de95774.gif') no-repeat -29px 5px;
+    }
+
+</style>
+<body>
+<div>
+    <dl class="lemmaWgt-lemmaTitle lemmaWgt-lemmaTitle-">
+        <dd class="lemmaWgt-lemmaTitle-title">
+            <span class="text">[bīng mǎ yǒng]</span>
+            <a id="speak"  href="javascript:;" title="点击发声" onclick="playOrPaused()"></a>
+            </span>
+            <div id="fmp_flash_div" style="position:absolute; left:-9999px;">
+                <audio id="audio"
+                       src="../Alexandre%20Desplat%20-%20Kristofferson's%20Theme.mp3"></audio>
+            </div>
+            <h1>兵马俑</h1>
+
+        </dd>
+    </dl>
+
+</div>
+</body>
+<script>
+    function playOrPaused(){
+        if(audio.paused){
+            audio.play();
+            return;
+        }
+        audio.pause();
+        var speak = document.getElementById('speak');
+
+        if(speak.style.backgroundPosition == "-29px 5px"){
+            speak.style.backgroundPosition = "0px 5px"
+        }else{
+            speak.style.backgroundPosition = "-29px 5px";
+        }
+
+    }
+
+</script>
+</html>

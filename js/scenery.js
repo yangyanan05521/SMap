@@ -1,7 +1,7 @@
 var map = new mapboxgl.Map({
     container: 'map',
     style: scenery,
-    zoom: 10,
+    zoom: 8,
     center: [108.94704, 34.25943],
     maxZoom: 17,
     minZoom: 0,
@@ -13,15 +13,8 @@ angular.module("scenery", ['dataService', 'nvd3', 'angular-popups', 'navApp'])
     .controller("sceneryController", ["$scope", "$location", "dsEdit", "$anchorScroll", "$http", "$timeout",
         function ($scope, $location, dsEdit, $anchorScroll, $http, $timeout) {
             $scope.locFlag = 'sceneryFlag';
-            $scope.startTollGate = '';
-            $scope.endTollGate = '';
             $scope.keywordsArr = [];
             $scope.popuArr = [];
-            $scope.startFlag = false;
-            $scope.endFlag = false;
-            $scope.visible = 'true';
-            $scope.searchParameter = {};
-            $scope.linksArr = [];
             $scope.colorArr = ['rgba(255,114,86,0.8)', 'rgba(255,11486,0.3)', 'rgba(20,120,255,0.3)'];
             $scope.sceneryList = [];
             $scope.resultNum = '';
@@ -371,10 +364,7 @@ angular.module("scenery", ['dataService', 'nvd3', 'angular-popups', 'navApp'])
                             break;
                         }
                     }
-
                 }));
-
-
                 var poiId = e.features[0].properties.poiId;
                 detailsDis(poiId);
 
@@ -408,6 +398,7 @@ angular.module("scenery", ['dataService', 'nvd3', 'angular-popups', 'navApp'])
                 });
                 var poiId = item.poi_pid;
                 detailsDis(poiId);
+                $('.backBtn').show();
             }
 
             var arrImg = [];
@@ -784,6 +775,202 @@ angular.module("scenery", ['dataService', 'nvd3', 'angular-popups', 'navApp'])
                     map.addLayer($scope.lineLayer);
                 }, 0);
             }
+
+            //添加高亮poi名称图层
+            var lightTextLayer = {
+                "id": "lightTextId",
+                "type": "symbol",
+                "layout": {
+                    'icon-image': ' ',   //不设置icon图标，只为了改变text-color
+                    "text-field": "{name}",
+                    'text-size':12,
+                    "text-offset":[0,1.5],
+                    "text-justify": "center",
+                    "visibility": "visible"
+                },
+                'paint': {
+                    'text-color': "#AA9309"
+                }
+
+            };
+
+            //点击所有poi景点图层
+            var allPoipop = new mapboxgl.Popup({
+                closeButton: false,
+                closeOnClick: false,
+                offset: popupOffsets
+            });
+            //处理POINT(108.9636 34.2213)格式的数据
+            var toPointArray = function(point){
+                var start = point.indexOf('(');
+                var blank = point.indexOf(' ');
+                var end = point.indexOf(')');
+                var lng = point.substring(start+1,blank);
+                var lat = point.substring(blank+1,point.length-1);
+                var coordinates = [];
+                coordinates.push(lng);
+                coordinates.push(lat);
+                return coordinates ;
+            }
+
+            //针对不同地图显示级别在layer.js文件中定义了3个同源图层，此处根据针对这3个图层做重复的mouseover和click事件
+            //mouseover事件
+            map.on('mouseover','poiNew_layer',function (e) {
+                $scope.TollGateName = e.features[0].properties.name;
+                var pointLocation = toPointArray(e.features[0].properties.jGeometry);
+                var source = {
+                    "type": "geojson",
+                    "data":{
+                        "type":"Feature",
+                        "geometry": {
+                            "type": "Point",
+                            "coordinates":pointLocation
+                        },
+                        "properties": {
+                            "name": $scope.TollGateName
+                        }
+                    }
+                };
+                if (!map.getSource('lightTextId')) {
+                    lightTextLayer.source = source;
+                    map.addLayer(lightTextLayer);
+                }else {
+                    map.getSource('lightTextId').setData({
+                        "type": "FeatureCollection",
+                        "features": [{
+                            "type": "Feature",
+                            "properties": {"name": $scope.TollGateName},
+                            "geometry": {
+                                "type": "Point",
+                                "coordinates": pointLocation
+                            }
+                        }]
+                    })
+                }
+            });
+            map.on('mouseover','poiNew_layer4A',function (e) {
+                $scope.TollGateName = e.features[0].properties.name;
+                var pointLocation = toPointArray(e.features[0].properties.jGeometry);
+                var source = {
+                    "type": "geojson",
+                    "data":{
+                        "type":"Feature",
+                        "geometry": {
+                            "type": "Point",
+                            "coordinates":pointLocation
+                        },
+                        "properties": {
+                            "name": $scope.TollGateName
+                        }
+                    }
+                };
+                if (!map.getSource('lightTextId')) {
+                    lightTextLayer.source = source;
+                    map.addLayer(lightTextLayer);
+                }else {
+                    map.getSource('lightTextId').setData({
+                        "type": "FeatureCollection",
+                        "features": [{
+                            "type": "Feature",
+                            "properties": {"name": $scope.TollGateName},
+                            "geometry": {
+                                "type": "Point",
+                                "coordinates": pointLocation
+                            }
+                        }]
+                    })
+                }
+            });
+            map.on('mouseover','poiNew_layerAll',function (e) {
+                $scope.TollGateName = e.features[0].properties.name;
+                var pointLocation = toPointArray(e.features[0].properties.jGeometry);
+                var source = {
+                    "type": "geojson",
+                    "data":{
+                        "type":"Feature",
+                        "geometry": {
+                            "type": "Point",
+                            "coordinates":pointLocation
+                        },
+                        "properties": {
+                            "name": $scope.TollGateName
+                        }
+                    }
+                };
+                console.log(pointLocation);
+                if (!map.getSource('lightTextId')) {
+                    lightTextLayer.source = source;
+                    map.addLayer(lightTextLayer);
+                }else {
+                    map.getSource('lightTextId').setData({
+                        "type": "FeatureCollection",
+                        "features": [{
+                            "type": "Feature",
+                            "properties": {"name": $scope.TollGateName},
+                            "geometry": {
+                                "type": "Point",
+                                "coordinates": pointLocation
+                            }
+                        }]
+                    })
+                }
+            });
+            //click事件
+            map.on('click','poiNew_layer',function (e) {
+                console.log(e);
+                $scope.poiclickLoc = [];
+                $scope.TollGateName = e.features[0].properties.name;
+                var div = window.document.createElement('div');
+                div.innerHTML =
+                    '<div class="feePopDeep">'+$scope.TollGateName+'</div>' +
+                    '<div class="tipPopDeep"></div>';
+                $scope.poiclickLoc.push(e.lngLat.lng);
+                $scope.poiclickLoc.push(e.lngLat.lat);
+                allPoipop.setLngLat($scope.poiclickLoc)
+                         .setDOMContent(div)
+                         .addTo(map);
+                var pid = e.features[0].properties.pid ;
+                detailsDis(pid);
+                $('.backBtn').hide();
+                $scope.searchWord = $scope.TollGateName ;
+            });
+            map.on('click','poiNew_layer4A',function (e) {
+                console.log(e);
+                $scope.poiclickLoc = [];
+                $scope.TollGateName = e.features[0].properties.name;
+                var div = window.document.createElement('div');
+                div.innerHTML =
+                    '<div class="feePopDeep">'+$scope.TollGateName+'</div>' +
+                    '<div class="tipPopDeep"></div>';
+                $scope.poiclickLoc.push(e.lngLat.lng);
+                $scope.poiclickLoc.push(e.lngLat.lat);
+                allPoipop.setLngLat($scope.poiclickLoc)
+                    .setDOMContent(div)
+                    .addTo(map);
+                var pid = e.features[0].properties.pid ;
+                detailsDis(pid);
+                $('.backBtn').hide();
+                $scope.searchWord = $scope.TollGateName ;
+            });
+            map.on('click','poiNew_layerAll',function (e) {
+                console.log(e);
+                $scope.poiclickLoc = [];
+                $scope.TollGateName = e.features[0].properties.name;
+                var div = window.document.createElement('div');
+                div.innerHTML =
+                    '<div class="feePopDeep">'+$scope.TollGateName+'</div>' +
+                    '<div class="tipPopDeep"></div>';
+                $scope.poiclickLoc.push(e.lngLat.lng);
+                $scope.poiclickLoc.push(e.lngLat.lat);
+                allPoipop.setLngLat($scope.poiclickLoc)
+                    .setDOMContent(div)
+                    .addTo(map);
+                var pid = e.features[0].properties.pid ;
+                detailsDis(pid);
+                $('.backBtn').hide();
+                $scope.searchWord = $scope.TollGateName ;
+            });
+
         }]);
 
 //调节预览图片尺寸
