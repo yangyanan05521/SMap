@@ -129,7 +129,7 @@ li{
 }
 #container .introduce .imgDisplay .morePic{
     position: absolute;
-    right:6px;
+    left:16px;
     bottom:6px;
     color:#fff;
     cursor: pointer;
@@ -198,6 +198,64 @@ li{
     background-color: #fff;
     max-height: calc(100% - 41px);
     box-shadow: 0 1px 2px rgba(84, 98, 137, 0.3);
+}
+#container .travelTips{
+    width:340px;
+    background-color: #fff;
+    left: 10px;
+    top:39px;
+    position: absolute;
+    z-index: 5;
+    max-height: calc(100% - 41px);
+    overflow-y: auto;
+    box-shadow: 0 1px 2px rgba(84, 98, 137, 0.3);
+}
+#container .travelTips .tipBack{
+    margin:0px 10px;
+    height: 30px;
+    line-height: 30px;
+    color:#73afff;
+    font-size:12px;
+    background: url(../img/scenery/icon_back2.png) no-repeat 0px 10.5px;
+    text-indent: 20px;
+    border-bottom:1px solid #D0E4FF;
+
+}
+#container .travelTips .tipList{
+    padding:0px;
+    font-size:14px;
+    color:#333;
+    margin:0px;
+}
+#container .travelTips .tipList li{
+    padding: 0px 10px;
+}
+#container #content  .travelTips li .borderLine{
+    position:absolute;
+    bottom: 0px;
+    left:10px;
+    height: 1px;
+    width:95%;
+    background-color:#D0E4FF;
+}
+#container .travelTips .tipList .tipTitle{
+    color:#333;
+    font-size:14px;
+    line-height: 30px;
+    height: 30px;
+}
+#container .travelTips .tipList .tipSight{
+    color:#999999;
+    line-height: 20px;
+
+}
+.speak{
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    background: url('../img/scenery/icon_blue_normal.png') no-repeat center;
+    line-height: 20px;
+    vertical-align: middle;
 }
 ::-webkit-scrollbar {
     width:6px;

@@ -54,13 +54,19 @@
             </div>
         </div>
         <ul class="searchResult ng-cloak" ng-style='resultList' >
-            <li class="clear" ng-repeat="item in sceneryList" ng-click="lightLocation($index,item)" ng-mousemove="lightMark($index)" ng-mouseleave="removeMark($index)" >
+            <li class="clear" ng-repeat="item in sceneryList" ng-click="lightLocation($index,item)" ng-mouseenter="lightMark($index)" ng-mouseleave="removeMark($index)" >
                 <div class="infoDes fl ng-cloak">
                     <div class="postName dotDis">
                         <i class='numTitle' style="font-family: Arial;font-style:normal">{{$index + 1}}.</i>
                         {{item.name}}
                     </div>
                     <div class="dotDis">
+                        <a class="speak" id="speak-{{$index}}" href="javascript:;" ng-click="playOrPaused($event, $index)"></a>
+                        <div style="position:absolute; left:-9999px;">
+                            <audio id="audio-{{$index}}" preload="preload"
+                                   ng-src="{{item.audio_id}}">
+                            </audio>
+                        </div>
                         <span>{{item.sight_level+'景区'}}</span>
                         <span>{{item.sight_class}}</span>
                     </div>
@@ -163,6 +169,36 @@
         </div>
         <span></span>
     </div>
+        <div class="travelTips ng-cloak"  style="display: none">
+            <div class="tipBack">返回</div>
+            <ul class="tipList ng-cloak" >
+                <li>
+                <div class="tipTitle">
+                    攻略<i class='numTitle' style="font-family: Arial;font-style:normal">{{$index + 1}}.</i>
+                    佛教文化游
+                </div>
+                <div class="tipSight clear">
+                    <div class="fl">途径景点：</div>
+                    <div class="fl" style="width:240px">
+                                <span>
+                                    <span>东门</span><span> > </span><span>东门</span><span> > </span><span>东门</span><span> > </span><span>东门</span><span> > </span>
+                                    <span>东门</span><span> > </span><span>东门</span><span> > </span><span>东门</span><span> > </span><span>东门</span><span> > </span><span>东门</span><span> > </span>
+                                </span>
+                    </div>
+                </div>
+                <div class="tipSight clear">
+                    <div class="fl">攻略介绍：</div>
+                    <div class="fl" style="width:240px;text-align: justify">对佛教文化，历史古迹感兴趣，推荐来趟佛教文对佛教文化，历史古迹感兴趣。</div>
+                </div>
+
+
+                <div class="borderLine">
+
+                </div>
+
+            </li>
+            </ul>
+        </div>
         <!--<div class="routeSpecial">-->
             <!--<ul class="clear" ng-init='searchHolder ="搜索全部限行信息" '>-->
                 <!--<li  ng-click="changeSearch($index)"-->

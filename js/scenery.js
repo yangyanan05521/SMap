@@ -10,8 +10,8 @@ var map = new mapboxgl.Map({
 });
 
 angular.module("scenery", ['dataService', 'nvd3', 'angular-popups', 'navApp'])
-    .controller("sceneryController", ["$scope", "$location", "dsEdit", "$anchorScroll", "$http", "$timeout",
-        function ($scope, $location, dsEdit, $anchorScroll, $http, $timeout) {
+    .controller("sceneryController", ["$scope", "$location", "dsEdit", "$anchorScroll", "$http", "$timeout", "$sce",
+        function ($scope, $location, dsEdit, $anchorScroll, $http, $timeout, $sce) {
             $scope.locFlag = 'sceneryFlag';
             $scope.keywordsArr = [];
             $scope.popuArr = [];
@@ -213,11 +213,23 @@ angular.module("scenery", ['dataService', 'nvd3', 'angular-popups', 'navApp'])
                                     display: 'none'
                                 }
                                 $scope.sceneryList = data;
+                                for (var i = 0;i<$scope.sceneryList.length;i++) {
+                                    $scope.sceneryList[i].audio_id = $sce.trustAsResourceUrl($scope.sceneryList[i].audio_id);
+                                    if($scope.sceneryList[i].audio_id == ''){
+                                        $('#speak-'+i).hide();
+                                    }
+                                }
                                 $('.searchResult').show();
                                 locationMap(data);
                             } else {
                                 var dataPart = data.slice(0, 3);
                                 $scope.sceneryList = dataPart;
+                                for (var i = 0;i<$scope.sceneryList.length;i++) {
+                                    $scope.sceneryList[i].audio_id = $sce.trustAsResourceUrl($scope.sceneryList[i].audio_id);
+                                    if($scope.sceneryList[i].audio_id == ''){
+                                        $('#speak-'+i).hide();
+                                    }
+                                }
                                 $scope.moreResultlist = {
                                     display: 'block'
                                 }
@@ -552,6 +564,13 @@ angular.module("scenery", ['dataService', 'nvd3', 'angular-popups', 'navApp'])
                     $('.borderLine').eq(index).hide();
                     $('.borderLine').eq(index - 1).hide();
                 }
+                var backImage = $('#speak-' + index).css('backgroundImage');
+                if (backImage.indexOf('blue_active') > -1) {
+                    $('#speak-' + index).css('backgroundImage', 'url(../img/scenery/icon_white_active.gif)')
+                } else {
+                    $('#speak-' + index).css('backgroundImage', 'url(../img/scenery/icon_white_normal.png)');
+                }
+
             }
 
             //mouseleave list
@@ -566,6 +585,14 @@ angular.module("scenery", ['dataService', 'nvd3', 'angular-popups', 'navApp'])
                     map.getSource('lightHeightId').setData(geojson);
                 }
                 // map.removeLayer('lightHeightId');
+                var backImage = $('#speak-'+index).css('backgroundImage') ;
+                if(backImage.indexOf('white_active')>-1){
+                    $('#speak-'+index).css('backgroundImage','url(../img/scenery/icon_blue_active.gif)')
+                }else{
+                    $('#speak-'+index).css('backgroundImage','url(../img/scenery/icon_blue_normal.png)');
+                }
+
+
             }
 
 
@@ -580,6 +607,12 @@ angular.module("scenery", ['dataService', 'nvd3', 'angular-popups', 'navApp'])
                         })
                     }).then(function (data) {
                         $scope.sceneryList = data;
+                        for (var i = 0;i<$scope.sceneryList.length;i++) {
+                            $scope.sceneryList[i].audio_id = $sce.trustAsResourceUrl($scope.sceneryList[i].audio_id);
+                            if($scope.sceneryList[i].audio_id == ''){
+                                $('#speak-'+i).hide();
+                            }
+                        }
                         locationMap(data);
                     })
                     $('.allResult').html('已展开全部搜索结果');
@@ -602,8 +635,10 @@ angular.module("scenery", ['dataService', 'nvd3', 'angular-popups', 'navApp'])
                     var oImg = $('.centerBlock ul img');
                     $('.disPic>img')[0].src = arrImg[0];
                     $('.centerBlock ul img').eq(0).css('border', '4px solid #1478ff');
-                    $('.btn_left').hide();
-                    $('.btn_right').show();
+                    if($scope.morePic > 1){
+                        $('.btn_left').hide();
+                        $('.btn_right').show();
+                    }
                     index = 0;
                 }
 
@@ -637,7 +672,7 @@ angular.module("scenery", ['dataService', 'nvd3', 'angular-popups', 'navApp'])
                 oImg.eq(index).css('border', '4px solid #1478ff');
                 if (index == 0) {
                     $('.btn_left').hide();
-
+                    $('.btn_right').show();
                 } else {
                     $('.btn_left').show();
                     $('.btn_right').show();
@@ -656,6 +691,7 @@ angular.module("scenery", ['dataService', 'nvd3', 'angular-popups', 'navApp'])
                 oImg.eq(index).css('border', '4px solid #1478ff');
                 if (index == arrImg.length - 1) {
                     $('.btn_right').hide();
+                    $('.btn_left').show();
                 } else {
                     $('.btn_right').show();
                     $('.btn_left').show();
@@ -775,6 +811,26 @@ angular.module("scenery", ['dataService', 'nvd3', 'angular-popups', 'navApp'])
                     map.addLayer($scope.lineLayer);
                 }, 0);
             }
+            //语音播放或暂停
+            $scope.playOrPaused =  function(event, index){
+                var e = window.event || event;
+                if (e.stopPropagation) {
+                    e.stopPropagation();
+                } else {
+                    e.cancelBubble = true;
+                }
+                var audio = document.getElementById('audio-' + index);
+                if(audio.paused){
+                    audio.load();
+                    audio.play();
+                    $('#speak-'+index).css('backgroundImage','url(../img/scenery/icon_white_active.gif)');
+                    return;
+                }
+                audio.pause();
+                $('#speak-'+index).css('backgroundImage','url(../img/scenery/icon_white_normal.png)');
+
+            }
+
 
             //添加高亮poi名称图层
             var lightTextLayer = {
@@ -815,106 +871,105 @@ angular.module("scenery", ['dataService', 'nvd3', 'angular-popups', 'navApp'])
 
             //针对不同地图显示级别在layer.js文件中定义了3个同源图层，此处根据针对这3个图层做重复的mouseover和click事件
             //mouseover事件
-            map.on('mouseover','poiNew_layer',function (e) {
-                $scope.TollGateName = e.features[0].properties.name;
-                var pointLocation = toPointArray(e.features[0].properties.jGeometry);
-                var source = {
-                    "type": "geojson",
-                    "data":{
-                        "type":"Feature",
-                        "geometry": {
-                            "type": "Point",
-                            "coordinates":pointLocation
-                        },
-                        "properties": {
-                            "name": $scope.TollGateName
-                        }
-                    }
-                };
-                if (!map.getSource('lightTextId')) {
-                    lightTextLayer.source = source;
-                    map.addLayer(lightTextLayer);
-                }else {
-                    map.getSource('lightTextId').setData({
-                        "type": "FeatureCollection",
-                        "features": [{
-                            "type": "Feature",
-                            "properties": {"name": $scope.TollGateName},
-                            "geometry": {
-                                "type": "Point",
-                                "coordinates": pointLocation
-                            }
-                        }]
-                    })
-                }
-            });
-            map.on('mouseover','poiNew_layer4A',function (e) {
-                $scope.TollGateName = e.features[0].properties.name;
-                var pointLocation = toPointArray(e.features[0].properties.jGeometry);
-                var source = {
-                    "type": "geojson",
-                    "data":{
-                        "type":"Feature",
-                        "geometry": {
-                            "type": "Point",
-                            "coordinates":pointLocation
-                        },
-                        "properties": {
-                            "name": $scope.TollGateName
-                        }
-                    }
-                };
-                if (!map.getSource('lightTextId')) {
-                    lightTextLayer.source = source;
-                    map.addLayer(lightTextLayer);
-                }else {
-                    map.getSource('lightTextId').setData({
-                        "type": "FeatureCollection",
-                        "features": [{
-                            "type": "Feature",
-                            "properties": {"name": $scope.TollGateName},
-                            "geometry": {
-                                "type": "Point",
-                                "coordinates": pointLocation
-                            }
-                        }]
-                    })
-                }
-            });
-            map.on('mouseover','poiNew_layerAll',function (e) {
-                $scope.TollGateName = e.features[0].properties.name;
-                var pointLocation = toPointArray(e.features[0].properties.jGeometry);
-                var source = {
-                    "type": "geojson",
-                    "data":{
-                        "type":"Feature",
-                        "geometry": {
-                            "type": "Point",
-                            "coordinates":pointLocation
-                        },
-                        "properties": {
-                            "name": $scope.TollGateName
-                        }
-                    }
-                };
-                console.log(pointLocation);
-                if (!map.getSource('lightTextId')) {
-                    lightTextLayer.source = source;
-                    map.addLayer(lightTextLayer);
-                }else {
-                    map.getSource('lightTextId').setData({
-                        "type": "FeatureCollection",
-                        "features": [{
-                            "type": "Feature",
-                            "properties": {"name": $scope.TollGateName},
-                            "geometry": {
-                                "type": "Point",
-                                "coordinates": pointLocation
-                            }
-                        }]
-                    })
-                }
-            });
+            // map.on('mouseover','poiNew_layer',function (e) {
+            //     $scope.TollGateName = e.features[0].properties.name;
+            //     var pointLocation = toPointArray(e.features[0].properties.jGeometry);
+            //     var source = {
+            //         "type": "geojson",
+            //         "data":{
+            //             "type":"Feature",
+            //             "geometry": {
+            //                 "type": "Point",
+            //                 "coordinates":pointLocation
+            //             },
+            //             "properties": {
+            //                 "name": $scope.TollGateName
+            //             }
+            //         }
+            //     };
+            //     if (!map.getSource('lightTextId')) {
+            //         lightTextLayer.source = source;
+            //         map.addLayer(lightTextLayer);
+            //     }else {
+            //         map.getSource('lightTextId').setData({
+            //             "type": "FeatureCollection",
+            //             "features": [{
+            //                 "type": "Feature",
+            //                 "properties": {"name": $scope.TollGateName},
+            //                 "geometry": {
+            //                     "type": "Point",
+            //                     "coordinates": pointLocation
+            //                 }
+            //             }]
+            //         })
+            //     }
+            // });
+            // map.on('mouseover','poiNew_layer4A',function (e) {
+            //     $scope.TollGateName = e.features[0].properties.name;
+            //     var pointLocation = toPointArray(e.features[0].properties.jGeometry);
+            //     var source = {
+            //         "type": "geojson",
+            //         "data":{
+            //             "type":"Feature",
+            //             "geometry": {
+            //                 "type": "Point",
+            //                 "coordinates":pointLocation
+            //             },
+            //             "properties": {
+            //                 "name": $scope.TollGateName
+            //             }
+            //         }
+            //     };
+            //     if (!map.getSource('lightTextId')) {
+            //         lightTextLayer.source = source;
+            //         map.addLayer(lightTextLayer);
+            //     }else {
+            //         map.getSource('lightTextId').setData({
+            //             "type": "FeatureCollection",
+            //             "features": [{
+            //                 "type": "Feature",
+            //                 "properties": {"name": $scope.TollGateName},
+            //                 "geometry": {
+            //                     "type": "Point",
+            //                     "coordinates": pointLocation
+            //                 }
+            //             }]
+            //         })
+            //     }
+            // });
+            // map.on('mouseover','poiNew_layerAll',function (e) {
+            //     $scope.TollGateName = e.features[0].properties.name;
+            //     var pointLocation = toPointArray(e.features[0].properties.jGeometry);
+            //     var source = {
+            //         "type": "geojson",
+            //         "data":{
+            //             "type":"Feature",
+            //             "geometry": {
+            //                 "type": "Point",
+            //                 "coordinates":pointLocation
+            //             },
+            //             "properties": {
+            //                 "name": $scope.TollGateName
+            //             }
+            //         }
+            //     };
+            //     if (!map.getSource('lightTextId')) {
+            //         lightTextLayer.source = source;
+            //         map.addLayer(lightTextLayer);
+            //     }else {
+            //         map.getSource('lightTextId').setData({
+            //             "type": "FeatureCollection",
+            //             "features": [{
+            //                 "type": "Feature",
+            //                 "properties": {"name": $scope.TollGateName},
+            //                 "geometry": {
+            //                     "type": "Point",
+            //                     "coordinates": pointLocation
+            //                 }
+            //             }]
+            //         })
+            //     }
+            // });
             //click事件
             map.on('click','poiNew_layer',function (e) {
                 console.log(e);
