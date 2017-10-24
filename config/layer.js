@@ -6889,24 +6889,6 @@ var scenery ={
             minzoom: 3,
             type: "line"
         },
-        // {
-        //     id: "route_layer",
-        //     maxzoom: 17,
-        //     interactive: true,
-        //     'source': "route",
-        //     'source-layer': "route",
-        //     layout: {
-        //         "line-join": "round",
-        //         "visibility": "visible",
-        //         "line-cap": "round"
-        //     },
-        //     paint: {
-        //         "line-color": "blue",
-        //         "line-width": 1.0
-        //     },
-        //     minzoom: 3,
-        //     type: "line"
-        // },
         {
             "id": 'line_Limited_Layer',
             "type": 'line',
@@ -6925,8 +6907,7 @@ var scenery ={
                     "stops": [[6, 1.5], [20, 10]],
                     "base": 1.2
                 },
-            },
-
-        },
+            }
+        }
     ]
 };

@@ -139,7 +139,18 @@ li{
     line-height: 24px;
     text-indent:24px;
 }
-
+#container .introduce .imgDisplay .routeEnter{
+    position: absolute;
+    right:0px;
+    bottom:-30px;
+    cursor: pointer;
+    background:url(../img/scenery/button_lvyougonglve_normal.png) no-repeat 6px 6px;
+    width:60px;
+    height: 60px;
+}
+#container .introduce .imgDisplay .routeEnter:hover{
+    background:url(../img/scenery/button_lvyougonglve_active.png) no-repeat 0px 0px;
+}
 .ng-cloak{
     display: none;
 }
@@ -219,7 +230,7 @@ li{
     background: url(../img/scenery/icon_back2.png) no-repeat 0px 10.5px;
     text-indent: 20px;
     border-bottom:1px solid #D0E4FF;
-
+    cursor: pointer;
 }
 #container .travelTips .tipList{
     padding:0px;
@@ -230,13 +241,25 @@ li{
 #container .travelTips .tipList li{
     padding: 0px 10px;
 }
-#container #content  .travelTips li .borderLine{
-    position:absolute;
-    bottom: 0px;
-    left:10px;
+#container .travelTips .tipList li:hover{
+    background-color: rgba(20, 120, 255, 0.8);
+    cursor: pointer;
+    color:#FFFFFF;
+}
+#container .travelTips .tipList li:hover .tipTitle{
+    color:#FFFFFF;
+}
+#container .travelTips .tipList li:hover .tipSight{
+    color:#FFFFFF;
+}
+#container .travelTips .tipList li:hover .everySight{
+    border-bottom: 1px solid #FFFFFF;
+}
+#container #content  .travelTips li .borderBotLine{
     height: 1px;
-    width:95%;
+    width:100%;
     background-color:#D0E4FF;
+    margin-top: 4px;
 }
 #container .travelTips .tipList .tipTitle{
     color:#333;
@@ -247,11 +270,22 @@ li{
 #container .travelTips .tipList .tipSight{
     color:#999999;
     line-height: 20px;
-
+    font-size:12px;
+}
+#container .travelTips .tipList .tipSight .everySight{
+    border-bottom: 1px solid #999999;
 }
 .speak{
     display: inline-block;
-    width: 20px;
+    width: 16px;
+    height: 20px;
+    background: url('../img/scenery/icon_blue_normal.png') no-repeat center;
+    line-height: 20px;
+    vertical-align: middle;
+}
+.speakUp{
+    display: inline-block;
+    width: 16px;
     height: 20px;
     background: url('../img/scenery/icon_blue_normal.png') no-repeat center;
     line-height: 20px;
@@ -758,6 +792,14 @@ li{
 .hideDeleteBtn {
     display: none;
 }
+/***************************判断是否显示语音图标****************************************************/
+.showVoiceIco {
+    display: inline-block;
+}
+.hideVoiceIco {
+    display: none;
+}
+
 input{
     color:#333;
 }

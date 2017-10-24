@@ -61,7 +61,12 @@
                         {{item.name}}
                     </div>
                     <div class="dotDis">
-                        <a class="speak" id="speak-{{$index}}" href="javascript:;" ng-click="playOrPaused($event, $index)"></a>
+                        <a class="speak" id="speak-{{$index}}"
+                           href="javascript:;"
+                           ng-click="playOrPaused($event, $index)"
+                           ng-class="{true: 'hideVoiceIco', false: 'showVoiceIco'}['{{item.audio_id}}' == '']"
+                        >
+                        </a>
                         <div style="position:absolute; left:-9999px;">
                             <audio id="audio-{{$index}}" preload="preload"
                                    ng-src="{{item.audio_id}}">
@@ -110,27 +115,38 @@
         <div class="introduce ng-cloak" ng-style="introDis">
             <div style="width:330px">
             <div class="imgDisplay" style="padding-right: 0px">
-                <img ng-src="{{deImg}}"  id="bigPic" alt="" >
+                <img id="bigPic" alt="" >
                 <div class="backBtn" ng-click="toResultlist()">
                     返回
                 </div>
                 <div class="morePic" ng-click="scanPic()" ng-bind="morePic">
                 </div>
+                <div class="routeEnter" ng-click="enterTips(pidSight)"></div>
             </div>
             <div style="padding:0px 0px 0px 10px;">
                 <div class="introTitle" ng-bind="deName">
                 </div>
                 <div class="introContent">
-                    <span style="margin-right:30px">{{sightLevel}}景区&nbsp;{{sightClass}}</span>
+                    <a class="speakUp" id="speakDe"
+                       href="javascript:;"
+                       ng-click="playOrPauseDetail()"
+                    >
+                    </a>
+                    <div style="position:absolute; left:-9999px;">
+                        <audio id="audioDe" preload="preload"
+                               ng-src="{{deAudio}}">
+                        </audio>
+                    </div>
+                    <span style="margin-right:20px">{{sightLevel}}景区&nbsp;{{sightClass}}</span>
                     <span>{{ticket}}</span>
                 </div>
                 <div class="introContent">
                     <img src="../img/scenery/icon_address.png" alt="">
-                    <span ng-bind="deAddress"></span>
+                    <span ng-bind="deAddress" style="margin-left:3px"></span>
                 </div>
                 <div class="introContent">
                     <img src="../img/scenery/icon_phonenumber.png" alt="">
-                    <span>{{sightTel}}</span>
+                    <span ng-bind="sightTel"></span>
                 </div>
                 <div class="introContent">
                     <span>开放时间&nbsp;:&nbsp;{{deTime}}</span>
@@ -169,34 +185,37 @@
         </div>
         <span></span>
     </div>
-        <div class="travelTips ng-cloak"  style="display: none">
+        <div class="travelTips ng-cloak"  style="display:none">
             <div class="tipBack">返回</div>
             <ul class="tipList ng-cloak" >
-                <li>
-                <div class="tipTitle">
-                    攻略<i class='numTitle' style="font-family: Arial;font-style:normal">{{$index + 1}}.</i>
-                    佛教文化游
-                </div>
-                <div class="tipSight clear">
-                    <div class="fl">途径景点：</div>
-                    <div class="fl" style="width:240px">
-                                <span>
-                                    <span>东门</span><span> > </span><span>东门</span><span> > </span><span>东门</span><span> > </span><span>东门</span><span> > </span>
-                                    <span>东门</span><span> > </span><span>东门</span><span> > </span><span>东门</span><span> > </span><span>东门</span><span> > </span><span>东门</span><span> > </span>
-                                </span>
+                <li ng-repeat="everyRoute in tipsList">
+                    <div class="tipTitle">
+                        <a class="speakUp"
+                           href="javascript:;"
+                        >
+                        </a>
+                        <div style="position:absolute; left:-9999px;">
+                            <audio  preload="preload"
+                                    ng-src>
+                            </audio>
+                        </div>
+                        攻略<i class='numTitle' style="font-family: Arial;font-style:normal">{{$index + 1}}：</i>
+                        <span ng-bind="everyRoute.name"></span>
                     </div>
-                </div>
-                <div class="tipSight clear">
-                    <div class="fl">攻略介绍：</div>
-                    <div class="fl" style="width:240px;text-align: justify">对佛教文化，历史古迹感兴趣，推荐来趟佛教文对佛教文化，历史古迹感兴趣。</div>
-                </div>
-
-
-                <div class="borderLine">
-
-                </div>
-
-            </li>
+                    <div class="tipSight clear">
+                        <div class="fl">途径景点：</div>
+                        <div class="fl" style="width:250px">
+                                <span ng-repeat="one in colsightArr[$index]">
+                                    <span class="everySight" ng-click="markSight(one.pid)">{{one.val}}</span> >
+                                </span>
+                        </div>
+                    </div>
+                    <div class="tipSight clear">
+                        <div class="fl">攻略介绍：</div>
+                        <div class="fl" style="width:250px;text-align: justify" ng-bind="everyRoute.introduction"></div>
+                    </div>
+                    <div class="borderBotLine"></div>
+                </li>
             </ul>
         </div>
         <!--<div class="routeSpecial">-->
