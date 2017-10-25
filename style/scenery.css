@@ -217,7 +217,7 @@ li{
     top:39px;
     position: absolute;
     z-index: 5;
-    max-height: calc(100% - 41px);
+    max-height: calc(100% - 42px);
     overflow-y: auto;
     box-shadow: 0 1px 2px rgba(84, 98, 137, 0.3);
 }
@@ -239,27 +239,64 @@ li{
     margin:0px;
 }
 #container .travelTips .tipList li{
-    padding: 0px 10px;
+    padding: 0px 10px 5px;
+    position: relative;
 }
 #container .travelTips .tipList li:hover{
     background-color: rgba(20, 120, 255, 0.8);
     cursor: pointer;
     color:#FFFFFF;
 }
+.liActive{
+    background-color: rgba(20, 120, 255, 0.8);
+    cursor: pointer;
+    color:#FFFFFF;
+}
+.liNormal{
+    background-color: #FFFFFF;
+}
 #container .travelTips .tipList li:hover .tipTitle{
+    color:#FFFFFF;
+}
+.tipTitleActive{
     color:#FFFFFF;
 }
 #container .travelTips .tipList li:hover .tipSight{
     color:#FFFFFF;
 }
+#container .travelTips .tipList li:hover .tipIntro{
+    color:#FFFFFF;
+}
+
 #container .travelTips .tipList li:hover .everySight{
     border-bottom: 1px solid #FFFFFF;
 }
+
 #container #content  .travelTips li .borderBotLine{
     height: 1px;
-    width:100%;
+    width:95%;
     background-color:#D0E4FF;
-    margin-top: 4px;
+    position:absolute;
+    bottom: 0px;
+    left:10px;
+}
+.showBotline{
+    display: block;
+}
+.hideBotline{
+    display: none;
+}
+.hideEntrance{
+    display: none;
+}
+.showEntrance{
+    display: block;
+}
+.showSpan{
+    display: inline;
+}
+.hideSpan{
+    display: none;
 }
 #container .travelTips .tipList .tipTitle{
     color:#333;
@@ -268,6 +305,11 @@ li{
     height: 30px;
 }
 #container .travelTips .tipList .tipSight{
+    color:#999999;
+    line-height: 20px;
+    font-size:12px;
+}
+#container .travelTips .tipList .tipIntro{
     color:#999999;
     line-height: 20px;
     font-size:12px;

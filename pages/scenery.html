@@ -121,7 +121,10 @@
                 </div>
                 <div class="morePic" ng-click="scanPic()" ng-bind="morePic">
                 </div>
-                <div class="routeEnter" ng-click="enterTips(pidSight)"></div>
+                <div class="routeEnter" ng-click="enterTips(pidSight)"
+                     ng-class="{true: 'hideEntrance', false: 'showEntrance'}[isRoute == null]"
+                >
+                </div>
             </div>
             <div style="padding:0px 0px 0px 10px;">
                 <div class="introTitle" ng-bind="deName">
@@ -186,17 +189,24 @@
         <span></span>
     </div>
         <div class="travelTips ng-cloak"  style="display:none">
-            <div class="tipBack">返回</div>
+            <div class="tipBack" ng-click="backtoDetail()">返回</div>
             <ul class="tipList ng-cloak" >
-                <li ng-repeat="everyRoute in tipsList">
+                <li ng-repeat="everyRoute in tipsList"
+                    ng-click="markRoute(everyRoute.geometry,$index)"
+                    ng-mouseenter="changeVideo($index)"
+                    ng-mouseleave="recoverVideo($index)"
+                >
                     <div class="tipTitle">
                         <a class="speakUp"
+                           id="speakTip-{{$index}}"
                            href="javascript:;"
+                           ng-click="playOrPauseTip($event,$index)"
                         >
                         </a>
                         <div style="position:absolute; left:-9999px;">
                             <audio  preload="preload"
-                                    ng-src>
+                                    id="audioTip-{{$index}}"
+                                    ng-src="{{everyRoute.audio_id}}">
                             </audio>
                         </div>
                         攻略<i class='numTitle' style="font-family: Arial;font-style:normal">{{$index + 1}}：</i>
@@ -206,28 +216,19 @@
                         <div class="fl">途径景点：</div>
                         <div class="fl" style="width:250px">
                                 <span ng-repeat="one in colsightArr[$index]">
-                                    <span class="everySight" ng-click="markSight(one.pid)">{{one.val}}</span> >
+                                    <span class="everySight" ng-click="markSight(one.pid,$event)">{{one.val}}</span>
+                                    <span ng-class="{true: 'hideSpan', false: 'showSpan'}['{{$index}}'== 'one.length']"> > </span>
                                 </span>
                         </div>
                     </div>
-                    <div class="tipSight clear">
+                    <div class="tipIntro clear">
                         <div class="fl">攻略介绍：</div>
                         <div class="fl" style="width:250px;text-align: justify" ng-bind="everyRoute.introduction"></div>
                     </div>
-                    <div class="borderBotLine"></div>
+                    <div class="borderBotLine" ng-class="{true: 'hideBotline', false: 'showBotline'}['{{$index}}'== tipsList.length-1]"></div>
                 </li>
             </ul>
         </div>
-        <!--<div class="routeSpecial">-->
-            <!--<ul class="clear" ng-init='searchHolder ="搜索全部限行信息" '>-->
-                <!--<li  ng-click="changeSearch($index)"-->
-                     <!--ng-repeat="each in searchClass"-->
-                     <!--ng-bind="each"-->
-                     <!--ng-class="{active : $index == focus}"-->
-                <!--&gt;-->
-                <!--</li>-->
-            <!--</ul>-->
-        <!--</div>-->
     </div>
     <div id="map">
         <div class="changeMapSizeDiv">
