@@ -235,7 +235,7 @@ li{
 #container .travelTips .tipList{
     padding:0px;
     font-size:14px;
-    color:#333;
+    color:#999999;
     margin:0px;
 }
 #container .travelTips .tipList li{
@@ -252,9 +252,6 @@ li{
     cursor: pointer;
     color:#FFFFFF;
 }
-.liNormal{
-    background-color: #FFFFFF;
-}
 #container .travelTips .tipList li:hover .tipTitle{
     color:#FFFFFF;
 }
@@ -264,6 +261,9 @@ li{
 #container .travelTips .tipList li:hover .tipSight{
     color:#FFFFFF;
 }
+.tipTitleActive{
+    color:#FFFFFF !important;
+}
 #container .travelTips .tipList li:hover .tipIntro{
     color:#FFFFFF;
 }
@@ -271,13 +271,16 @@ li{
 #container .travelTips .tipList li:hover .everySight{
     border-bottom: 1px solid #FFFFFF;
 }
+.sightBorder{
+    border-bottom: 1px solid #FFFFFF !important;
+}
 
 #container #content  .travelTips li .borderBotLine{
     height: 1px;
     width:95%;
     background-color:#D0E4FF;
     position:absolute;
-    bottom: 0px;
+    bottom: -1px;
     left:10px;
 }
 .showBotline{
@@ -305,12 +308,10 @@ li{
     height: 30px;
 }
 #container .travelTips .tipList .tipSight{
-    color:#999999;
     line-height: 20px;
     font-size:12px;
 }
 #container .travelTips .tipList .tipIntro{
-    color:#999999;
     line-height: 20px;
     font-size:12px;
 }

@@ -63,6 +63,7 @@
                     <div class="dotDis">
                         <a class="speak" id="speak-{{$index}}"
                            href="javascript:;"
+                           title="点击发声"
                            ng-click="playOrPaused($event, $index)"
                            ng-class="{true: 'hideVoiceIco', false: 'showVoiceIco'}['{{item.audio_id}}' == '']"
                         >
@@ -132,6 +133,7 @@
                 <div class="introContent">
                     <a class="speakUp" id="speakDe"
                        href="javascript:;"
+                       title="点击发声"
                        ng-click="playOrPauseDetail()"
                     >
                     </a>
@@ -195,11 +197,13 @@
                     ng-click="markRoute(everyRoute.geometry,$index)"
                     ng-mouseenter="changeVideo($index)"
                     ng-mouseleave="recoverVideo($index)"
+                    ng-init="outerIndex = $index"
                 >
                     <div class="tipTitle">
                         <a class="speakUp"
                            id="speakTip-{{$index}}"
                            href="javascript:;"
+                           title="点击发声"
                            ng-click="playOrPauseTip($event,$index)"
                         >
                         </a>
@@ -215,9 +219,9 @@
                     <div class="tipSight clear">
                         <div class="fl">途径景点：</div>
                         <div class="fl" style="width:250px">
-                                <span ng-repeat="one in colsightArr[$index]">
+                                <span ng-repeat="one in colsightArr[$index]" >
                                     <span class="everySight" ng-click="markSight(one.pid,$event)">{{one.val}}</span>
-                                    <span ng-class="{true: 'hideSpan', false: 'showSpan'}['{{$index}}'== 'one.length']"> > </span>
+                                    <span ng-class="{true: 'hideSpan', false: 'showSpan'}['{{$index}}' == '{{colsightArr[outerIndex].length-1}}' ]"> > </span>
                                 </span>
                         </div>
                     </div>

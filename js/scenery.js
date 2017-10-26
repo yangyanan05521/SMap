@@ -62,6 +62,9 @@ angular.module("scenery", ['dataService', 'nvd3', 'angular-popups', 'navApp'])
                 //清楚地图上的路线及点
                 $scope.clearLines();
                 $scope.clearMarksight();
+
+                //清除地图上的景区poi名称
+                allPoipop.remove();
             };
 
             //添加定位点图层
@@ -340,8 +343,6 @@ angular.module("scenery", ['dataService', 'nvd3', 'angular-popups', 'navApp'])
                     popupName.setLngLat($scope.siteLocation)
                         .setDOMContent(titleDes)
                         .addTo(map);
-
-
                 });
 
                 map.on('mouseleave', 'pointSelected', function () {
@@ -869,45 +870,44 @@ angular.module("scenery", ['dataService', 'nvd3', 'angular-popups', 'navApp'])
             //         })
             //     }
             // });
-            map.on('mouseover','poiNew_layer4A',function (e) {
-                $scope.TollGateName = e.features[0].properties.name;
-                var pointLocation = toPointArray(e.features[0].properties.jGeometry);
-                var source = {
-                    "type": "geojson",
-                    "data":{
-                        "type":"Feature",
-                        "geometry": {
-                            "type": "Point",
-                            "coordinates":pointLocation
-                        },
-                        "properties": {
-                            "name": $scope.TollGateName
-                        }
-                    }
-                };
-                if (!map.getSource('lightTextId')) {
-                    lightTextLayer.source = source;
-                    map.addLayer(lightTextLayer);
-                }else {
-                    map.getSource('lightTextId').setData({
-                        "type": "FeatureCollection",
-                        "features": [{
-                            "type": "Feature",
-                            "properties": {"name": $scope.TollGateName},
-                            "geometry": {
-                                "type": "Point",
-                                "coordinates": pointLocation
-                            }
-                        }]
-                    })
-                }
-            });
-            map.on('mouseover','poiNew_layerAll',function (e) {
-
-            });
+            // map.on('mouseover','poiNew_layer4A',function (e) {
+            //     $scope.TollGateName = e.features[0].properties.name;
+            //     var pointLocation = toPointArray(e.features[0].properties.jGeometry);
+            //     var source = {
+            //         "type": "geojson",
+            //         "data":{
+            //             "type":"Feature",
+            //             "geometry": {
+            //                 "type": "Point",
+            //                 "coordinates":pointLocation
+            //             },
+            //             "properties": {
+            //                 "name": $scope.TollGateName
+            //             }
+            //         }
+            //     };
+            //     if (!map.getSource('lightTextId')) {
+            //         lightTextLayer.source = source;
+            //         map.addLayer(lightTextLayer);
+            //     }else {
+            //         map.getSource('lightTextId').setData({
+            //             "type": "FeatureCollection",
+            //             "features": [{
+            //                 "type": "Feature",
+            //                 "properties": {"name": $scope.TollGateName},
+            //                 "geometry": {
+            //                     "type": "Point",
+            //                     "coordinates": pointLocation
+            //                 }
+            //             }]
+            //         })
+            //     }
+            // });
+            // map.on('mouseover','poiNew_layerAll',function (e) {
+            //
+            // });
             //click事件
             map.on('click','poiNew_layer',function (e) {
-                console.log(e);
                 $scope.poiclickLoc = [];
                 $scope.TollGateName = e.features[0].properties.name;
                 var div = window.document.createElement('div');
@@ -919,13 +919,14 @@ angular.module("scenery", ['dataService', 'nvd3', 'angular-popups', 'navApp'])
                 allPoipop.setLngLat($scope.poiclickLoc)
                          .setDOMContent(div)
                          .addTo(map);
-                var pid = e.features[0].properties.pid ;
-                detailsDis(pid);
-                $('.backBtn').hide();
-                $scope.searchWord = $scope.TollGateName ;
+                if($('.travelTips').css('display') == 'none') {
+                    var pid = e.features[0].properties.pid;
+                    detailsDis(pid);
+                    $('.backBtn').hide();
+                    $scope.searchWord = $scope.TollGateName;
+                }
             });
             map.on('click','poiNew_layer4A',function (e) {
-                console.log(e);
                 $scope.poiclickLoc = [];
                 $scope.TollGateName = e.features[0].properties.name;
                 var div = window.document.createElement('div');
@@ -937,13 +938,14 @@ angular.module("scenery", ['dataService', 'nvd3', 'angular-popups', 'navApp'])
                 allPoipop.setLngLat($scope.poiclickLoc)
                     .setDOMContent(div)
                     .addTo(map);
-                var pid = e.features[0].properties.pid ;
-                detailsDis(pid);
-                $('.backBtn').hide();
-                $scope.searchWord = $scope.TollGateName ;
+                if($('.travelTips').css('display') == 'none') {
+                    var pid = e.features[0].properties.pid;
+                    detailsDis(pid);
+                    $('.backBtn').hide();
+                    $scope.searchWord = $scope.TollGateName;
+                }
             });
             map.on('click','poiNew_layerAll',function (e) {
-                console.log(e);
                 $scope.poiclickLoc = [];
                 $scope.TollGateName = e.features[0].properties.name;
                 var div = window.document.createElement('div');
@@ -955,10 +957,14 @@ angular.module("scenery", ['dataService', 'nvd3', 'angular-popups', 'navApp'])
                 allPoipop.setLngLat($scope.poiclickLoc)
                     .setDOMContent(div)
                     .addTo(map);
-                var pid = e.features[0].properties.pid ;
-                detailsDis(pid);
-                $('.backBtn').hide();
-                $scope.searchWord = $scope.TollGateName ;
+
+                if($('.travelTips').css('display') == 'none'){
+                    var pid = e.features[0].properties.pid ;
+                    detailsDis(pid);
+                    $('.backBtn').hide();
+                    $scope.searchWord = $scope.TollGateName ;
+                }
+
             });
 
             //定义旅游路线图层
@@ -1011,18 +1017,26 @@ angular.module("scenery", ['dataService', 'nvd3', 'angular-popups', 'navApp'])
                         }))
                     }
                     $scope.colsightArr = poisArr;                                //途径景点ng-repeat数组
-                 //   console.log(data);
 
                     //默认地图定位第一条数据
                     var lineAry = [];
                     lineAry = data[0].geometry.coordinates;
                     var lineType = data[0].geometry.type;
                     drawTipLine(lineAry,lineType);
-                    //选中样式
-                    //$('.borderBotLine').eq(0).hide();
-                    //$('#container .travelTips .tipList li').eq(0).addClass('liActive');
 
+                    //点击攻略暂时清除地图上的搜索出来的点
+                    $scope.clearSearchsight();
+                    popupClick.remove();
+
+                }).then(function(){
+                    //选中样式
+                    // $('#container .travelTips .tipList li').eq(0).addClass('liActive').siblings().removeClass('liActive');
+                    // $('#container .travelTips .tipList .tipSight .everySight').removeClass('sightBorder');
+                    // $('#container .travelTips .tipList li').eq(0).find('.everySight').addClass('sightBorder');
+                    // $('#container .travelTips .tipTitle').removeClass('tipTitleActive');
+                    // $('#container .travelTips .tipTitle').eq(0).addClass('tipTitleActive');
                 })
+
             }
 
             //勾勒路线函数
@@ -1056,7 +1070,7 @@ angular.module("scenery", ['dataService', 'nvd3', 'angular-popups', 'navApp'])
                }
                 var bbox = turf.bbox(bounds);
                 var v2 = new mapboxgl.LngLatBounds([bbox[0], bbox[1]], [bbox[2], bbox[3]]);
-                map.fitBounds(v2, {padding: 150});
+                map.fitBounds(v2, {padding: 100});
                 if (!map.getSource('tipsLayerId')) {
                     $scope.tipLineLayer.source.data = bounds;
                     map.addLayer($scope.tipLineLayer);
@@ -1085,12 +1099,35 @@ angular.module("scenery", ['dataService', 'nvd3', 'angular-popups', 'navApp'])
                 }
             }
 
+            //点击攻略暂时清除地图上的搜索出来的点
+            $scope.clearSearchsight = function(){
+                    var bounds = {
+                        type: 'FeatureCollection',
+                        features: [],
+                    };
+                    map.getSource('mysouce').setData(bounds);
+            }
+
             //标记旅游路线
             $scope.markRoute = function(geo,index){
                 var geoArr = geo.coordinates;
                 var geotype = geo.type;
                 drawTipLine(geoArr,geotype);
-                console.log(index);
+                //选中样式
+                $('#container .travelTips .tipList li').eq(index).addClass('liActive').siblings().removeClass('liActive');
+                $('#container .travelTips .tipList .tipSight .everySight').removeClass('sightBorder');
+                $('#container .travelTips .tipList li').eq(index).find('.everySight').addClass('sightBorder');
+                $('#container .travelTips .tipTitle').removeClass('tipTitleActive');
+                $('#container .travelTips .tipTitle').eq(index).addClass('tipTitleActive');
+
+                //语音图标改变
+                $('.tipList .tipTitle .speakUp').css('backgroundImage','url(../img/scenery/icon_blue_normal.png)');
+                var backImage = $('#speakTip-' + index).css('backgroundImage');
+                if(backImage.indexOf('active')>-1){
+                    $('#speakTip-'+index).css('backgroundImage','url(../img/scenery/icon_white_active.gif)')
+                } else{
+                    $('#speakTip-'+index).css('backgroundImage','url(../img/scenery/icon_white_normal.png)');
+                }
             }
 
             //定义切换变量
@@ -1177,7 +1214,7 @@ angular.module("scenery", ['dataService', 'nvd3', 'angular-popups', 'navApp'])
                 $('.borderBotLine').eq(index).hide();
                 //改变语音图标
                 var backImage = $('#speakTip-' + index).css('backgroundImage');
-                if (backImage.indexOf('blue_active') > -1) {
+                if (backImage.indexOf('active') > -1) {
                     $('#speakTip-' + index).css('backgroundImage', 'url(../img/scenery/icon_white_active.gif)')
                 } else {
                     $('#speakTip-' + index).css('backgroundImage', 'url(../img/scenery/icon_white_normal.png)');
@@ -1192,11 +1229,18 @@ angular.module("scenery", ['dataService', 'nvd3', 'angular-popups', 'navApp'])
                 var backImage = $('#speakTip-'+index).css('backgroundImage') ;
                 if(backImage.indexOf('white_active')>-1){
                     $('#speakTip-'+index).css('backgroundImage','url(../img/scenery/icon_blue_active.gif)')
-                }else{
+                } else{
                     $('#speakTip-'+index).css('backgroundImage','url(../img/scenery/icon_blue_normal.png)');
                 }
+                var backColor = $('#container .travelTips .tipList li').eq(index).css('backgroundColor');
 
-
+                if(backColor =='rgba(20, 120, 255, 0.8)'){
+                    if(backImage.indexOf('active')>-1){
+                        $('#speakTip-'+index).css('backgroundImage','url(../img/scenery/icon_white_active.gif)')
+                    } else{
+                        $('#speakTip-'+index).css('backgroundImage','url(../img/scenery/icon_white_normal.png)');
+                    }
+                }
             }
 
 
