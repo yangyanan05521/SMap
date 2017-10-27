@@ -4,7 +4,7 @@ var map = new mapboxgl.Map({
     zoom: 8,
     center: [108.94704, 34.25943],
     maxZoom: 17,
-    minZoom: 0,
+    minZoom: 3,
     repaint: true,
     pitch: 0
 });
@@ -76,7 +76,8 @@ angular.module("scenery", ['dataService', 'nvd3', 'angular-popups', 'navApp'])
                     'icon-size': 1,
                     'text-justify': 'center',
                     'text-field': '{numMark}',
-                    'text-size': 12
+                    'text-size': 12,
+                    "text-offset":[0,-0.3],
                     // 'text-font' : ['Arial Unicode MS Regular']
                 },
                 'paint': {
@@ -93,7 +94,8 @@ angular.module("scenery", ['dataService', 'nvd3', 'angular-popups', 'navApp'])
                     'icon-size': 1,
                     'text-justify': 'center',
                     'text-field': '{numMark}',
-                    'text-size': 12
+                    'text-size': 12,
+                    "text-offset":[0,-0.3],
                     // 'text-font' : ['Arial Unicode MS Regular']
                 },
                 'paint': {
@@ -156,6 +158,7 @@ angular.module("scenery", ['dataService', 'nvd3', 'angular-popups', 'navApp'])
                 $scope.relativeList = {
                     display: "none"
                 }
+                $scope.searchScenery();
             }
 
             var markerHeight = 10, markerRadius = 10, linearOffset = 5;
@@ -191,7 +194,6 @@ angular.module("scenery", ['dataService', 'nvd3', 'angular-popups', 'navApp'])
                     map.setZoom(nowZoom - 1);
                 }
             };
-
 
             var mySourceData = {
                 type: 'FeatureCollection',
@@ -318,6 +320,8 @@ angular.module("scenery", ['dataService', 'nvd3', 'angular-popups', 'navApp'])
                 $scope.testLayer.source = 'mysouce';
                 map.addLayer($scope.testLayer);
                 map.on('mouseenter', 'pointSelected', function (e) {
+                    popupClick.remove();
+                    allPoipop.remove();
                     //var index=e.features[0].properties.mark;
                     //$('.searchResult li').eq(index).css({'background':'#4393ff','color':'#fff'}).siblings().css('background','#fff');
                     var pid = e.features[0].properties.id;
@@ -331,8 +335,6 @@ angular.module("scenery", ['dataService', 'nvd3', 'angular-popups', 'navApp'])
                         }
                     }
                     resetMySourceData(mySourceData);
-
-                    popupClick.remove();
                     var titleDes = window.document.createElement('div');
                     titleDes.innerHTML = '<div class="feePopDeep">' + e.features[0].properties.sceneryName + '</div>' +
                         '<div class="tipPopDeep"></div>';
@@ -343,6 +345,7 @@ angular.module("scenery", ['dataService', 'nvd3', 'angular-popups', 'navApp'])
                     popupName.setLngLat($scope.siteLocation)
                         .setDOMContent(titleDes)
                         .addTo(map);
+
                 });
 
                 map.on('mouseleave', 'pointSelected', function () {
@@ -367,25 +370,13 @@ angular.module("scenery", ['dataService', 'nvd3', 'angular-popups', 'navApp'])
                 }
                 resetMySourceData(mySourceData);
                 popupName.remove();
-                var titleDes = window.document.createElement('div');
-                titleDes.innerHTML = '<div class="feePopDeep">' + e.features[0].properties.sceneryName + '</div>' +
-                    '<div class="tipPopDeep"></div>';
 
                 map.getCanvas().style.cursor = 'pointer';
                 map.flyTo({
                     center: e.features[0].geometry.coordinates,
                     zoom: 16,
                     speed: 1.5
-                }, map.on('zoomend', function (data) {
-                    for (var i = 0, len = data.queryRenderedFeatures.length; i < 5; i++) {   //循环次数待改
-                        if (data.queryRenderedFeatures()[i].properties.id == pid) {
-                            popupClick.setLngLat(data.queryRenderedFeatures()[i].geometry.coordinates)
-                                .setDOMContent(titleDes)
-                                .addTo(map);
-                            break;
-                        }
-                    }
-                }));
+                });
                 var poiId = e.features[0].properties.poiId;
                 detailsDis(poiId);
 
@@ -576,14 +567,17 @@ angular.module("scenery", ['dataService', 'nvd3', 'angular-popups', 'navApp'])
                     .addTo(map);
 
                 //让当前li的上下分割线消失
-                if (index == 0) {
-                    $('.borderLine').show();
-                    $('.borderLine').eq(index).hide();
-                } else {
-                    $('.borderLine').show();
-                    $('.borderLine').eq(index).hide();
-                    $('.borderLine').eq(index - 1).hide();
+                if($scope.resultNum != 1){
+                    if (index == 0) {
+                        $('.borderLine').show();
+                        $('.borderLine').eq(index).hide();
+                    } else {
+                        $('.borderLine').show();
+                        $('.borderLine').eq(index).hide();
+                        $('.borderLine').eq(index - 1).hide();
+                    }
                 }
+
                 var backImage = $('#speak-' + index).css('backgroundImage');
                 if (backImage.indexOf('blue_active') > -1) {
                     $('#speak-' + index).css('backgroundImage', 'url(../img/scenery/icon_white_active.gif)')
@@ -610,6 +604,10 @@ angular.module("scenery", ['dataService', 'nvd3', 'angular-popups', 'navApp'])
                     $('#speak-'+index).css('backgroundImage','url(../img/scenery/icon_blue_active.gif)')
                 }else{
                     $('#speak-'+index).css('backgroundImage','url(../img/scenery/icon_blue_normal.png)');
+                }
+
+                if($scope.resultNum == 1){
+                    $('.borderLine').hide();
                 }
             }
 
@@ -786,6 +784,16 @@ angular.module("scenery", ['dataService', 'nvd3', 'angular-popups', 'navApp'])
                 }
                 audio.pause();
                 $('#speak-'+index).css('backgroundImage','url(../img/scenery/icon_white_normal.png)');
+
+                audio.addEventListener('ended', function () {
+                    console.log('--over--');
+                    var stopIcon =$('#speakTip-'+index).css('backgroundImage');
+                    if(stopIcon.indexOf('blue') > -1 ){
+                        $('#speakTip-'+index).css('backgroundImage','url(../img/scenery/icon_blue_normal.png)');
+                    }else{
+                        $('#speakTip-'+index).css('backgroundImage','url(../img/scenery/icon_white_normal.png)');
+                    }
+                }, false);
             }
             $scope.playOrPauseDetail = function() {
                 var audioDe = document.getElementById('audioDe');
@@ -796,24 +804,17 @@ angular.module("scenery", ['dataService', 'nvd3', 'angular-popups', 'navApp'])
                 }
                 audioDe.pause();
                 $('#speakDe').css('backgroundImage','url(../img/scenery/icon_blue_normal.png)');
-            };
 
+                audioDe.addEventListener('ended', function () {
+                    console.log('--over--');
+                    var stopIcon =$('#speakTip-'+index).css('backgroundImage');
+                    if(stopIcon.indexOf('blue') > -1 ){
+                        $('#speakTip-'+index).css('backgroundImage','url(../img/scenery/icon_blue_normal.png)');
+                    }else{
+                        $('#speakTip-'+index).css('backgroundImage','url(../img/scenery/icon_white_normal.png)');
+                    }
+                }, false);
 
-            //添加高亮poi名称图层
-            var lightTextLayer = {
-                "id": "lightTextId",
-                "type": "symbol",
-                "layout": {
-                    'icon-image': ' ',   //不设置icon图标，只为了改变text-color
-                    "text-field": "{name}",
-                    'text-size':12,
-                    "text-offset":[0,1.5],
-                    "text-justify": "center",
-                    "visibility": "visible"
-                },
-                'paint': {
-                    'text-color': "#AA9309"
-                }
             };
 
             //点击所有poi景点图层
@@ -822,90 +823,7 @@ angular.module("scenery", ['dataService', 'nvd3', 'angular-popups', 'navApp'])
                 closeOnClick: false,
                 offset: popupOffsets
             });
-            //处理POINT(108.9636 34.2213)格式的数据
-            var toPointArray = function(point){
-                var start = point.indexOf('(');
-                var blank = point.indexOf(' ');
-                var end = point.indexOf(')');
-                var lng = point.substring(start+1,blank);
-                var lat = point.substring(blank+1,point.length-1);
-                var coordinates = [];
-                coordinates.push(lng);
-                coordinates.push(lat);
-                return coordinates ;
-            }
 
-            //针对不同地图显示级别在layer.js文件中定义了3个同源图层，此处根据针对这3个图层做重复的mouseover和click事件
-            //mouseover事件
-            // map.on('mouseover','poiNew_layer',function (e) {
-            //     $scope.TollGateName = e.features[0].properties.name;
-            //     var pointLocation = toPointArray(e.features[0].properties.jGeometry);
-            //     var source = {
-            //         "type": "geojson",
-            //         "data":{
-            //             "type":"Feature",
-            //             "geometry": {
-            //                 "type": "Point",
-            //                 "coordinates":pointLocation
-            //             },
-            //             "properties": {
-            //                 "name": $scope.TollGateName
-            //             }
-            //         }
-            //     };
-            //     if (!map.getSource('lightTextId')) {
-            //         lightTextLayer.source = source;
-            //         map.addLayer(lightTextLayer);
-            //     }else {
-            //         map.getSource('lightTextId').setData({
-            //             "type": "FeatureCollection",
-            //             "features": [{
-            //                 "type": "Feature",
-            //                 "properties": {"name": $scope.TollGateName},
-            //                 "geometry": {
-            //                     "type": "Point",
-            //                     "coordinates": pointLocation
-            //                 }
-            //             }]
-            //         })
-            //     }
-            // });
-            // map.on('mouseover','poiNew_layer4A',function (e) {
-            //     $scope.TollGateName = e.features[0].properties.name;
-            //     var pointLocation = toPointArray(e.features[0].properties.jGeometry);
-            //     var source = {
-            //         "type": "geojson",
-            //         "data":{
-            //             "type":"Feature",
-            //             "geometry": {
-            //                 "type": "Point",
-            //                 "coordinates":pointLocation
-            //             },
-            //             "properties": {
-            //                 "name": $scope.TollGateName
-            //             }
-            //         }
-            //     };
-            //     if (!map.getSource('lightTextId')) {
-            //         lightTextLayer.source = source;
-            //         map.addLayer(lightTextLayer);
-            //     }else {
-            //         map.getSource('lightTextId').setData({
-            //             "type": "FeatureCollection",
-            //             "features": [{
-            //                 "type": "Feature",
-            //                 "properties": {"name": $scope.TollGateName},
-            //                 "geometry": {
-            //                     "type": "Point",
-            //                     "coordinates": pointLocation
-            //                 }
-            //             }]
-            //         })
-            //     }
-            // });
-            // map.on('mouseover','poiNew_layerAll',function (e) {
-            //
-            // });
             //click事件
             map.on('click','poiNew_layer',function (e) {
                 $scope.poiclickLoc = [];
@@ -1030,11 +948,11 @@ angular.module("scenery", ['dataService', 'nvd3', 'angular-popups', 'navApp'])
 
                 }).then(function(){
                     //选中样式
-                    // $('#container .travelTips .tipList li').eq(0).addClass('liActive').siblings().removeClass('liActive');
-                    // $('#container .travelTips .tipList .tipSight .everySight').removeClass('sightBorder');
-                    // $('#container .travelTips .tipList li').eq(0).find('.everySight').addClass('sightBorder');
-                    // $('#container .travelTips .tipTitle').removeClass('tipTitleActive');
-                    // $('#container .travelTips .tipTitle').eq(0).addClass('tipTitleActive');
+                    $('#container .travelTips .tipList li').eq(0).addClass('liActive').siblings().removeClass('liActive');
+                    $('#container .travelTips .tipList .tipSight .everySight').removeClass('sightBorder');
+                    $('#container .travelTips .tipList li').eq(0).find('.everySight').addClass('sightBorder');
+                    $('#container .travelTips .tipTitle').removeClass('tipTitleActive');
+                    $('#container .travelTips .tipTitle').eq(0).addClass('tipTitleActive');
                 })
 
             }
@@ -1132,6 +1050,7 @@ angular.module("scenery", ['dataService', 'nvd3', 'angular-popups', 'navApp'])
 
             //定义切换变量
             var open = 1;
+            var preVal = '';
             //标记途径景点
             $scope.markSight = function(pidTip,event) {
                 var e = window.event || event;
@@ -1157,7 +1076,35 @@ angular.module("scenery", ['dataService', 'nvd3', 'angular-popups', 'navApp'])
                                 }
                             }
                         };
-                        if(open == 1){
+                    if(preVal === ''){
+                        preVal = pidTip;
+
+                    }else{
+                        if(preVal === pidTip){
+                            if(open === 1){
+                                if (!map.getSource('marksightId')) {
+                                    marksightLayer.source = source;
+                                    map.addLayer(marksightLayer);
+                                } else {
+                                    map.getSource('marksightId').setData({
+                                        "type": "FeatureCollection",
+                                        "features": [{
+                                            "type": "Feature",
+                                            "geometry": {
+                                                "type": "Point",
+                                                "coordinates": sightLocation
+                                            }
+                                        }]
+                                    })
+                                }
+                                open = 0 ;
+                            }else{
+                                $scope.clearMarksight();
+                                open = 1;
+                            }
+
+                        }else{
+                            preVal = pidTip;
                             if (!map.getSource('marksightId')) {
                                 marksightLayer.source = source;
                                 map.addLayer(marksightLayer);
@@ -1173,11 +1120,11 @@ angular.module("scenery", ['dataService', 'nvd3', 'angular-popups', 'navApp'])
                                     }]
                                 })
                             }
-                            open = 0 ;
-                        }else{
-                            $scope.clearMarksight();
-                            open = 1;
+
                         }
+
+                    }
+
                 })
             }
 
@@ -1197,6 +1144,16 @@ angular.module("scenery", ['dataService', 'nvd3', 'angular-popups', 'navApp'])
                 }
                 audioTip.pause();
                 $('#speakTip-'+index).css('backgroundImage','url(../img/scenery/icon_white_normal.png)');
+
+                audioTip.addEventListener('ended', function () {
+                    console.log('--over--');
+                    var stopIcon =$('#speakTip-'+index).css('backgroundImage');
+                    if(stopIcon.indexOf('blue') > -1 ){
+                        $('#speakTip-'+index).css('backgroundImage','url(../img/scenery/icon_blue_normal.png)');
+                    }else{
+                        $('#speakTip-'+index).css('backgroundImage','url(../img/scenery/icon_white_normal.png)');
+                    }
+                }, false);
 
             }
 

@@ -289,6 +289,12 @@ li{
 .hideBotline{
     display: none;
 }
+.hideSearchline{
+    display: none;
+}
+.showSearchline{
+    display: block;
+}
 .hideEntrance{
     display: none;
 }

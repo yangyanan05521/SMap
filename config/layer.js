@@ -6789,10 +6789,10 @@ var scenery ={
             layout:
                 {
                     'icon-image': 'museum-15',
-                    "text-field": "{name}",
-                    'text-size':12,
-                    "text-offset":[0,1.5],
-                    "text-justify": "center",
+                    // "text-field": "{name}",
+                    // 'text-size':12,
+                    // "text-offset":[0,1.5],
+                    // "text-justify": "center",
                     "visibility": "visible"
                 },
             paint:
@@ -6813,10 +6813,10 @@ var scenery ={
             layout:
                 {
                     'icon-image': 'museum-15',
-                    "text-field": "{name}",
-                    'text-size':12,
-                    "text-offset":[0,1.5],
-                    "text-justify": "center",
+                    // "text-field": "{name}",
+                    // 'text-size':12,
+                    // "text-offset":[0,1.5],
+                    // "text-justify": "center",
                     "visibility": "visible"
                 },
             paint:
@@ -6837,10 +6837,10 @@ var scenery ={
             layout:
                 {
                     'icon-image': 'museum-15',
-                    "text-field": "{name}",
-                    'text-size':12,
-                    "text-offset":[0,1.5],
-                    "text-justify": "center",
+                    // "text-field": "{name}",
+                    // 'text-size':12,
+                    // "text-offset":[0,1.5],
+                    // "text-justify": "center",
                     "visibility": "visible"
                 },
             paint:
