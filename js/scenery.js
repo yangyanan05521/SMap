@@ -780,38 +780,39 @@ angular.module("scenery", ['dataService', 'nvd3', 'angular-popups', 'navApp'])
                 if(audio.paused){
                     audio.play();
                     $('#speak-'+index).css('backgroundImage','url(../img/scenery/icon_white_active.gif)');
-                    return;
+                }else{
+                    audio.pause();
+                    $('#speak-'+index).css('backgroundImage','url(../img/scenery/icon_white_normal.png)');
                 }
-                audio.pause();
-                $('#speak-'+index).css('backgroundImage','url(../img/scenery/icon_white_normal.png)');
 
                 audio.addEventListener('ended', function () {
                     console.log('--over--');
-                    var stopIcon =$('#speakTip-'+index).css('backgroundImage');
+                    var stopIcon =$('#speak-'+index).css('backgroundImage');
                     if(stopIcon.indexOf('blue') > -1 ){
-                        $('#speakTip-'+index).css('backgroundImage','url(../img/scenery/icon_blue_normal.png)');
+                        $('#speak-'+index).css('backgroundImage','url(../img/scenery/icon_blue_normal.png)');
                     }else{
-                        $('#speakTip-'+index).css('backgroundImage','url(../img/scenery/icon_white_normal.png)');
+                        $('#speak-'+index).css('backgroundImage','url(../img/scenery/icon_white_normal.png)');
                     }
-                }, false);
+                });
             }
             $scope.playOrPauseDetail = function() {
                 var audioDe = document.getElementById('audioDe');
                 if(audioDe.paused){
                     audioDe.play();
                     $('#speakDe').css('backgroundImage','url(../img/scenery/icon_blue_active.gif)');
-                    return;
+                }else{
+                    audioDe.pause();
+                    $('#speakDe').css('backgroundImage','url(../img/scenery/icon_blue_normal.png)');
                 }
-                audioDe.pause();
-                $('#speakDe').css('backgroundImage','url(../img/scenery/icon_blue_normal.png)');
+
 
                 audioDe.addEventListener('ended', function () {
                     console.log('--over--');
-                    var stopIcon =$('#speakTip-'+index).css('backgroundImage');
+                    var stopIcon =$('#speakDe').css('backgroundImage');
                     if(stopIcon.indexOf('blue') > -1 ){
-                        $('#speakTip-'+index).css('backgroundImage','url(../img/scenery/icon_blue_normal.png)');
+                        $('#speakDe').css('backgroundImage','url(../img/scenery/icon_blue_normal.png)');
                     }else{
-                        $('#speakTip-'+index).css('backgroundImage','url(../img/scenery/icon_white_normal.png)');
+                        $('#speakDe').css('backgroundImage','url(../img/scenery/icon_white_normal.png)');
                     }
                 }, false);
 
@@ -1076,12 +1077,13 @@ angular.module("scenery", ['dataService', 'nvd3', 'angular-popups', 'navApp'])
                                 }
                             }
                         };
-                    if(preVal === ''){
+                    if(preVal === ''){                                     //点击第一次preVal为空
                         preVal = pidTip;
-
+                        marksightLayer.source = source;
+                        map.addLayer(marksightLayer);
                     }else{
                         if(preVal === pidTip){
-                            if(open === 1){
+                            if(open === 1){                                //当前的pid与上一次的pid相同且显示
                                 if (!map.getSource('marksightId')) {
                                     marksightLayer.source = source;
                                     map.addLayer(marksightLayer);
@@ -1098,13 +1100,12 @@ angular.module("scenery", ['dataService', 'nvd3', 'angular-popups', 'navApp'])
                                     })
                                 }
                                 open = 0 ;
-                            }else{
+                            }else{                                       //当前的pid与上一次的pid相同且隐藏
                                 $scope.clearMarksight();
                                 open = 1;
                             }
-
                         }else{
-                            preVal = pidTip;
+                            preVal = pidTip;                             //当前的pid与上一次的pid不同，将当前的赋予preVal
                             if (!map.getSource('marksightId')) {
                                 marksightLayer.source = source;
                                 map.addLayer(marksightLayer);
@@ -1120,11 +1121,9 @@ angular.module("scenery", ['dataService', 'nvd3', 'angular-popups', 'navApp'])
                                     }]
                                 })
                             }
-
+                            open=0;
                         }
-
                     }
-
                 })
             }
 
@@ -1140,10 +1139,10 @@ angular.module("scenery", ['dataService', 'nvd3', 'angular-popups', 'navApp'])
                 if(audioTip.paused){
                     audioTip.play();
                     $('#speakTip-'+index).css('backgroundImage','url(../img/scenery/icon_white_active.gif)');
-                    return;
+                }else{
+                    audioTip.pause();
+                    $('#speakTip-'+index).css('backgroundImage','url(../img/scenery/icon_white_normal.png)');
                 }
-                audioTip.pause();
-                $('#speakTip-'+index).css('backgroundImage','url(../img/scenery/icon_white_normal.png)');
 
                 audioTip.addEventListener('ended', function () {
                     console.log('--over--');
