@@ -645,6 +645,10 @@ input{
     border-radius: 3px;
     background:rgba(189,196,210,0.5);
 }
+/*输入框IE出现清除按钮*/
+::-ms-clear,::-ms-reveal{
+    display: none;
+}
 
 /***************************右下角按钮****************************/
 .changeMapSizeDiv {

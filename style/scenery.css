@@ -201,6 +201,7 @@ li{
     color:#333;
     margin:0px;
     overflow-y: auto;
+    -ms-overflow-y: auto;
     width:340px;
     z-index: 5;
     position:absolute;
@@ -863,6 +864,10 @@ input{
 }
 :-ms-input-placeholder { /* Internet Explorer 10+ */
     　　color:#999;
+}
+/*输入框IE出现清除按钮*/
+::-ms-clear,::-ms-reveal{
+    display: none;
 }
 
 /****test****/

@@ -267,3 +267,7 @@
 .main_div .a1{
     margin-left: 20px;
 }
+/*输入框IE出现清除按钮*/
+::-ms-clear,::-ms-reveal{
+    display: none;
+}

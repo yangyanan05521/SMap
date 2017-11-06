@@ -3076,7 +3076,7 @@ var constructionLayer ={
                 "symbol-placement": "line"
             },
             "paint": {
-                "text-halo-color": "#f98100",
+                "text-halo-color": "#B1B0B1",
                 "text-halo-width": 10,
                 "text-color": "#ffffff",
                 "icon-halo-width": 1,
@@ -3150,8 +3150,8 @@ var constructionLayer ={
                 "symbol-placement": "line"
             },
             "paint": {
-                "text-halo-color": "#f5eaaf",
-                "text-color": "#774512",
+                "text-halo-color": "#B1B0B1",
+                "text-color": "#B1B0B1",
                 "text-halo-width": 0.8,
                 "icon-color": "#ff0000"
             },
@@ -3170,8 +3170,8 @@ var constructionLayer ={
                 "symbol-placement": "line"
             },
             "paint": {
-                "text-halo-color": "#f5eaaf",
-                "text-color": "#774512",
+                "text-halo-color": "#B1B0B1",
+                "text-color": "#B1B0B1",
                 "text-halo-width": 0.8,
                 "icon-color": "#ff0000"
             },
@@ -3190,8 +3190,8 @@ var constructionLayer ={
                 "symbol-placement": "line"
             },
             "paint": {
-                "text-halo-color": "#f5eaaf",
-                "text-color": "#774512",
+           //     "text-halo-color": "#B1B0B1",
+                "text-color": "#B1B0B1",
                 "text-halo-width": 0.8,
                 "icon-color": "#ff0000"
             },
@@ -3210,8 +3210,8 @@ var constructionLayer ={
                 "symbol-placement": "line"
             },
             "paint": {
-                "text-halo-color": "#f5eaaf",
-                "text-color": "#774512",
+           //     "text-halo-color": "#B1B0B1",
+                "text-color": "#B1B0B1",
                 "text-halo-width": 0.8,
                 "icon-color": "#ff0000"
             },
@@ -3229,9 +3229,9 @@ var constructionLayer ={
                 "text-field": "{name_zh}"
             },
             "paint": {
-                "text-halo-color": "#5e94e4",
+                "text-halo-color": "#0D0B19",
                 "text-halo-width": 10.0,
-                "text-color": "#ffffff",
+                "text-color": "#AEADB0",
                 "icon-color": "#ff0000",
                 "text-translate-anchor": "map"
             },

@@ -142,4 +142,12 @@ angular.module("construction",["navApp"]).controller("constructionController",["
         $scope.popConstructionInfomation(e,geo);
 
     })
+    $scope.changeZoom = function (arg) {
+        var nowZoom = map.getZoom();
+        if (arg === 'add') {
+            map.setZoom(nowZoom + 1);
+        } else {
+            map.setZoom(nowZoom - 1);
+        }
+    };
 }]);

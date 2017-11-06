@@ -552,5 +552,9 @@ span.noResult{
 .hideDeleteBtn {
     display: none;
 }
+/*输入框IE出现清除按钮*/
+::-ms-clear,::-ms-reveal{
+    display: none;
+}
 
 
