@@ -1,8 +1,8 @@
 var map = new mapboxgl.Map({
     container: 'map',
     style: constructionLayer,
-    zoom: 10,
-    center: [ 117.19937,  39.0851  ],
+    zoom: 11,
+    center: [ 116.38402, 39.96261 ],
     maxZoom: 17,
     minZoom: 5,
     pitch: 0
@@ -105,9 +105,15 @@ angular.module("construction",["navApp"]).controller("constructionController",["
         var v2 = new mapboxgl.LngLatBounds([bbox[0], bbox[1]], [bbox[2], bbox[3]]);
         map.fitBounds(v2,{padding: 50} );
     };
+
+    var popup = new mapboxgl.Popup({
+        closeButton: false,
+        closeOnClick: false
+    });
     $scope.popConstructionInfomation = function(data,geo){
         var loc = [];
         var div = window.document.createElement('div');
+    //    div.style.cssText='background-color: rgba(0,0,0,0.5);color:#FFFFFF;padding:0px;margin:0px';
         var description = decodeURI(data.features[0].properties.construction_desc);
       /*  console.log(data.features[0].properties.construction_time);*/
         var date = decodeURIComponent(data.features[0].properties.construction_time);
@@ -115,10 +121,9 @@ angular.module("construction",["navApp"]).controller("constructionController",["
         loc.push(geo.coordinates[0][0]);
         loc.push(geo.coordinates[0][1]);
         div.innerHTML =
-            '<div style="text-align: center">'+time+'</div>'
-            +'<div style="text-align: center">'+ description+'</div>';
-        new mapboxgl.Popup()
-            .setLngLat(loc)
+            '<div class="feePopDeep">'+time+description+'</div>'
+            +'<div  class="tipPopDeep"></div>';
+        popup.setLngLat(loc)
             .setDOMContent(div)
             .addTo(map);
     };
@@ -134,12 +139,22 @@ angular.module("construction",["navApp"]).controller("constructionController",["
         $location.hash(local);
         $anchorScroll();
     };
+    var open = 1;
     map.on('click','construction_Layer',function (e) {
       /*  console.log(e);*/
         var geo = JSON.parse(e.features[0].properties.geometroy);
         // console.log(e.features[0].properties.geometroy);
-        $scope.heightLightRoad(geo);
-        $scope.popConstructionInfomation(e,geo);
+        if(open == 1){
+          //  $scope.heightLightRoad(geo);
+            $scope.popConstructionInfomation(e,geo);
+            open = 0;
+        }else{
+            map.getCanvas().style.cursor = '';
+            popup.remove();
+            open = 1;
+
+        }
+
 
     })
     $scope.changeZoom = function (arg) {

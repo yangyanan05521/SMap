@@ -302,3 +302,33 @@ li{
     vertical-align: middle;
     margin-top: -2px;
 }
+/*******************************路费弹框********************************/
+ .mapboxgl-map .mapboxgl-popup .mapboxgl-popup-tip {
+    display: none;
+}
+.mapboxgl-map .mapboxgl-popup .mapboxgl-popup-content{
+    padding:0;
+    background: transparent;
+    box-shadow: none;
+}
+ .mapboxgl-map .mapboxgl-popup .mapboxgl-popup-content > button{
+    display: none;
+}
+ .mapboxgl-map .mapboxgl-popup .mapboxgl-popup-content div .tipPopDeep{
+    width: 0;
+    height: 0;
+    margin: 0 auto;
+    border-width:6px 3px 0;
+    border-style:solid;
+    border-color:rgba(0,0,0,0.3);
+}
+
+.mapboxgl-map .mapboxgl-popup .mapboxgl-popup-content div .feePopDeep{
+    margin: 0;
+    padding:0 6px;
+    min-width: 52px;
+    color: #ffffff;
+    font-size: 12px;
+    text-align: center;
+    background-color: rgba(0,0,0,0.3);
+}
