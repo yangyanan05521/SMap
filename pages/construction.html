@@ -28,7 +28,12 @@
                 <li class="fl">施工道路总里程&nbsp;[&nbsp;300km&nbsp;]&nbsp;</li>
                 <li class="fl">高速道路施工总里程&nbsp;[&nbsp;300km&nbsp;]&nbsp;</li>
                 <li class="fl">城市主要道路施工总里程&nbsp;[&nbsp;300km&nbsp;]&nbsp;</li>
-                <li class="fr cityDis">北京市</li>
+                <li class="fr cityDis">
+                    <span ng-bind="curCity" ng-click="foldList()"></span>
+                    <div class="selectedCity">
+                        <div ng-repeat="one in cityLists" ng-bind="one.name" ng-click="toCitycenter(one.point,one.name)"></div>
+                    </div>
+                </li>
             </ul>
         </div>
         <div class="graphExp">
@@ -48,36 +53,6 @@
 
             </ul>
         </div>
-        <!--<div class="selectedDiv">-->
-            <!--<div class="nowCity" ng-style="nowCity" ng-click="showChoosedCity('nowCity')">-->
-                <!--<span ng-bind="nowProvince"></span>-->
-            <!--</div>-->
-            <!--<div class="choosedCity" ng-style="choosedCity">-->
-                <!--<span ng-bind="nowProvince"></span>-->
-                <!--<img class="hideCityList" ng-click="showChoosedCity('choosedCity')" src="../img/onlineMap/arrow_active.png">-->
-            <!--</div>-->
-            <!--<div class="cityList" ng-style="cityList">-->
-                <!--<div class="cityFirstLetterList" >-->
-                    <!--<ul class="allFirstLetters ">-->
-                        <!--<li class="firstLetter" ng-repeat="item in captureArr" ng-click="goCapture(item)">{{item}}</li>-->
-                    <!--</ul>-->
-                <!--</div>-->
-                <!--<div class="allCities">-->
-                    <!--<ul class="allCitiesList">-->
-                        <!--<li ng-repeat=" firstObj in provinceArr">-->
-                            <!--<a class="indexLetter" id=capture{{firstObj.capture}} ng-bind="firstObj.capture" ></a>-->
-                            <!--<span class="citiesBox">-->
-                            <!--<ul>-->
-                                <!--<li title="{{secondObj.name}}"  ng-repeat="secondObj in firstObj.children" ng-click="locationProvince(secondObj)">-->
-                                    <!--<span ng-bind="secondObj.name"></span>-->
-                                <!--</li>-->
-                            <!--</ul>-->
-                        <!--</span>-->
-                        <!--</li>-->
-                    <!--</ul>-->
-                <!--</div>-->
-            <!--</div>-->
-        <!--</div>-->
     </div>
     <div id="map">
         <div class="changeMapSizeDiv">

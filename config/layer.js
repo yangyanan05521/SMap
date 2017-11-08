@@ -16463,7 +16463,7 @@ var constructionLayer ={
             "maxzoom": 10.0,
             "source": "Merge_1",
             "layout": {
-                "text-size": 14,
+                "text-size": 12,
                 "icon-image": "circle-red-11",
                 "text-pitch-alignment": "viewport",
                 "visibility": "visible",
@@ -16867,7 +16867,7 @@ var constructionLayer ={
             "source": "Merge_1",
             "layout": {
                 "text-size": 12,
-                "icon-image": "n-point-name-15-{zh_cnt}",
+                // "icon-image": "n-point-name-15-{zh_cnt}",
                 "visibility": "visible",
                 "text-field": "{name_zh}",
                 "text-font": [
@@ -16880,7 +16880,7 @@ var constructionLayer ={
             },
             "paint": {
                 "text-halo-color": "#000202",
-                "text-halo-width": 0.0,
+                "text-halo-width": 10.0,
                 "text-color": "#808080",
                 "icon-opacity": 0.85,
                 "icon-color": "#030000",
@@ -16922,8 +16922,8 @@ var constructionLayer ={
             "maxzoom": 17.1,
             "layout":
                 {
-                    "icon-image": "constructionIcon",
-                    "icon-size": 0.4,
+                    "icon-image": "icon_reddot",
+                    "icon-size": 1,
                 },
             "paint":
                 {

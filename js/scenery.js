@@ -119,6 +119,7 @@ angular.module("scenery", ['dataService', 'nvd3', 'angular-popups', 'navApp'])
                         display: "none"
                     }
                     $('.searchResult').hide();
+                    $('.introduce').hide();
                     dsEdit.getProduct("scenic/search/realtime", {
                         parm: JSON.stringify({
                             str: $scope.searchWord
@@ -472,7 +473,6 @@ angular.module("scenery", ['dataService', 'nvd3', 'angular-popups', 'navApp'])
                 $scope.relativeList = {
                     display: 'none'
                 }
-
                 if ($('#keywordSearch').val() == '') {
                     $scope.noSearchResult = {
                         display: 'block'

@@ -264,11 +264,32 @@ li{
 }
 #container #content .sumTitle .cityDis{
     color:#FFFFFF;
-    padding: 0px 10px;
-    border-left:1px solid #FFFFFF;
+    width:80px;
     line-height: 16px;
     margin-top: 12px;
     margin-right: 0px;
+    background: url(../img/onlineMap/icon_arrow_normal.png) no-repeat 60px 7px;
+    cursor: pointer;
+}
+#container #content .sumTitle .cityDis span{
+    border-left:1px solid #FFFFFF;
+    padding-left: 10px;
+    display: inline-block;
+    width: 100%;
+}
+#container #content .sumTitle .cityDis .selectedCity{
+    background-color: rgba(20, 120, 255, 0.2);
+    border:1px solid #1478ff;
+    margin-top: 12px;
+    display: none;
+}
+#container #content .sumTitle .cityDis .selectedCity div{
+    line-height: 30px;
+    padding-left:10px;
+}
+#container #content .sumTitle .cityDis .selectedCity div:hover{
+    background-color: rgba(20, 120, 255, 1);
+    cursor: pointer;
 }
 #container #content .graphExp{
     position:absolute;
@@ -318,17 +339,18 @@ li{
     width: 0;
     height: 0;
     margin: 0 auto;
-    border-width:6px 3px 0;
-    border-style:solid;
-    border-color:rgba(0,0,0,0.3);
+    border-width:8px 6px 0;
+    border-style:solid ;
+     border-color:rgba(0,0,0,0.3) transparent transparent;
 }
 
 .mapboxgl-map .mapboxgl-popup .mapboxgl-popup-content div .feePopDeep{
     margin: 0;
-    padding:0 6px;
-    min-width: 52px;
+    padding:0px 10px;
+    width: 210px;
     color: #ffffff;
     font-size: 12px;
-    text-align: center;
+    text-align: left;
     background-color: rgba(0,0,0,0.3);
+    line-height: 30px;
 }
