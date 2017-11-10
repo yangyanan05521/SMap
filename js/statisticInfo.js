@@ -19,11 +19,13 @@ statistic.controller("statisticController", ['$scope', 'dsEdit', '$location', "$
     $scope.options = {
         chart: {
             type: "pieChart",
-            height: 200,
+            height: 240,
             showLabels: true,
             showLegend: false,
             duration: 500,
             labelThreshold: 0.01,
+            donut:true,
+            donutRatio:0.3,
             x: function (d) {
                 return d.key;
             },
@@ -39,16 +41,17 @@ statistic.controller("statisticController", ['$scope', 'dsEdit', '$location', "$
                     left: 0
                 },
             },
-            color: ['#FFA657', '#FFD0A1', '#6CBD6C']
+            color: ['#36aeea', '#67ba2f', '#ffae45']
         }
     }
     $scope.chartPoitop = [];
     $scope.chartPoibot = [];
     $scope.chartRoadtop = [];
     $scope.chartRoadbot = [];
+    var requestUrl = 'http://fastmap.navinfo.com/smap/collect/smapquerystat';
 
     //初始化数据
-    $http.post('http://fastmap.navinfo.com/smap/collect/smapquerystat?parm={"type":"S_ALLDB_STAT"}').then(function (data) {
+    $http.post(requestUrl+'?parm={"type":"S_ALLDB_STAT"}').then(function (data) {
         var val = data.data;
         if (val.poi.poi_add == '') {
             val.poi.poi_add = 0;
@@ -70,13 +73,15 @@ statistic.controller("statisticController", ['$scope', 'dsEdit', '$location', "$
         }
         $scope.sumPoi = val.poi;
         $scope.sumRoad = val.road;
+      //  console.log(val);
     })
-    $http.post('http://fastmap.navinfo.com/smap/collect/smapquerystat?parm={"type":"S_ALL_LIST"}').then(function (data) {
+    $http.post(requestUrl+'?parm={"type":"S_ALL_LIST"}').then(function (data) {
         var static = data.data;
+        console.log(static);
         $scope.dayProduceData = static;
         $scope.convListId = static[0].conv_list_id;
         //根据conv_list_id读取总数据
-        $http.post('http://fastmap.navinfo.com/smap/collect/smapquerystat?parm={"type":"S_FULL_STAT","conv_list_id":' + $scope.convListId + '}').then(function (data) {
+        $http.post(requestUrl+'?parm={"type":"S_FULL_STAT","conv_list_id":' + $scope.convListId + '}').then(function (data) {
             $('.hoverStyle li').eq(0).addClass('selected');
             var val = data.data;
             $scope.poiData = val.poi;
@@ -113,7 +118,7 @@ statistic.controller("statisticController", ['$scope', 'dsEdit', '$location', "$
 
         })
     }).then(function () {
-        $http.post('http://fastmap.navinfo.com/smap/collect/smapquerystat?parm={"type":"S_ONE_LIST","conv_list_id":' + $scope.convListId + '}').then(function (data) {
+        $http.post(requestUrl+'?parm={"type":"S_ONE_LIST","conv_list_id":' + $scope.convListId + '}').then(function (data) {
             var caption = data.data;
             $scope.captionDetail = caption;
             $scope.runtimeId = caption[0].runtime_id;
@@ -121,7 +126,7 @@ statistic.controller("statisticController", ['$scope', 'dsEdit', '$location', "$
                 type: "S_ONE_STAT",
                 runtimeid: $scope.runtimeId
             });
-            $http.post('http://fastmap.navinfo.com/smap/collect/smapquerystat?parm=' + $scope.oneParam).then(function (data) {
+            $http.post(requestUrl+'?parm=' + $scope.oneParam).then(function (data) {
                 $('.hoverStylePro li').eq(0).addClass('selected');
                 var oneState = data.data;
                 $scope.poiCap = oneState.poi;
@@ -163,7 +168,7 @@ statistic.controller("statisticController", ['$scope', 'dsEdit', '$location', "$
     //点击日出品列表
     $scope.showStaticInfo = function (item, index) {
         $('.hoverStyle li').eq(index).addClass('selected').siblings().removeClass('selected');
-        $http.post('http://fastmap.navinfo.com/smap/collect/smapquerystat?parm={"type":"S_FULL_STAT","conv_list_id":' + item.conv_list_id + '}').then(function (data) {
+        $http.post(requestUrl+'?parm={"type":"S_FULL_STAT","conv_list_id":' + item.conv_list_id + '}').then(function (data) {
             var val = data.data;
             $scope.poiData = val.poi;
             $scope.roadData = val.road;
@@ -198,7 +203,7 @@ statistic.controller("statisticController", ['$scope', 'dsEdit', '$location', "$
             $scope.pieData(roadAdd, roadupdate, roaddel, 'roadTop');
 
         }).then(function () {
-            $http.post('http://fastmap.navinfo.com/smap/collect/smapquerystat?parm={"type":"S_ONE_LIST","conv_list_id":' + item.conv_list_id + '}').then(function (data) {
+            $http.post(requestUrl+'?parm={"type":"S_ONE_LIST","conv_list_id":' + item.conv_list_id + '}').then(function (data) {
                 var dataList = data.data;
                 $scope.captionDetail = dataList;
                 if (dataList[0]) {                     //存在无省份的情况，无runtime_id
@@ -207,7 +212,7 @@ statistic.controller("statisticController", ['$scope', 'dsEdit', '$location', "$
                         type: "S_ONE_STAT",
                         runtimeid: runId
                     });
-                    $http.post('http://fastmap.navinfo.com/smap/collect/smapquerystat?parm=' + $scope.oneParam).then(function (data) {
+                    $http.post(requestUrl+'?parm=' + $scope.oneParam).then(function (data) {
                         $('.hoverStylePro li').eq(0).addClass('selected');
                         var oneState = data.data;
                         $scope.poiCap = oneState.poi;
@@ -254,7 +259,7 @@ statistic.controller("statisticController", ['$scope', 'dsEdit', '$location', "$
             type: "S_ONE_STAT",
             runtimeid: item.runtime_id
         });
-        $http.post('http://fastmap.navinfo.com/smap/collect/smapquerystat?parm=' + $scope.thirdParam).then(function (data) {
+        $http.post(requestUrl+'?parm=' + $scope.thirdParam).then(function (data) {
             var oneState = data.data;
             $scope.poiCap = oneState.poi;
             $scope.roadCap = oneState.road;
@@ -358,5 +363,6 @@ statistic.controller("statisticController", ['$scope', 'dsEdit', '$location', "$
             ];
         }
     }
+
 
 }]);

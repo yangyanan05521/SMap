@@ -23,4 +23,19 @@ angular.module('dataService').service('dsEdit', ['$http', '$q', 'ajax', 'dsOutpu
         });
         return defer.promise;
     };
+
+    /* test */
+    this.descPlate = function () {
+        var defer = $q.defer();
+        ajax.post('smap_p/plateres/web/cond/td/desc', 'spec').success(function (data) {
+            if (data.code == 200) {
+                defer.resolve(data.data);
+            } else {
+                defer.resolve([]);
+            }
+        }).error(function (rejection) {
+            defer.reject(rejection);
+        });
+        return defer.promise;
+    };
 }]);
