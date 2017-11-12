@@ -19,18 +19,18 @@
                 <div class="sumIcon">累计出品</div>
                 <div class="clear">
                     <div class="sumClass fl">
-                        <div class="topSum">POI</div>
+                        <div class="topSum" style="font-family: Arial">POI</div>
                         <div class="topBot">
                             <div class="every">
-                                <div style="background-color: #36aeea;height: 44px">新增</div>
+                                <div style="background-color: #36aeea;height: 40px">新增</div>
                                 <div class="sumNum poiNum ng-cloak">{{sumPoi.poi_add}}个</div>
                             </div>
                             <div class="every">
-                                <div style="background-color: #67ba2f;height: 44px">修改</div>
+                                <div style="background-color: #67ba2f;height: 40px">修改</div>
                                 <div class="sumNum poiNum ng-cloak">{{sumPoi.poi_update}}个</div>
                             </div>
                             <div class="every">
-                                <div style="background-color: #ffae45;height: 44px">删除</div>
+                                <div style="background-color: #ffae45;height: 40px">删除</div>
                                 <div class="sumNum poiNum ng-cloak">{{sumPoi.poi_del}}个</div>
                             </div>
                         </div>
@@ -40,15 +40,15 @@
                         <div class="topSum">道路</div>
                         <div class="topBot">
                             <div class="every">
-                                <div style="background-color: #36aeea;height: 44px">新增</div>
+                                <div style="background-color: #36aeea;height: 40px">新增</div>
                                 <div class="sumNum ng-cloak">{{sumRoad.road_add}}公里</div>
                             </div>
                             <div class="every">
-                                <div style="background-color: #67ba2f;height: 44px">修改</div>
+                                <div style="background-color: #67ba2f;height: 40px">修改</div>
                                 <div class="sumNum ng-cloak">{{sumRoad.road_update}}公里</div>
                             </div>
                             <div class="every">
-                                <div style="background-color: #ffae45;height: 44px">删除</div>
+                                <div style="background-color: #ffae45;height: 40px">删除</div>
                                 <div class="sumNum ng-cloak">{{sumRoad.road_del}}公里</div>
                             </div>
                         </div>
@@ -61,43 +61,48 @@
                 <div class="totalList clear">
                     <div class="fl">
                         <div class="firstCol">
-                            <div style="padding: 0px 37px">NO</div>
-                            <div style="padding: 0px 60px">日期</div>
-                            <div style="padding: 0px 87px">开始时间</div>
-                            <div style="padding: 0px 92px">结束时间</div>
+                            <div>NO</div>
+                            <div>日期</div>
+                            <div>开始时间</div>
+                            <div>结束时间</div>
                         </div>
-                        <ul  class="hoverStyle">
-                            <li  ng-repeat="item in dayProduceData" ng-click="showStaticInfo(item,$index)">
+                        <ul  class="dataList hoverStyle" id="topList">
+                            <li  ng-repeat="item in dayProduceData" ng-mousemove="showStaticInfo(item,$index)">
                                 <div ng-bind="$index+1"></div>
                                 <div ng-bind="item.belong_time"></div>
                                 <div ng-bind="item.begin_time"></div>
                                 <div ng-bind="item.end_time"></div>
                             </li>
                         </ul>
-
+                        <div id="borderTop"></div>
                     </div>
                     <div class="fr circleRe">
                         <div>
+                            <div id="arrowTop">
+                                <img src="../img/statisticInfo/arrow.png" alt="">
+                            </div>
                             <div style="width: 100%; height: 30px;">
                                     <div style="float: left" class="darkBlueIcon"></div>
-                                    <div style="float: left;padding-left: 10px"><span>各要素比例</span></div>
+                                    <div style="float: left;padding-left: 10px" class="perTitle"><span>各要素比例</span></div>
                             </div>
-                                <div style="width: 100%; height: 220px" class="clear">
-                                    <div style="width:40%;height: 220px;float:left;margin-right: 5%" >
+                                <div style="width: 100%;" class="clear">
+                                    <div style="width:40%;height: 220px;float:left;margin-right: 10%;position: relative" >
                                         <nvd3 options='options' data='chartPoitop'></nvd3>
+                                        <div class="poiPos">POI</div>
                                     </div>
-                                    <div style="width:40%;height: 220px;float:left" >
+                                    <div style="width:40%;height: 220px;float:left;position: relative" >
                                         <nvd3 options='options' data='chartRoadtop'></nvd3>
+                                        <div class="roadPos">道路</div>
                                     </div>
-                                    <ul style="font-size: 14px;">
-                                        <li><span class="picIntro" style="background-color:#FFA657;"></span>新增</li>
-                                        <li><span class="picIntro" style="background-color: #FFD0A1;"></span>修改</li>
-                                        <li><span class="picIntro" style="background-color: #6CBD6C;" ></span>删除</li>
+                                    <ul class="picMark">
+                                        <li><span class="picIntro" style="background-color:#36aeea;"></span>新增</li>
+                                        <li><span class="picIntro" style="background-color:#67ba2f;"></span>修改</li>
+                                        <li><span class="picIntro" style="background-color:#ffae45;" ></span>删除</li>
                                     </ul>
                                 </div>
                                 <div class="clear">
                                     <div class="elementPer">
-                                            <span  class="ng-cloak" >新增:&nbsp;{{poiData.poi_add}}个</span>
+                                            <span  class="ng-cloak">新增:&nbsp;{{poiData.poi_add}}个</span>
                                             <span  class="ng-cloak">修改:&nbsp;{{poiData.poi_update}}个</span>
                                             <span  class="ng-cloak">删除:&nbsp;{{poiData.poi_del}}个</span>
                                     </div>
@@ -108,13 +113,71 @@
                                     </div>
                                 </div>
                             </div>
-
-
-
                 </div>
             </div>
 
         </div>
+            <div class="dailyStatis"  style="margin-bottom:20px;" >
+                <div class="dailyIcon">省份列表</div>
+                <div class="totalList clear">
+                    <div class="fl">
+                        <div class="secondCol">
+                            <div>NO</div>
+                            <div>省份</div>
+                            <div>开始时间</div>
+                            <div>结束时间</div>
+                        </div>
+                        <ul  class="dataList hoverStylePro" id="botList">
+                            <li  ng-repeat="one in captionDetail" ng-mousemove="showProInfo(one,$index)">
+                                <div ng-bind="$index+1"></div>
+                                <div ng-bind="one.provincenm"></div>
+                                <div ng-bind="one.begin_time"></div>
+                                <div ng-bind="one.end_time"></div>
+                            </li>
+                        </ul>
+                        <div id="borderBot"></div>
+                    </div>
+                    <div class="fr circleRe">
+                        <div>
+                            <div id="arrowBot">
+                                <img src="../img/statisticInfo/arrow.png" alt="">
+                            </div>
+                            <div style="width: 100%; height: 30px;">
+                                <div style="float: left" class="darkBlueIcon"></div>
+                                <div style="float: left;padding-left: 10px" class="perTitle"><span>各要素比例</span></div>
+                            </div>
+                            <div style="width: 100%;" class="clear">
+                                <div style="width:40%;height: 220px;float:left;margin-right: 10%;position: relative" >
+                                    <nvd3 options='options' data='chartPoibot'></nvd3>
+                                    <div class='poiPos'>POI</div>
+                                </div>
+                                <div style="width:40%;height: 220px;float:left;position: relative" >
+                                    <nvd3 options='options' data='chartRoadbot'></nvd3>
+                                    <div class='poiPos'>道路</div>
+                                </div>
+                                <ul class="picMark">
+                                    <li><span class="picIntro" style="background-color:#36aeea;"></span>新增</li>
+                                    <li><span class="picIntro" style="background-color:#67ba2f;"></span>修改</li>
+                                    <li><span class="picIntro" style="background-color:#ffae45;" ></span>删除</li>
+                                </ul>
+                            </div>
+                            <div class="clear">
+                                <div class="elementPer">
+                                    <span  class="ng-cloak">新增:&nbsp;{{poiCap.poi_add}}个</span>
+                                    <span  class="ng-cloak">修改:&nbsp;{{poiCap.poi_update}}个</span>
+                                    <span  class="ng-cloak">删除:&nbsp;{{poiCap.poi_del}}个</span>
+                                </div>
+                                <div  class="elementPer">
+                                    <span class="ng-cloak">新增:&nbsp;{{roadCap.road_add}}公里</span>
+                                    <span class="ng-cloak">修改:&nbsp;{{roadCap.road_update}}公里</span>
+                                    <span class="ng-cloak">删除:&nbsp;{{roadCap.road_del}}公里</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
     </div>
 
 

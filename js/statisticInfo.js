@@ -77,7 +77,6 @@ statistic.controller("statisticController", ['$scope', 'dsEdit', '$location', "$
     })
     $http.post(requestUrl+'?parm={"type":"S_ALL_LIST"}').then(function (data) {
         var static = data.data;
-        console.log(static);
         $scope.dayProduceData = static;
         $scope.convListId = static[0].conv_list_id;
         //根据conv_list_id读取总数据
@@ -165,9 +164,21 @@ statistic.controller("statisticController", ['$scope', 'dsEdit', '$location', "$
         });
     });
 
+    console.log(document.body.clientHeight);
+
     //点击日出品列表
     $scope.showStaticInfo = function (item, index) {
-        $('.hoverStyle li').eq(index).addClass('selected').siblings().removeClass('selected');
+       // $('.hoverStyle li').eq(index).addClass('selected').siblings().removeClass('selected');
+        // 控制上表色条及三角位置
+        var resNum = $('#topList li').eq(index).position().top;
+        $('#arrowTop').stop().animate({
+                'top':resNum-10
+        },200);
+
+        $('#borderTop').stop().animate({
+            'top':resNum
+        },200);
+
         $http.post(requestUrl+'?parm={"type":"S_FULL_STAT","conv_list_id":' + item.conv_list_id + '}').then(function (data) {
             var val = data.data;
             $scope.poiData = val.poi;
@@ -254,7 +265,17 @@ statistic.controller("statisticController", ['$scope', 'dsEdit', '$location', "$
 
     //点击省份列表
     $scope.showProInfo = function (item, index) {
-        $('.hoverStylePro li').eq(index).addClass('selected').siblings().removeClass('selected');
+      //  $('.hoverStylePro li').eq(index).addClass('selected').siblings().removeClass('selected');
+        //控制下表色条及三角位置
+        var posNum = $('#botList li').eq(index).position().top;
+        $('#arrowBot').stop().animate({
+            'top':posNum-10
+        },200);
+
+        $('#borderBot').stop().animate({
+            'top':posNum
+        },200);
+
         $scope.thirdParam = JSON.stringify({
             type: "S_ONE_STAT",
             runtimeid: item.runtime_id
@@ -364,5 +385,9 @@ statistic.controller("statisticController", ['$scope', 'dsEdit', '$location', "$
         }
     }
 
-
 }]);
+
+
+
+
+

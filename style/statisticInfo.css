@@ -3,11 +3,10 @@
     display: none;
 }
 html,body{
-    height: 100%;
-    width: 100%;
     font-family: 'Microsoft YaHei','微软雅黑',Arial,sans-serif;
     color: #333333;
     font-size: 16px;
+
 }
 .fl {
     float: left;
@@ -17,7 +16,6 @@ html,body{
 }
 .wrapper{
     margin:0 auto;
-    border:1px solid red;
     width:calc(100% - 200px);
 }
 .clear:after {
@@ -60,7 +58,7 @@ img {
 /******* content *******/
 .content .topSquare{
     width:100%;
-    height:44px;
+    height:40px;
     background-color: #263a6c;
     margin-bottom: 30px;
 }
@@ -81,13 +79,13 @@ img {
     width:705px;
 }
 .content .wrapper .sumStatis .sumClass .topSum{
-    height:50px;
+    height:40px;
     background-color: #e2e9f3;
     text-align: center;
-    line-height: 50px;
+    line-height: 40px;
 }
 .content .wrapper .sumStatis .sumClass .topBot{
-    height: 130px;
+    height: 120px;
     border:1px solid #eeeeee;
     display: flex;
     display: -ms-flex;
@@ -97,22 +95,23 @@ img {
 }
 .content .wrapper .sumStatis .sumClass .topBot .every{
     text-align: center;
-    line-height: 44px;
+    line-height: 40px;
     color:#FFFFFF;
-    font-size: 18px;
 }
 .content .wrapper .sumStatis .sumClass .topBot .every .sumNum{
     padding:0px 10px;
     border:1px solid #dedede;
     box-sizing: border-box;
     color:#333333;
-    font-size: 20px;
+    font-size: 18px;
     font-family: Arial;
 }
 .content .wrapper .sumStatis .sumClass .topBot .every .poiNum {
     padding:0px 22px;
 }
-
+.content .wrapper .dailyStatis{
+    margin-bottom: 30px;
+}
 .content .wrapper .dailyStatis .dailyIcon{
     font-size:18px;
     text-indent: 30px;
@@ -120,23 +119,65 @@ img {
     line-height: 40px;
 }
 .content .wrapper .dailyStatis .firstCol{
-    height: 50px;
+    height: 45px;
     border:1px solid #eeeeee;
     display: flex;
     display: -ms-flex;
     display: -moz-flex;
-    line-height: 50px;
+    line-height: 45px;
 }
 .content .wrapper .dailyStatis .firstCol div{
-    padding: 0px 69px;
     background-color:#e2e9f3;
     text-align: center;
 }
-.content .wrapper .dailyStatis .totalList ul{
+.content .wrapper .dailyStatis .firstCol div:nth-of-type(1){
+    padding: 0px 37px;
+}
+
+.content .wrapper .dailyStatis .firstCol div:nth-of-type(2){
+    padding: 0px 60px;
+}
+
+.content .wrapper .dailyStatis .firstCol div:nth-of-type(3){
+    padding: 0px 87px;
+}
+
+.content .wrapper .dailyStatis .firstCol div:nth-of-type(4){
+    padding: 0px 92px;
+}
+.content .wrapper .dailyStatis .secondCol{
+    height: 45px;
+    border:1px solid #eeeeee;
+    display: flex;
+    display: -ms-flex;
+    display: -moz-flex;
+    line-height: 45px;
+}
+.content .wrapper .dailyStatis .secondCol div{
+    background-color:#e2e9f3;
+    text-align: center;
+}
+.content .wrapper .dailyStatis .secondCol div:nth-of-type(1){
+    width: 95px;
+}
+
+.content .wrapper .dailyStatis .secondCol div:nth-of-type(2){
+    width: 185px;
+}
+
+.content .wrapper .dailyStatis .secondCol div:nth-of-type(3){
+    width: 210px;
+}
+
+.content .wrapper .dailyStatis .secondCol div:nth-of-type(4){
+    width: 250px;
+}
+
+.content .wrapper .dailyStatis .totalList .dataList{
     overflow:auto;
     height: 250px;
 }
-.content .wrapper .dailyStatis .totalList ul li{
+.content .wrapper .dailyStatis .totalList .dataList li{
     height: 50px;
     background-color:#f2f6fa;
     display: flex;
@@ -144,13 +185,26 @@ img {
     display: -moz-flex;
     justify-content: space-around;
     line-height: 50px;
+    font-family: Arial;
 }
-.content .wrapper .dailyStatis .totalList ul li div {
+.content .wrapper .dailyStatis .totalList .dataList li div {
    text-align: center;
+}
+.content .wrapper .dailyStatis .totalList .hoverStylePro li div:nth-of-type(1) {
+    width:95px;
+}
+.content .wrapper .dailyStatis .totalList .hoverStylePro li div:nth-of-type(2) {
+    width:185px;
+}
+.content .wrapper .dailyStatis .totalList .hoverStylePro li div:nth-of-type(3){
+    width:210px;
+}
+.content .wrapper .dailyStatis .totalList .hoverStylePro li div:nth-of-type(4){
+    width:246px;
 }
 .content .wrapper .dailyStatis .totalList .circleRe{
     width:860px;
-    height: 263px;
+    height: 260px;
     background-color: rgba(255, 255, 255, 1);
     box-shadow: 0px 0px 8px 0px rgba(65, 73, 85, 0.3);
     border-radius: 2px;
@@ -162,6 +216,7 @@ img {
 }
 .content .wrapper .dailyStatis .totalList .circleRe .elementPer span{
     margin-right: 13px;
+    font-family: Arial;
 }
 
 .darkBlueIcon {
@@ -169,11 +224,692 @@ img {
     width: 12px;
     height: 24px;
 }
-.picIntro{
+.content .wrapper .dailyStatis .totalList .circleRe .picIntro{
     display: inline-block;
     width:12px;
     height: 12px;
     border-radius: 50%;
+    margin-right: 13px;
+    vertical-align: middle;
 }
+.content .wrapper .dailyStatis .totalList .circleRe .picMark {
+    font-size:14px;
+    float: right;
+}
+.content .wrapper .dailyStatis .totalList .circleRe .picMark li{
+    line-height: 30px;
+
+}
+.content .wrapper .dailyStatis .totalList .hoverStyle li:hover{
+    background-color: #ebf1f5;
+    cursor: pointer;
+}
+.content .wrapper .dailyStatis .totalList .hoverStylePro li:hover{
+    background-color: #ebf1f5;
+    cursor: pointer;
+}
+.content .wrapper .dailyStatis .totalList .circleRe .poiPos{
+    position: absolute;
+    left:158px;
+    top: 117px;
+    font-family: Arial
+}
+.content .wrapper .dailyStatis .totalList .circleRe .roadPos{
+    position: absolute;
+    right:156px;
+    top: 114px
+}
+#arrowTop{
+    position: absolute;
+    left:861px;
+    top:429px;
+}
+#arrowBot{
+    position: absolute;
+    left:861px;
+    bottom:104px;
+}
+#borderTop{
+    width: 3px ;
+    background-color:#5fb723;
+    height: 47px;
+    position: absolute;
+    left:100px;
+    top:429px;
+}
+#borderBot{
+    width: 3px ;
+    background-color:#5fb723;
+    height: 47px;
+    position: absolute;
+    left:100px;
+    bottom:104px;
+}
+
+/*媒体查询*/
+@media (min-width: 1701px) and (max-width: 1900px){
+    body{
+        font-size: 14px;
+    }
+    .content .wrapper .sumStatis .sumIcon{
+        font-size:16px;
+        line-height: 30px;
+    }
+    .content .wrapper .dailyStatis .dailyIcon {
+        font-size: 16px;
+        line-height: 30px;
+    }
+    .content .wrapper .sumStatis .sumClass {
+        width: 550px;
+    }
+    .content .wrapper .dailyStatis .totalList .circleRe {
+        width: 680px;
+    }
+    .content .wrapper .dailyStatis .firstCol div:nth-of-type(1) {
+        padding: 0px 46px;
+
+    }
+    .content .wrapper .dailyStatis .firstCol div:nth-of-type(2) {
+        padding: 0px 61px;
+
+    }
+    .content .wrapper .dailyStatis .firstCol div:nth-of-type(3) {
+        padding: 0px 98px;
+
+    }
+    .content .wrapper .dailyStatis .firstCol div:nth-of-type(4) {
+        padding: 0px 87px;
+    }
+    .content .wrapper .dailyStatis .totalList .circleRe .elementPer{
+        width: auto;
+        margin-right: 10px;
+        font-size: 12px;
+    }
+    .content .wrapper .dailyStatis .totalList .circleRe .elementPer:nth-of-type(1){
+        width: 255px;
+    }
+    .content .wrapper .dailyStatis .totalList .circleRe .elementPer span {
+        margin-right: 2px;
+    }
+    .content .wrapper .dailyStatis .secondCol div:nth-of-type(1){
+        width: 112px;
+    }
+
+    .content .wrapper .dailyStatis .secondCol div:nth-of-type(2){
+        width: 167px;
+    }
+
+    .content .wrapper .dailyStatis .secondCol div:nth-of-type(3){
+        width: 218px;
+    }
+
+    .content .wrapper .dailyStatis .secondCol div:nth-of-type(4){
+        width: 250px;
+    }
+
+    .content .wrapper .dailyStatis .totalList .hoverStylePro li div:nth-of-type(1) {
+        width:112px;
+    }
+    .content .wrapper .dailyStatis .totalList .hoverStylePro li div:nth-of-type(2) {
+        width:167px;
+    }
+    .content .wrapper .dailyStatis .totalList .hoverStylePro li div:nth-of-type(3){
+        width:218px;
+    }
+    .content .wrapper .dailyStatis .totalList .hoverStylePro li div:nth-of-type(4){
+        width:246px;
+    }
+    #arrowTop{
+        left:960px;
+        top:400px;
+    }
+    #arrowBot{
+        left:960px;
+        bottom:-53px;
+    }
+    .content .wrapper .dailyStatis .totalList .circleRe .poiPos{
+        left:112px;
+    }
+    .content .wrapper .dailyStatis .totalList .circleRe .roadPos{
+        right:110px;
+    }
+
+    #borderTop{
+        top:407px;
+    }
+    #borderBot{
+        bottom:-46px;
+    }
+}
+
+@media (min-width: 1500px) and (max-width: 1700px){
+    body{
+        font-size: 14px;
+    }
+    .content .wrapper .sumStatis .sumIcon{
+        font-size:16px;
+        line-height: 30px;
+    }
+    .content .wrapper .dailyStatis .dailyIcon {
+        font-size: 16px;
+        line-height: 30px;
+    }
+    .content .wrapper .sumStatis .sumClass {
+        width: 550px;
+    }
+    .content .wrapper .dailyStatis .totalList .circleRe {
+        width: 620px;
+    }
+    .content .wrapper .dailyStatis .firstCol div:nth-of-type(1) {
+        padding: 0px 30px;
+
+    }
+    .content .wrapper .dailyStatis .firstCol div:nth-of-type(2) {
+        padding: 0px 44px;
+
+    }
+    .content .wrapper .dailyStatis .firstCol div:nth-of-type(3) {
+        padding: 0px 87px;
+
+    }
+    .content .wrapper .dailyStatis .firstCol div:nth-of-type(4) {
+        padding: 0px 70px;
+    }
+    .content .wrapper .dailyStatis .totalList .circleRe .elementPer{
+        width: auto;
+        margin-right: 10px;
+        font-size: 12px;
+    }
+    .content .wrapper .dailyStatis .totalList .circleRe .elementPer:nth-of-type(1){
+        width: 255px;
+    }
+    .content .wrapper .dailyStatis .totalList .circleRe .elementPer span {
+        margin-right: 2px;
+    }
+    .content .wrapper .dailyStatis .secondCol div:nth-of-type(1){
+        width: 72px;
+    }
+
+    .content .wrapper .dailyStatis .secondCol div:nth-of-type(2){
+        width: 167px;
+    }
+
+    .content .wrapper .dailyStatis .secondCol div:nth-of-type(3){
+        width: 140px;
+    }
+
+    .content .wrapper .dailyStatis .secondCol div:nth-of-type(4){
+        width: 250px;
+    }
+
+    .content .wrapper .dailyStatis .totalList .hoverStylePro li div:nth-of-type(1) {
+        width:72px;
+    }
+    .content .wrapper .dailyStatis .totalList .hoverStylePro li div:nth-of-type(2) {
+        width:167px;
+    }
+    .content .wrapper .dailyStatis .totalList .hoverStylePro li div:nth-of-type(3){
+        width:140px;
+    }
+    .content .wrapper .dailyStatis .totalList .hoverStylePro li div:nth-of-type(4){
+        width:246px;
+    }
+    #arrowTop{
+        left:779px;
+        top:400px;
+    }
+    #arrowBot{
+        left:779px;
+        bottom:-53px;
+    }
+    .content .wrapper .dailyStatis .totalList .circleRe .poiPos{
+        left:112px;
+    }
+    .content .wrapper .dailyStatis .totalList .circleRe .roadPos{
+        right:110px;
+    }
+
+    #borderTop{
+        top:407px;
+    }
+    #borderBot{
+        bottom:-46px;
+    }
+}
+@media  (min-width: 1500px)and (width: 1680px) {
+    #borderTop{
+        top:407px;
+    }
+    #borderBot{
+        bottom:102px;
+    }
+    #arrowTop{
+        left:857px;
+        top:400px;
+    }
+    #arrowBot{
+        left:857px;
+        bottom:102px;
+    }
+}
+
+@media (min-width: 1400px) and (max-width: 1500px){
+    body{
+        font-size: 14px;
+    }
+
+    .content .wrapper .sumStatis .sumClass {
+        width: 450px;
+    }
+    .content .wrapper .dailyStatis .totalList .circleRe {
+        width: 545px;
+        padding: 10px 20px;
+        height:276px;
+    }
+    .content .wrapper .sumStatis .sumClass .topBot .every .poiNum {
+        padding: 0px 15px;
+    }
+    .content .wrapper .dailyStatis .firstCol div:nth-of-type(1) {
+        padding: 0px 20px;
+
+    }
+    .content .wrapper .dailyStatis .firstCol div:nth-of-type(2) {
+        padding: 0px 40px;
+
+    }
+    .content .wrapper .dailyStatis .firstCol div:nth-of-type(3) {
+        padding: 0px 70px;
+
+    }
+    .content .wrapper .dailyStatis .firstCol div:nth-of-type(4) {
+        padding: 0px 60px;
+    }
+    .content .wrapper .dailyStatis .totalList .circleRe .elementPer{
+        width: auto;
+        margin-right: 10px;
+        font-size: 12px;
+    }
+    .content .wrapper .dailyStatis .totalList .circleRe .elementPer:nth-of-type(1){
+        width: 255px;
+    }
+    .content .wrapper .dailyStatis .totalList .circleRe .elementPer span {
+        margin-right: 2px;
+    }
+    .content .wrapper .dailyStatis .secondCol div:nth-of-type(1){
+        width: 69px;
+    }
+
+    .content .wrapper .dailyStatis .secondCol div:nth-of-type(2){
+        width: 105px;
+    }
+
+    .content .wrapper .dailyStatis .secondCol div:nth-of-type(3){
+        width: 170px;
+    }
+
+    .content .wrapper .dailyStatis .secondCol div:nth-of-type(4){
+        width: 202px;
+    }
+
+    .content .wrapper .dailyStatis .totalList .hoverStylePro li div:nth-of-type(1) {
+        width:69px;
+    }
+    .content .wrapper .dailyStatis .totalList .hoverStylePro li div:nth-of-type(2) {
+        width:105px;
+    }
+    .content .wrapper .dailyStatis .totalList .hoverStylePro li div:nth-of-type(3){
+        width:170px;
+    }
+    .content .wrapper .dailyStatis .totalList .hoverStylePro li div:nth-of-type(4){
+        width:198px;
+    }
+    #arrowTop{
+        left:673px;
+        top:400px;
+    }
+    #arrowBot{
+        left:673px;
+        top:766px;
+    }
+    .content .wrapper .dailyStatis .totalList .circleRe .poiPos{
+        left:97px;
+    }
+    .content .wrapper .dailyStatis .totalList .circleRe .roadPos{
+        right:94px;
+    }
+
+    #borderTop{
+        top:407px;
+    }
+    #borderBot{
+       top:766px;
+    }
+
+}
+@media  (width: 1440px) {
+    #arrowTop{
+        left:713px;
+        top:400px;
+    }
+    #arrowBot{
+        left:713px;
+        top:766px;
+    }
+
+}
+@media (min-width:1300px) and (max-width: 1399px){
+    body{
+        font-size: 12px;
+    }
+    .content .wrapper .sumStatis .sumClass {
+        width: 450px;
+    }
+    .content .wrapper .dailyStatis .totalList .circleRe {
+        width: 540px;
+        padding: 7px 10px;
+        height:276px;
+    }
+    .content .wrapper .sumStatis .sumClass .topBot .every .sumNum {
+       font-size: 14px;
+    }
+    .content .wrapper .sumStatis .sumClass .topBot .every .poiNum {
+        padding: 0px 15px;
+    }
+    .content .wrapper .dailyStatis .firstCol div:nth-of-type(1) {
+        padding: 0px 20px;
+
+    }
+    .content .wrapper .dailyStatis .firstCol div:nth-of-type(2) {
+        padding: 0px 40px;
+
+    }
+    .content .wrapper .dailyStatis .firstCol div:nth-of-type(3) {
+        padding: 0px 70px;
+
+    }
+    .content .wrapper .dailyStatis .firstCol div:nth-of-type(4) {
+        padding: 0px 60px;
+    }
+    .content .wrapper .dailyStatis .totalList .circleRe .elementPer{
+        width: auto;
+        margin-right: 0px;
+        font-size: 12px;
+    }
+    .content .wrapper .dailyStatis .totalList .circleRe .picMark {
+        font-size: 12px;
+        line-height: 20px;
+    }
+    .content .wrapper .dailyStatis .totalList .circleRe .elementPer:nth-of-type(1){
+        width: 245px;
+    }
+    .content .wrapper .dailyStatis .totalList .circleRe .elementPer span {
+        margin-right: 0px;
+    }
+    .content .wrapper .dailyStatis .secondCol div:nth-of-type(1){
+        width: 60px;
+    }
+
+    .content .wrapper .dailyStatis .secondCol div:nth-of-type(2){
+        width: 100px;
+    }
+
+    .content .wrapper .dailyStatis .secondCol div:nth-of-type(3){
+        width: 170px;
+    }
+
+    .content .wrapper .dailyStatis .secondCol div:nth-of-type(4){
+        width: 196px;
+    }
+
+    .content .wrapper .dailyStatis .totalList .hoverStylePro li div:nth-of-type(1) {
+        width:60px;
+    }
+    .content .wrapper .dailyStatis .totalList .hoverStylePro li div:nth-of-type(2) {
+        width:100px;
+    }
+    .content .wrapper .dailyStatis .totalList .hoverStylePro li div:nth-of-type(3){
+        width:170px;
+    }
+    .content .wrapper .dailyStatis .totalList .hoverStylePro li div:nth-of-type(4){
+        width:192px;
+    }
+    #arrowTop{
+        left:664px;
+        top:400px;
+    }
+    #arrowBot{
+        left:664px;
+        top:766px;
+    }
+    .content .wrapper .dailyStatis .totalList .circleRe .poiPos{
+        left:94px;
+        top:120px;
+    }
+    .content .wrapper .dailyStatis .totalList .circleRe .roadPos{
+        right:92px;
+        top:116px;
+    }
+
+    #borderTop{
+        top:407px;
+    }
+    #borderBot{
+        top:766px;
+    }
+    .content .wrapper .dailyStatis .totalList .circleRe .perTitle{
+        line-height: 20px;
+    }
+
+}
+@media  (min-width: 1265px) and (max-width: 1290px) {
+    body{
+        font-size: 12px;
+    }
+    .wrapper{
+        margin:0 auto;
+        min-width:1200px;
+        overflow: hidden;
+    }
+    .content .wrapper .sumStatis .sumClass {
+        width: 450px;
+    }
+    .content .wrapper .dailyStatis .totalList .circleRe {
+        width: 520px;
+        padding: 7px 10px;
+        height:278px;
+    }
+    .content .wrapper .sumStatis .sumClass .topBot .every .sumNum {
+        font-size: 14px;
+    }
+    .content .wrapper .sumStatis .sumClass .topBot .every .poiNum {
+        padding: 0px 15px;
+    }
+    .content .wrapper .dailyStatis .firstCol div:nth-of-type(1) {
+        padding: 0px 20px;
+
+    }
+    .content .wrapper .dailyStatis .firstCol div:nth-of-type(2) {
+        padding: 0px 33px;
+
+    }
+    .content .wrapper .dailyStatis .firstCol div:nth-of-type(3) {
+        padding: 0px 52px;
+
+    }
+    .content .wrapper .dailyStatis .firstCol div:nth-of-type(4) {
+        padding: 0px 58px;
+    }
+    .content .wrapper .dailyStatis .totalList .circleRe .elementPer{
+        width: auto;
+        margin-right: 0px;
+        font-size: 12px;
+    }
+    .content .wrapper .dailyStatis .totalList .circleRe .picMark {
+        font-size: 12px;
+        line-height: 20px;
+    }
+    .content .wrapper .dailyStatis .totalList .circleRe .elementPer:nth-of-type(1){
+        width: 245px;
+    }
+    .content .wrapper .dailyStatis .totalList .circleRe .elementPer span {
+        margin-right: 0px;
+    }
+    .content .wrapper .dailyStatis .secondCol div:nth-of-type(1){
+        width: 60px;
+    }
+
+    .content .wrapper .dailyStatis .secondCol div:nth-of-type(2){
+        width: 94px;
+    }
+
+    .content .wrapper .dailyStatis .secondCol div:nth-of-type(3){
+        width: 154px;
+    }
+
+    .content .wrapper .dailyStatis .secondCol div:nth-of-type(4){
+        width: 162px;
+    }
+
+    .content .wrapper .dailyStatis .totalList .hoverStylePro li div:nth-of-type(1) {
+        width:60px;
+    }
+    .content .wrapper .dailyStatis .totalList .hoverStylePro li div:nth-of-type(2) {
+        width:94px;
+    }
+    .content .wrapper .dailyStatis .totalList .hoverStylePro li div:nth-of-type(3){
+        width:154px;
+    }
+    .content .wrapper .dailyStatis .totalList .hoverStylePro li div:nth-of-type(4){
+        width:158px;
+    }
+    #arrowTop{
+        left:596px;
+        top:399px;
+    }
+    #arrowBot{
+        left:596px;
+        top:766px;
+    }
+    .content .wrapper .dailyStatis .totalList .circleRe .poiPos{
+        left:94px;
+        top:120px;
+    }
+    .content .wrapper .dailyStatis .totalList .circleRe .roadPos{
+        right:92px;
+        top:116px;
+    }
+
+    #borderTop{
+        top:407px;
+    }
+    #borderBot{
+        top:766px;
+    }
+    .content .wrapper .dailyStatis .totalList .circleRe .perTitle{
+        line-height: 20px;
+    }
+
+}
+@media  (max-width: 1265px) {
+    .content .topSquare {
+        width: 1400px;
+    }
+    .wrapper{
+        margin:0 auto;
+        min-width:1400px;
+        overflow: auto;
+    }
+    .content .wrapper .sumStatis .sumClass {
+        width: 625px;
+    }
+    #borderTop{
+        left:0px;
+    }
+    #borderBot{
+        left:0px;
+        top:769px;
+    }
+    #arrowBot{
+        left:680px;
+        top:769px;
+    }
+    #arrowTop{
+        left:680px;
+    }
+    .content .wrapper .dailyStatis .totalList .circleRe .poiPos{
+        left:112px;
+    }
+
+    .content .wrapper .dailyStatis .totalList .circleRe {
+        width: 620px;
+    }
+    .content .wrapper .dailyStatis .firstCol div:nth-of-type(1) {
+        padding: 0px 30px;
+
+    }
+    .content .wrapper .dailyStatis .firstCol div:nth-of-type(2) {
+        padding: 0px 44px;
+
+    }
+    .content .wrapper .dailyStatis .firstCol div:nth-of-type(3) {
+        padding: 0px 87px;
+
+    }
+    .content .wrapper .dailyStatis .firstCol div:nth-of-type(4) {
+        padding: 0px 70px;
+    }
+    .content .wrapper .dailyStatis .totalList .circleRe .elementPer{
+        width: auto;
+        margin-right: 10px;
+        font-size: 12px;
+    }
+    .content .wrapper .dailyStatis .totalList .circleRe .elementPer:nth-of-type(1){
+        width: 255px;
+    }
+    .content .wrapper .dailyStatis .totalList .circleRe .elementPer span {
+        margin-right: 2px;
+    }
+    .content .wrapper .dailyStatis .secondCol div:nth-of-type(1){
+        width: 72px;
+    }
+
+    .content .wrapper .dailyStatis .secondCol div:nth-of-type(2){
+        width: 167px;
+    }
+
+    .content .wrapper .dailyStatis .secondCol div:nth-of-type(3){
+        width: 140px;
+    }
+
+    .content .wrapper .dailyStatis .secondCol div:nth-of-type(4){
+        width: 250px;
+    }
+
+    .content .wrapper .dailyStatis .totalList .hoverStylePro li div:nth-of-type(1) {
+        width:72px;
+    }
+    .content .wrapper .dailyStatis .totalList .hoverStylePro li div:nth-of-type(2) {
+        width:167px;
+    }
+    .content .wrapper .dailyStatis .totalList .hoverStylePro li div:nth-of-type(3){
+        width:140px;
+    }
+    .content .wrapper .dailyStatis .totalList .hoverStylePro li div:nth-of-type(4){
+        width:246px;
+    }
+
+    .content .wrapper .dailyStatis .totalList .circleRe .poiPos{
+        left:112px;
+    }
+    .content .wrapper .dailyStatis .totalList .circleRe .roadPos{
+        right:110px;
+    }
+
+
+}
+
+
+
+
 
 
