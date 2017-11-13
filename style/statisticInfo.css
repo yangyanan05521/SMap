@@ -6,7 +6,6 @@ html,body{
     font-family: 'Microsoft YaHei','微软雅黑',Arial,sans-serif;
     color: #333333;
     font-size: 16px;
-
 }
 .fl {
     float: left;
@@ -67,7 +66,7 @@ img {
     text-align: center;
 }
 .content .wrapper .sumStatis{
-    margin-bottom: 30px;
+    margin-bottom: 20px;
 }
 .content .wrapper .sumStatis .sumIcon{
     font-size:18px;
@@ -110,7 +109,7 @@ img {
     padding:0px 22px;
 }
 .content .wrapper .dailyStatis{
-    margin-bottom: 30px;
+    margin-bottom: 20px;
 }
 .content .wrapper .dailyStatis .dailyIcon{
     font-size:18px;
@@ -203,7 +202,7 @@ img {
     width:246px;
 }
 .content .wrapper .dailyStatis .totalList .circleRe{
-    width:860px;
+    width:850px;
     height: 260px;
     background-color: rgba(255, 255, 255, 1);
     box-shadow: 0px 0px 8px 0px rgba(65, 73, 85, 0.3);
@@ -220,7 +219,7 @@ img {
 }
 
 .darkBlueIcon {
-    background: url(../img/productWarehouse/darkBlueIcon.png) 50% 50% no-repeat;
+    background: url(../img/statisticInfo/darkBlueIcon.png) 50% 50% no-repeat;
     width: 12px;
     height: 24px;
 }
@@ -261,13 +260,13 @@ img {
 }
 #arrowTop{
     position: absolute;
-    left:861px;
-    top:429px;
+    left:873px;
+    top:409px;
 }
 #arrowBot{
     position: absolute;
-    left:861px;
-    bottom:104px;
+    left:873px;
+    top:769px;
 }
 #borderTop{
     width: 3px ;
@@ -275,7 +274,7 @@ img {
     height: 47px;
     position: absolute;
     left:100px;
-    top:429px;
+    top:419px;
 }
 #borderBot{
     width: 3px ;
@@ -283,11 +282,20 @@ img {
     height: 47px;
     position: absolute;
     left:100px;
-    bottom:104px;
+    top:779px;
 }
 
 /*媒体查询*/
-@media (min-width: 1701px) and (max-width: 1900px){
+@media (min-width: 1681px) and (max-width: 1900px){
+    .wrapper{
+        margin:0 auto;
+        min-width:1714px;
+        overflow-x: scroll;
+        padding: 0px 100px;
+    }
+}
+
+@media (width: 1680px){
     body{
         font-size: 14px;
     }
@@ -303,22 +311,22 @@ img {
         width: 550px;
     }
     .content .wrapper .dailyStatis .totalList .circleRe {
-        width: 680px;
+        width: 640px;
     }
     .content .wrapper .dailyStatis .firstCol div:nth-of-type(1) {
-        padding: 0px 46px;
+        padding: 0px 38px;
 
     }
     .content .wrapper .dailyStatis .firstCol div:nth-of-type(2) {
-        padding: 0px 61px;
+        padding: 0px 60px;
 
     }
     .content .wrapper .dailyStatis .firstCol div:nth-of-type(3) {
-        padding: 0px 98px;
+        padding: 0px 85px;
 
     }
     .content .wrapper .dailyStatis .firstCol div:nth-of-type(4) {
-        padding: 0px 87px;
+        padding: 0px 86px;
     }
     .content .wrapper .dailyStatis .totalList .circleRe .elementPer{
         width: auto;
@@ -332,40 +340,40 @@ img {
         margin-right: 2px;
     }
     .content .wrapper .dailyStatis .secondCol div:nth-of-type(1){
-        width: 112px;
+        width: 100px;
     }
 
     .content .wrapper .dailyStatis .secondCol div:nth-of-type(2){
-        width: 167px;
+        width: 148px;
     }
 
     .content .wrapper .dailyStatis .secondCol div:nth-of-type(3){
-        width: 218px;
+        width: 208px;
     }
 
     .content .wrapper .dailyStatis .secondCol div:nth-of-type(4){
-        width: 250px;
+        width: 244px;
     }
 
     .content .wrapper .dailyStatis .totalList .hoverStylePro li div:nth-of-type(1) {
-        width:112px;
+        width:100px;
     }
     .content .wrapper .dailyStatis .totalList .hoverStylePro li div:nth-of-type(2) {
-        width:167px;
+        width:148px;
     }
     .content .wrapper .dailyStatis .totalList .hoverStylePro li div:nth-of-type(3){
-        width:218px;
+        width:208px;
     }
     .content .wrapper .dailyStatis .totalList .hoverStylePro li div:nth-of-type(4){
-        width:246px;
+        width:240px;
     }
     #arrowTop{
-        left:960px;
-        top:400px;
+        left:839px;
+        top:399px;
     }
     #arrowBot{
-        left:960px;
-        bottom:-53px;
+        left:839px;
+        top:769px;
     }
     .content .wrapper .dailyStatis .totalList .circleRe .poiPos{
         left:112px;
@@ -375,14 +383,19 @@ img {
     }
 
     #borderTop{
-        top:407px;
+        top:399px;
     }
     #borderBot{
-        bottom:-46px;
+        top:749px;
     }
 }
-
-@media (min-width: 1500px) and (max-width: 1700px){
+@media  (min-width: 1602px)and (max-width: 1679px) {
+    .wrapper{
+        margin:0 auto;
+        width:1474px;
+        overflow-x: scroll;
+        padding: 0px 100px;
+    }
     body{
         font-size: 14px;
     }
@@ -398,22 +411,22 @@ img {
         width: 550px;
     }
     .content .wrapper .dailyStatis .totalList .circleRe {
-        width: 620px;
+        width: 640px;
     }
     .content .wrapper .dailyStatis .firstCol div:nth-of-type(1) {
-        padding: 0px 30px;
+        padding: 0px 38px;
 
     }
     .content .wrapper .dailyStatis .firstCol div:nth-of-type(2) {
-        padding: 0px 44px;
+        padding: 0px 60px;
 
     }
     .content .wrapper .dailyStatis .firstCol div:nth-of-type(3) {
-        padding: 0px 87px;
+        padding: 0px 85px;
 
     }
     .content .wrapper .dailyStatis .firstCol div:nth-of-type(4) {
-        padding: 0px 70px;
+        padding: 0px 86px;
     }
     .content .wrapper .dailyStatis .totalList .circleRe .elementPer{
         width: auto;
@@ -427,40 +440,40 @@ img {
         margin-right: 2px;
     }
     .content .wrapper .dailyStatis .secondCol div:nth-of-type(1){
-        width: 72px;
+        width: 100px;
     }
 
     .content .wrapper .dailyStatis .secondCol div:nth-of-type(2){
-        width: 167px;
+        width: 148px;
     }
 
     .content .wrapper .dailyStatis .secondCol div:nth-of-type(3){
-        width: 140px;
+        width: 208px;
     }
 
     .content .wrapper .dailyStatis .secondCol div:nth-of-type(4){
-        width: 250px;
+        width: 244px;
     }
 
     .content .wrapper .dailyStatis .totalList .hoverStylePro li div:nth-of-type(1) {
-        width:72px;
+        width:100px;
     }
     .content .wrapper .dailyStatis .totalList .hoverStylePro li div:nth-of-type(2) {
-        width:167px;
+        width:148px;
     }
     .content .wrapper .dailyStatis .totalList .hoverStylePro li div:nth-of-type(3){
-        width:140px;
+        width:208px;
     }
     .content .wrapper .dailyStatis .totalList .hoverStylePro li div:nth-of-type(4){
-        width:246px;
+        width:240px;
     }
     #arrowTop{
-        left:779px;
-        top:400px;
+        left:839px;
+        top:399px;
     }
     #arrowBot{
-        left:779px;
-        bottom:-53px;
+        left:839px;
+        top:769px;
     }
     .content .wrapper .dailyStatis .totalList .circleRe .poiPos{
         left:112px;
@@ -470,39 +483,22 @@ img {
     }
 
     #borderTop{
-        top:407px;
+        top:399px;
     }
     #borderBot{
-        bottom:-46px;
-    }
-}
-@media  (min-width: 1500px)and (width: 1680px) {
-    #borderTop{
-        top:407px;
-    }
-    #borderBot{
-        bottom:102px;
-    }
-    #arrowTop{
-        left:857px;
-        top:400px;
-    }
-    #arrowBot{
-        left:857px;
-        bottom:102px;
+        top:749px;
     }
 }
 
-@media (min-width: 1400px) and (max-width: 1500px){
+@media (width: 1600px){
     body{
         font-size: 14px;
     }
-
     .content .wrapper .sumStatis .sumClass {
-        width: 450px;
+        width: 555px;
     }
     .content .wrapper .dailyStatis .totalList .circleRe {
-        width: 545px;
+        width: 630px;
         padding: 10px 20px;
         height:276px;
     }
@@ -510,19 +506,19 @@ img {
         padding: 0px 15px;
     }
     .content .wrapper .dailyStatis .firstCol div:nth-of-type(1) {
-        padding: 0px 20px;
+        padding: 0px 33px;
 
     }
     .content .wrapper .dailyStatis .firstCol div:nth-of-type(2) {
-        padding: 0px 40px;
+        padding: 0px 51px;
 
     }
     .content .wrapper .dailyStatis .firstCol div:nth-of-type(3) {
-        padding: 0px 70px;
+        padding: 0px 78px;
 
     }
     .content .wrapper .dailyStatis .firstCol div:nth-of-type(4) {
-        padding: 0px 60px;
+        padding: 0px 79px;
     }
     .content .wrapper .dailyStatis .totalList .circleRe .elementPer{
         width: auto;
@@ -536,185 +532,163 @@ img {
         margin-right: 2px;
     }
     .content .wrapper .dailyStatis .secondCol div:nth-of-type(1){
-        width: 69px;
+        width: 80px;
     }
 
     .content .wrapper .dailyStatis .secondCol div:nth-of-type(2){
-        width: 105px;
+        width: 130px;
     }
 
     .content .wrapper .dailyStatis .secondCol div:nth-of-type(3){
-        width: 170px;
+        width: 210px;
     }
 
     .content .wrapper .dailyStatis .secondCol div:nth-of-type(4){
-        width: 202px;
+        width: 226px;
     }
 
     .content .wrapper .dailyStatis .totalList .hoverStylePro li div:nth-of-type(1) {
-        width:69px;
+        width:80px;
     }
     .content .wrapper .dailyStatis .totalList .hoverStylePro li div:nth-of-type(2) {
-        width:105px;
+        width:130px;
     }
     .content .wrapper .dailyStatis .totalList .hoverStylePro li div:nth-of-type(3){
-        width:170px;
+        width:210px;
     }
     .content .wrapper .dailyStatis .totalList .hoverStylePro li div:nth-of-type(4){
-        width:198px;
+        width:222px;
     }
     #arrowTop{
-        left:673px;
-        top:400px;
+        left:789px;
+        top:419px;
     }
     #arrowBot{
-        left:673px;
-        top:766px;
+        left:789px;
+        top:786px;
     }
     .content .wrapper .dailyStatis .totalList .circleRe .poiPos{
-        left:97px;
+        left:113px;
     }
     .content .wrapper .dailyStatis .totalList .circleRe .roadPos{
-        right:94px;
+        right:110px;
     }
 
     #borderTop{
-        top:407px;
+        top:419px;
     }
     #borderBot{
-       top:766px;
+       top:776px;
     }
 
 }
-@media  (width: 1440px) {
-    #arrowTop{
-        left:713px;
-        top:400px;
+@media  (min-width: 1445px)and (max-width: 1659px) {
+    .wrapper {
+        margin: 0 auto;
+        width: 1394px;
+        overflow-x: scroll;
+        padding: 0px 100px;
     }
-    #arrowBot{
-        left:713px;
-        top:766px;
-    }
-
-}
-@media (min-width:1300px) and (max-width: 1399px){
     body{
-        font-size: 12px;
+        font-size: 14px;
     }
     .content .wrapper .sumStatis .sumClass {
-        width: 450px;
+        width: 555px;
     }
     .content .wrapper .dailyStatis .totalList .circleRe {
-        width: 540px;
-        padding: 7px 10px;
+        width: 630px;
+        padding: 10px 20px;
         height:276px;
-    }
-    .content .wrapper .sumStatis .sumClass .topBot .every .sumNum {
-       font-size: 14px;
     }
     .content .wrapper .sumStatis .sumClass .topBot .every .poiNum {
         padding: 0px 15px;
     }
     .content .wrapper .dailyStatis .firstCol div:nth-of-type(1) {
-        padding: 0px 20px;
+        padding: 0px 33px;
 
     }
     .content .wrapper .dailyStatis .firstCol div:nth-of-type(2) {
-        padding: 0px 40px;
+        padding: 0px 51px;
 
     }
     .content .wrapper .dailyStatis .firstCol div:nth-of-type(3) {
-        padding: 0px 70px;
+        padding: 0px 78px;
 
     }
     .content .wrapper .dailyStatis .firstCol div:nth-of-type(4) {
-        padding: 0px 60px;
+        padding: 0px 79px;
     }
     .content .wrapper .dailyStatis .totalList .circleRe .elementPer{
         width: auto;
-        margin-right: 0px;
+        margin-right: 10px;
         font-size: 12px;
-    }
-    .content .wrapper .dailyStatis .totalList .circleRe .picMark {
-        font-size: 12px;
-        line-height: 20px;
     }
     .content .wrapper .dailyStatis .totalList .circleRe .elementPer:nth-of-type(1){
-        width: 245px;
+        width: 255px;
     }
     .content .wrapper .dailyStatis .totalList .circleRe .elementPer span {
-        margin-right: 0px;
+        margin-right: 2px;
     }
     .content .wrapper .dailyStatis .secondCol div:nth-of-type(1){
-        width: 60px;
+        width: 80px;
     }
 
     .content .wrapper .dailyStatis .secondCol div:nth-of-type(2){
-        width: 100px;
+        width: 130px;
     }
 
     .content .wrapper .dailyStatis .secondCol div:nth-of-type(3){
-        width: 170px;
+        width: 210px;
     }
 
     .content .wrapper .dailyStatis .secondCol div:nth-of-type(4){
-        width: 196px;
+        width: 226px;
     }
 
     .content .wrapper .dailyStatis .totalList .hoverStylePro li div:nth-of-type(1) {
-        width:60px;
+        width:80px;
     }
     .content .wrapper .dailyStatis .totalList .hoverStylePro li div:nth-of-type(2) {
-        width:100px;
+        width:130px;
     }
     .content .wrapper .dailyStatis .totalList .hoverStylePro li div:nth-of-type(3){
-        width:170px;
+        width:210px;
     }
     .content .wrapper .dailyStatis .totalList .hoverStylePro li div:nth-of-type(4){
-        width:192px;
+        width:222px;
     }
     #arrowTop{
-        left:664px;
-        top:400px;
+        left:789px;
+        top:419px;
     }
     #arrowBot{
-        left:664px;
-        top:766px;
+        left:789px;
+        top:786px;
     }
     .content .wrapper .dailyStatis .totalList .circleRe .poiPos{
-        left:94px;
-        top:120px;
+        left:113px;
     }
     .content .wrapper .dailyStatis .totalList .circleRe .roadPos{
-        right:92px;
-        top:116px;
+        right:110px;
     }
 
     #borderTop{
-        top:407px;
+        top:419px;
     }
     #borderBot{
-        top:766px;
+        top:776px;
     }
-    .content .wrapper .dailyStatis .totalList .circleRe .perTitle{
-        line-height: 20px;
-    }
-
 }
-@media  (min-width: 1265px) and (max-width: 1290px) {
+
+@media  (width: 1440px) {
     body{
         font-size: 12px;
-    }
-    .wrapper{
-        margin:0 auto;
-        min-width:1200px;
-        overflow: hidden;
     }
     .content .wrapper .sumStatis .sumClass {
         width: 450px;
     }
     .content .wrapper .dailyStatis .totalList .circleRe {
-        width: 520px;
+        width: 580px;
         padding: 7px 10px;
         height:278px;
     }
@@ -791,50 +765,223 @@ img {
         top:766px;
     }
     .content .wrapper .dailyStatis .totalList .circleRe .poiPos{
-        left:94px;
+        left:105px;
         top:120px;
     }
     .content .wrapper .dailyStatis .totalList .circleRe .roadPos{
-        right:92px;
+        right:105px;
         top:116px;
     }
 
     #borderTop{
-        top:407px;
+        top:387px;
     }
     #borderBot{
-        top:766px;
+        top:746px;
     }
     .content .wrapper .dailyStatis .totalList .circleRe .perTitle{
         line-height: 20px;
     }
 
 }
-@media  (max-width: 1265px) {
+@media (min-width:1300px) and (max-width: 1445px){
+    body{
+        font-size: 12px;
+    }
+    .wrapper {
+        margin: 0 auto;
+        width: 1234px;
+        overflow-x: scroll;
+        padding: 0px 100px;
+    }
+    .content .wrapper .sumStatis .sumClass {
+        width: 480px;
+    }
+    .content .wrapper .dailyStatis .totalList .circleRe {
+        width: 580px;
+        padding: 7px 10px;
+        height:276px;
+    }
+    .content .wrapper .sumStatis .sumClass .topBot .every .sumNum {
+        font-size: 14px;
+    }
+    .content .wrapper .sumStatis .sumClass .topBot .every .poiNum {
+        padding: 0px 15px;
+    }
+    .content .wrapper .dailyStatis .firstCol div:nth-of-type(1) {
+        padding: 0px 26px;
+
+    }
+    .content .wrapper .dailyStatis .firstCol div:nth-of-type(2) {
+        padding: 0px 40px;
+
+    }
+    .content .wrapper .dailyStatis .firstCol div:nth-of-type(3) {
+        padding: 0px 70px;
+
+    }
+    .content .wrapper .dailyStatis .firstCol div:nth-of-type(4) {
+        padding: 0px 65px;
+    }
+    .content .wrapper .dailyStatis .totalList .circleRe .elementPer{
+        width: auto;
+        margin-right: 0px;
+        font-size: 12px;
+    }
+    .content .wrapper .dailyStatis .totalList .circleRe .picMark {
+        font-size: 12px;
+        line-height: 20px;
+    }
+    .content .wrapper .dailyStatis .totalList .circleRe .elementPer:nth-of-type(1){
+        width: 245px;
+    }
+    .content .wrapper .dailyStatis .totalList .circleRe .elementPer span {
+        margin-right: 0px;
+    }
+    .content .wrapper .dailyStatis .secondCol div:nth-of-type(1){
+        width: 80px;
+    }
+
+    .content .wrapper .dailyStatis .secondCol div:nth-of-type(2){
+        width: 110px;
+    }
+
+    .content .wrapper .dailyStatis .secondCol div:nth-of-type(3){
+        width: 170px;
+    }
+
+    .content .wrapper .dailyStatis .secondCol div:nth-of-type(4){
+        width: 186px;
+    }
+
+    .content .wrapper .dailyStatis .totalList .hoverStylePro li div:nth-of-type(1) {
+        width:80px;
+    }
+    .content .wrapper .dailyStatis .totalList .hoverStylePro li div:nth-of-type(2) {
+        width:110px;
+    }
+    .content .wrapper .dailyStatis .totalList .hoverStylePro li div:nth-of-type(3){
+        width:170px;
+    }
+    .content .wrapper .dailyStatis .totalList .hoverStylePro li div:nth-of-type(4){
+        width:182px;
+    }
+    #arrowTop{
+        left:699px;
+        top:419px;
+    }
+    #arrowBot{
+        left:699px;
+        top:796px;
+    }
+    .content .wrapper .dailyStatis .totalList .circleRe .poiPos{
+        left:105px;
+        top:120px;
+    }
+    .content .wrapper .dailyStatis .totalList .circleRe .roadPos{
+        right:105px;
+        top:116px;
+    }
+
+    #borderTop{
+        top:419px;
+    }
+    #borderBot{
+        top:776px;
+    }
+    .content .wrapper .dailyStatis .totalList .circleRe .perTitle{
+        line-height: 20px;
+    }
+
+}
+@media (width:1366px) {
+    .wrapper {
+        margin: 0 auto;
+        width: 1234px;
+        overflow-x: scroll;
+        padding: 0px 2px 0px 0px;
+    }
+    .content .wrapper .dailyStatis .totalList .circleRe {
+        width: 610px;
+        padding: 7px 10px;
+        height:276px;
+    }
+    #arrowTop{
+        left:632px;
+    }
+    #arrowBot{
+        left:632px;
+    }
+    #borderTop{
+        left:64px;
+    }
+    #borderBot{
+        left:64px;
+    }
+    .content .wrapper .dailyStatis .totalList .circleRe .poiPos{
+        left:110px;
+    }
+    .content .wrapper .dailyStatis .totalList .circleRe .roadPos{
+        right:109px;
+    }
+}
+
+@media (width:1360px) {
+    .wrapper {
+        margin: 0 auto;
+        width: 1234px;
+        overflow-x: scroll;
+        padding: 0px 2px 0px 0px;
+    }
+    .content .wrapper .dailyStatis .totalList .circleRe {
+        width: 605px;
+        padding: 7px 10px;
+        height:276px;
+    }
+    #arrowTop{
+        left:632px;
+    }
+    #arrowBot{
+        left:632px;
+    }
+    #borderTop{
+        left:60px;
+    }
+    #borderBot{
+        left:60px;
+    }
+}
+
+
+@media  (max-width: 1299px) {
+    html,body{
+        font-size: 12px;
+    }
     .content .topSquare {
-        width: 1400px;
+        width: 1390px;
     }
     .wrapper{
         margin:0 auto;
-        min-width:1400px;
+        min-width:1350px;
         overflow: auto;
+        padding: 0px 20px;
     }
     .content .wrapper .sumStatis .sumClass {
-        width: 625px;
+        width: 580px;
     }
     #borderTop{
-        left:0px;
+        left:20px;
     }
     #borderBot{
-        left:0px;
+        left:20px;
         top:769px;
     }
     #arrowBot{
-        left:680px;
+        left:655px;
         top:769px;
     }
     #arrowTop{
-        left:680px;
+        left:655px;
     }
     .content .wrapper .dailyStatis .totalList .circleRe .poiPos{
         left:112px;
@@ -882,7 +1029,7 @@ img {
     }
 
     .content .wrapper .dailyStatis .secondCol div:nth-of-type(4){
-        width: 250px;
+        width: 225px;
     }
 
     .content .wrapper .dailyStatis .totalList .hoverStylePro li div:nth-of-type(1) {
@@ -895,7 +1042,7 @@ img {
         width:140px;
     }
     .content .wrapper .dailyStatis .totalList .hoverStylePro li div:nth-of-type(4){
-        width:246px;
+        width:220px;
     }
 
     .content .wrapper .dailyStatis .totalList .circleRe .poiPos{
@@ -904,7 +1051,6 @@ img {
     .content .wrapper .dailyStatis .totalList .circleRe .roadPos{
         right:110px;
     }
-
 
 }
 

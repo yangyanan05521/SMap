@@ -1,44 +1,43 @@
 var map = new mapboxgl.Map({
     container: 'map',
     style: constructionLayer,
-    zoom: 11,
-    center: [116.38402, 39.96261],
+    zoom: 10,
+    center: [ 117.19937,  39.0851  ],
     maxZoom: 17,
     minZoom: 5,
     pitch: 0
 });
 
-angular.module("construction", ["navApp"]).controller("constructionController", ["$scope", "$location", '$timeout', "$anchorScroll", function ($scope, $location, $timeout, $anchorScroll) {
+angular.module("construction",["navApp"]).controller("constructionController",["$scope","$location",'$timeout',"$anchorScroll",function (
+    $scope,$location,$timeout,$anchorScroll) {
     $scope.locFlag = 'onlineUseFlag';
     $scope.provinceArr = province;
-    $scope.curCity = '北京市';
-    $scope.cityLists = [
-        {name: "北京市", point: [116.40717, 39.90469]},
-        {name: "杭州市", point: [120.19, 30.26]},
-        {name: "河北省", point: [114.46979, 38.03599]}
-    ];
-    //选择城市
-    $scope.toCitycenter = function (point, name) {
-        map.flyTo({
-            center: point,
-            zoom: 11,
-            speed: 1.5
-        });
-        $scope.curCity = name;
-    }
-    //隐藏显示城市列表（待改）
-    $scope.foldList = function () {
-        var status = $('.selectedCity').css('display');
-        if (status == 'none') {
-            $('.selectedCity').css('display', 'block');
-            $('.cityDis').css('background-image', 'url(../img/onlineMap/icon_arrow_active.png)');
-        } else {
-            $('.selectedCity').css('display', 'none');
-            $('.cityDis').css('background-image', 'url(../img/onlineMap/icon_arrow_normal.png)');
-        }
-    }
+    $scope.nowProvince = '天津';
+    $scope.captureArr = ['A','B','C','F','G','H','J','L','N','Q','S','T','X','Y','Z'];
 
-    //定义线图层
+    $scope.showChoosedCity = function (arg){
+        if(arg==='nowCity'){
+            $scope.nowCity = {
+                display:'none'
+            };
+            $scope.choosedCity = {
+                display:'block'
+            };
+            $scope.cityList= {
+                display:'block'
+            }
+        }else{
+            $scope.nowCity = {
+                display:'block'
+            };
+            $scope.choosedCity ={
+                display:'none'
+            };
+            $scope.cityList= {
+                display:'none'
+            };
+        }
+    };
     $scope.originLayer = {
         "id": "road",
         "type": "line",
@@ -49,7 +48,7 @@ angular.module("construction", ["navApp"]).controller("constructionController", 
                 "properties": {},
                 "geometry": {
                     "type": "LineString",
-                    "coordinates": []
+                    "coordinates":[]
                 }
             }
         },
@@ -59,10 +58,10 @@ angular.module("construction", ["navApp"]).controller("constructionController", 
         },
         "paint": {
             "line-color": "rgba(20,120,255,0.8)",
-            "line-width": 10
+            "line-width": 2
         }
     };
-    $scope.addLines = function (data, id) {
+    $scope.addLines = function (data,id) {
         $scope.geojson = {
             "type": "FeatureCollection",
             "features": []
@@ -82,9 +81,9 @@ angular.module("construction", ["navApp"]).controller("constructionController", 
             type: 'FeatureCollection',
             features: [],
         };
-        if (map.getSource('road')) {
-            $scope.addLines(data, 'road');
-        } else {
+        if(map.getSource('road')){
+            $scope.addLines(data,'road');
+        }else{
             var obj = $scope.originLayer;
             obj.id = 'road';
             obj.paint['line-color'] = 'red';
@@ -100,79 +99,47 @@ angular.module("construction", ["navApp"]).controller("constructionController", 
             $scope.originLayer.source = source;
             map.addLayer($scope.originLayer);
         }
-        var pointFeature = turf.lineString(data.coordinates);
+        var  pointFeature = turf.lineString(data.coordinates);
         bounds.features.push(pointFeature);
         var bbox = turf.bbox(bounds);
         var v2 = new mapboxgl.LngLatBounds([bbox[0], bbox[1]], [bbox[2], bbox[3]]);
-        map.fitBounds(v2, {padding: 50});
+        map.fitBounds(v2,{padding: 50} );
     };
-
-    //设置popup的位置参数
-    var markerHeight = 10, markerRadius = 10, linearOffset = 5;
-    var popupOffsets = {
-        'top': [0, 0],
-        'top-left': [0, 0],
-        'top-right': [0, 0],
-        'bottom': [0, -markerHeight],
-        'bottom-left': [linearOffset, (markerHeight - markerRadius + linearOffset) * -1],
-        'bottom-right': [-linearOffset, (markerHeight - markerRadius + linearOffset) * -1],
-        'left': [markerRadius, (markerHeight - markerRadius) * -1],
-        'right': [-markerRadius, (markerHeight - markerRadius) * -1]
-    };
-    //定义popup
-    var popup = new mapboxgl.Popup({
-        closeButton: false,
-        closeOnClick: false,
-        offset: popupOffsets
-    });
-    //添加popup显示内容
-    $scope.popConstructionInfomation = function (data, geo) {
+    $scope.popConstructionInfomation = function(data,geo){
         var loc = [];
         var div = window.document.createElement('div');
         var description = decodeURI(data.features[0].properties.construction_desc);
+        /*  console.log(data.features[0].properties.construction_time);*/
         var date = decodeURIComponent(data.features[0].properties.construction_time);
         var time = date.replace(/\+/g, '');
         loc.push(geo.coordinates[0][0]);
         loc.push(geo.coordinates[0][1]);
-        console.log(loc);
         div.innerHTML =
-            '<div class="feePopDeep">施工道路：<br/>施工长度：<br/>施工时间：' + time + ' <br/>施工原因：' + description + '</div>'
-            + '<div  class="tipPopDeep"></div>';
-        popup.setLngLat(loc)
+            '<div style="text-align: center">'+time+'</div>'
+            +'<div style="text-align: center">'+ description+'</div>';
+        new mapboxgl.Popup()
+            .setLngLat(loc)
             .setDOMContent(div)
             .addTo(map);
     };
+    $scope.locationProvince = function (data) {
 
-    var open = 1;                       //显示or隐藏状态变量
-    var preId = '';                     //记录上一次点击的唯一标识
-    //点击施工道路点图层事件
-    map.on('click', 'construction_Layer', function (e) {
-        //console.log(e);
-        var geo = JSON.parse(e.features[0].properties.geometroy);
-        var linkId = e.features[0].properties.link_pid;
-        if (preId == linkId) {
-            if (open == 1) {
-                //  $scope.heightLightRoad(geo);
-                $scope.popConstructionInfomation(e, geo);
-                open = 0;
-            } else {
-                map.getCanvas().style.cursor = '';
-                popup.remove();
-                open = 1;
-            }
-        } else {
-            preId = linkId;
-            $scope.popConstructionInfomation(e, geo);
-            open = 0;
-        }
-    })
-    //改变地图级别
-    $scope.changeZoom = function (arg) {
-        var nowZoom = map.getZoom();
-        if (arg === 'add') {
-            map.setZoom(nowZoom + 1);
-        } else {
-            map.setZoom(nowZoom - 1);
-        }
+        //此处注释掉是因为其他限制使用其他省份数据
+        /* $scope.provincePid = data.id;
+         $scope.nowProvince = data.name;
+         map.flyTo({center:[ data.point.x, data.point.y]});*/
     };
+    $scope.goCapture = function (data){
+        var local = 'capture'+data;
+        $location.hash(local);
+        $anchorScroll();
+    };
+    map.on('click','construction_Layer',function (e) {
+        /*  console.log(e);*/
+        var geo = JSON.parse(e.features[0].properties.geometroy);
+        // console.log(e.features[0].properties.geometroy);
+        $scope.heightLightRoad(geo);
+        $scope.popConstructionInfomation(e,geo);
+
+    })
 }]);

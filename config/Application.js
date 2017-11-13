@@ -3,8 +3,8 @@
  */
 var App = {};
 App.dev = {
-    // host:'123.207.83.126:8088'
-    host: '192.168.15.41:9999'
+    host:'123.207.83.126:8088'
+    //host: '192.168.15.41:9999'
 };
 
 // web app全局配置信息
@@ -12,8 +12,8 @@ App.Config = {
     serviceUrl: 'http://fs.navinfo.com/smapapi',
     sceneryUrl: 'http://' + App.dev.host + '/smapapi',
     //appRoot: 'http://localhost:63342/SMAP',
-    //appRoot: 'http://fs.navinfo.com/smap',
-    appRoot:'http://' + App.dev.host ,
+    appRoot: 'http://fs.navinfo.com/smap',
+    //appRoot:'http://' + App.dev.host ,
     mapboxToken: 'pk.eyJ1IjoiZmFuZ2xhbmsiLCJhIjoiY2lpcjc1YzQxMDA5NHZra3NpaDAyODB4eSJ9.z6uZHccXvtyVqA5zmalfGg',
     //checkServiceUrl:'http://' + App.dev.host + '/smapapi/sync/user/',
     checkServiceUrl: 'http://fs.navinfo.com/smapapi/sync/user/',
@@ -53,7 +53,7 @@ App.Temp = {
 };
 App.Util = {
     getFullUrl: function (url) {
-        return App.Config.sceneryUrl + '/' + url + '?ak=' + (App.Temp.accessToken || '');
+        return App.Config.serviceUrl + '/' + url + '?ak=' + (App.Temp.accessToken || '');
     },
     getSpecUrl: function (url) {
         return App.Config.specialUrl + '/' + url ;

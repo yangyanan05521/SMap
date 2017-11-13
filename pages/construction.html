@@ -1,9 +1,8 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="renderer" content="webkit">
     <!-- build:css ../style/construction.css -->
     <link href='../lib/mapbox/mapbox-gl.css' rel='stylesheet' />
     <link href="../style/construction.css" rel="stylesheet" />
@@ -15,50 +14,46 @@
 
 <div id="container">
     <div style="height: 56px;text-align: left;font-weight: 400;margin-bottom: 2px">
-        <ul style="list-style: none;margin: 0;vertical-align: middle;padding: 22px 0 0 0;display: flex;display: -ms-flexbox;">
-           <li style="font-size: 14px;color:rgba(0,0,0,0.7)">您现在的位置:</li>
-           <li style="font-size: 14px;padding-left: 5px;color:rgba(0,0,0,0.7)">在线体验</li>
-           <li style="font-size: 20px;padding:0 4px 0 9px;margin-top: -6px; ;color:rgba(0,0,0,1)">></li>
-           <li style="font-size: 14px;padding-left: 5px; color:rgba(0,0,0,0.7)">施工数据展示</li>
+        <ul style="list-style: none;margin: 0;vertical-align: middle;padding: 22px 0 0 0;display: flex">
+            <li style="font-size: 14px;color:rgba(0,0,0,0.7)">您现在的位置:</li>
+            <li style="font-size: 14px;padding-left: 5px;color:rgba(0,0,0,0.7)">在线体验</li>
+            <li style="font-size: 20px;padding:0 4px 0 9px;margin-top: -6px; ;color:rgba(0,0,0,1)">></li>
+            <li style="font-size: 14px;padding-left: 5px; color:rgba(0,0,0,0.7)">施工数据展示</li>
         </ul>
     </div>
     <div id="content">
-        <div class="sumTitle">
-            <ul class="clear" style="padding-left:10px;">
-                <li class="fl">施工道路总里程&nbsp;[&nbsp;300km&nbsp;]&nbsp;</li>
-                <li class="fl">高速道路施工总里程&nbsp;[&nbsp;300km&nbsp;]&nbsp;</li>
-                <li class="fl">城市主要道路施工总里程&nbsp;[&nbsp;300km&nbsp;]&nbsp;</li>
-                <li class="fr cityDis">
-                    <span ng-bind="curCity" ng-click="foldList()"></span>
-                    <div class="selectedCity">
-                        <div ng-repeat="one in cityLists" ng-bind="one.name" ng-click="toCitycenter(one.point,one.name)"></div>
-                    </div>
-                </li>
-            </ul>
-        </div>
-        <div class="graphExp">
-            <ul class="clear">
-                <li class="fl">
-                    <span class="square"></span>
-                    <span>高速道路</span>
-                </li>
-                <li class="fl">
-                    <span class="square" style="background-color: #ff7633"></span>
-                    <span>城市主要道路</span>
-                </li>
-                <li class="fl" style="margin-right: 0px">
-                    <span class="square" style="background-color: #ffee33"></span>
-                    <span>其他道路</span>
-                </li>
-
-            </ul>
+        <div class="selectedDiv">
+            <div class="nowCity" ng-style="nowCity" ng-click="showChoosedCity('nowCity')">
+                <span ng-bind="nowProvince"></span>
+            </div>
+            <div class="choosedCity" ng-style="choosedCity">
+                <span ng-bind="nowProvince"></span>
+                <img class="hideCityList" ng-click="showChoosedCity('choosedCity')" src="../img/onlineMap/arrow_active.png">
+            </div>
+            <div class="cityList" ng-style="cityList">
+                <div class="cityFirstLetterList" >
+                    <ul class="allFirstLetters ">
+                        <li class="firstLetter" ng-repeat="item in captureArr" ng-click="goCapture(item)">{{item}}</li>
+                    </ul>
+                </div>
+                <div class="allCities">
+                    <ul class="allCitiesList">
+                        <li ng-repeat=" firstObj in provinceArr">
+                            <a class="indexLetter" id=capture{{firstObj.capture}} ng-bind="firstObj.capture" ></a>
+                            <span class="citiesBox">
+                            <ul>
+                                <li title="{{secondObj.name}}"  ng-repeat="secondObj in firstObj.children" ng-click="locationProvince(secondObj)">
+                                    <span ng-bind="secondObj.name"></span>
+                                </li>
+                            </ul>
+                        </span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
         </div>
     </div>
     <div id="map">
-        <div class="changeMapSizeDiv">
-            <button class="addBtn" ng-click="changeZoom('add')"></button>
-            <button class="subBtn" ng-click="changeZoom('sub')"></button>
-        </div>
 
     </div>
 </div>

@@ -83,15 +83,15 @@ angular.module('dataService', [], function ($httpProvider) {
             params: param
         });
     };
-    this.post = function (url, isSpec ,param) {
-        var fullUrl;
-        if (isSpec == 'spec') {
-            fullUrl = App.Util.getSpecUrl(url);
-        } else {
-            fullUrl = App.Util.getFullUrl(url);
-        }
-        return $http.post(fullUrl, param);
-    //    return $http.post(App.Util.getFullUrl(url), param);
+    this.post = function (url ,param) {
+        // var fullUrl;
+        // if (isSpec == 'spec') {
+        //     fullUrl = App.Util.getSpecUrl(url);
+        // } else {
+        //     fullUrl = App.Util.getFullUrl(url);
+        // }
+        // return $http.post(fullUrl, param);
+        return $http.post(App.Util.getFullUrl(url), param);
     };
     this.getLocalJson = function (url) {
         return $http.get(url, {});
