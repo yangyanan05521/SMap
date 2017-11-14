@@ -67,7 +67,7 @@ html,body{
 
 }
 .onlineMap .input-group .placeholderStyle::-webkit-input-placeholder{
- font-size: 12px;
+    font-size: 12px;
 }
 
 .input-group .empty-input{
@@ -127,7 +127,7 @@ html,body{
 .onlineMap .searchResultList ul .searchResult:hover  span.logo{
     background-image: url("../img/onlineMap/search_active.png");
     color: #ffffff;
-} 
+}
 .searchResult .logo{
     display: inline-block;
     width: 30px;
@@ -389,7 +389,7 @@ span.noResult{
     text-decoration: none;
 }
 .allCities .allCitiesList > li .citiesBox{
-  height: auto;
+    height: auto;
 }
 .allCities .allCitiesList > li .citiesBox ul{
     display: inline-block;
@@ -406,7 +406,7 @@ span.noResult{
 }
 .allCities .allCitiesList > li .citiesBox ul li> span:hover,
 .allCities .allCitiesList > li .citiesBox ul li> span:active{
-   color: #1478FF;
+    color: #1478FF;
 }
 .allCities .allCitiesList > li .citiesBox ul li > span{
     color: #333333;
@@ -556,5 +556,23 @@ span.noResult{
 ::-ms-clear,::-ms-reveal{
     display: none;
 }
+.lightTime{
+    background-color: #1478FF;
+}
 
+/*滚动条*/
 
+*::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+    background:#F4F5F7;
+    padding-top: 2px;
+    padding-bottom: 2px;
+}
+
+*::-webkit-scrollbar-thumb {
+    -moz-border-radius: 3px;
+    -webkit-border-radius: 3px;
+    border-radius: 3px;
+    background:rgba(189,196,210,0.5);
+}

@@ -1,6 +1,7 @@
 var statistic = angular.module("statistic", ['dataService', 'nvd3', 'angular-popups', 'navApp']);
 
 statistic.controller("statisticController", ['$scope', 'dsEdit', '$location', "$http", function ($scope, dsEdit, $location, $http) {
+    $scope.locFlag = 'statisticFlag';
     //初始化表格数据
     $scope.poiData = [];
     $scope.roadData = [];

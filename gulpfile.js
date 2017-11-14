@@ -675,6 +675,47 @@ gulp.task('statisticInfo', function() {
     }
 
 });
+
+gulp.task('productDay', function() {
+    if(develop){
+        return gulp.src('pages/productDay.html')
+            .pipe(usemin({
+                css: [
+                    sourcemaps.init({
+                        loadMaps: true
+                    }) ,
+                    minifyCss(),
+                    'concat',
+                    rev(),
+                    sourcemaps.write('../maps/style/')
+                ],
+                html: [ function () {return htmlmin({ collapseWhitespace: true });} ],
+                js: [
+                    sourcemaps.init({
+                        loadMaps: true
+                    }) ,
+                    uglify({
+                        mangle: false, //不修改变量名
+                    }),
+                    'concat',
+                    rev(),
+                    sourcemaps.write('../maps/js/')
+                ],
+            }))
+            .pipe(gulp.dest('dist/pages'));
+    }else{
+        return gulp.src('pages/productDay.html')
+            .pipe(usemin({
+                css: [minifyCss(), rev() ],
+                html: [ function () {return htmlmin({ collapseWhitespace: true });}],
+                js: [ uglify({
+                    mangle: false, //不修改变量名
+                }), rev() ],
+            }))
+            .pipe(gulp.dest('dist/pages'));
+    }
+
+});
 /********页面单独打包end*****/
 
 gulp.task('clean',function(){
@@ -688,7 +729,7 @@ gulp.task('pages',function () {
     runSequence([
         'homepage','tollGate','scenery','productDescription','productService',
         'productWarehouse','undevelopPage','trafficLimited','construction',
-        'trafficControl','roadwork','login','chargeMessage','statisticInfo'
+        'trafficControl','roadwork','login','chargeMessage','statisticInfo','productDay'
     ]);
 });
 
@@ -706,6 +747,7 @@ gulp.task('watch',function (event) {
     gulp.watch(['pages/chargeMessage.html'],['chargeMessage']);
     gulp.watch(['pages/undevelopPage.html'],['undevelopPage']);
     gulp.watch(['pages/statisticInfo.html'],['statisticInfo']);
+    gulp.watch(['pages/productDay.html'],['productDay']);
     gulp.watch(['pages/login.html'],['login']);
     gulp.watch(['pages/**/*.*','!pages/*.*'],['tmpl']);
     gulp.watch(['js/**/*.*','js/*.*'],['pages']);

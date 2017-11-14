@@ -16,6 +16,7 @@ html,body{
 .wrapper{
     margin:0 auto;
     width:calc(100% - 200px);
+    padding-top: 55px;
 }
 .clear:after {
     content: "";
@@ -55,6 +56,12 @@ img {
     background:rgba(189,196,210,0.5);
 }
 /******* content *******/
+#logo {
+    float: left;
+    background: url(../img/banner/logo.png) no-repeat;
+    height: 44px;
+    width: 100px;
+}
 .content .topSquare{
     width:100%;
     height:40px;
@@ -64,6 +71,7 @@ img {
 .content .wrapper .title{
     font-size: 30px;
     text-align: center;
+    padding: 10px 0px;
 }
 .content .wrapper .sumStatis{
     margin-bottom: 20px;
@@ -274,7 +282,7 @@ img {
     height: 47px;
     position: absolute;
     left:100px;
-    top:419px;
+    top:424px;
 }
 #borderBot{
     width: 3px ;
@@ -282,7 +290,7 @@ img {
     height: 47px;
     position: absolute;
     left:100px;
-    top:779px;
+    top:784px;
 }
 
 /*媒体查询*/
@@ -292,6 +300,7 @@ img {
         min-width:1714px;
         overflow-x: scroll;
         padding: 0px 100px;
+        padding-top: 55px;
     }
 }
 
@@ -383,10 +392,10 @@ img {
     }
 
     #borderTop{
-        top:399px;
+        top:404px;
     }
     #borderBot{
-        top:749px;
+        top:754px;
     }
 }
 @media  (min-width: 1602px)and (max-width: 1679px) {
@@ -395,6 +404,7 @@ img {
         width:1474px;
         overflow-x: scroll;
         padding: 0px 100px;
+        padding-top: 55px;
     }
     body{
         font-size: 14px;
@@ -483,10 +493,10 @@ img {
     }
 
     #borderTop{
-        top:399px;
+        top:404px;
     }
     #borderBot{
-        top:749px;
+        top:754px;
     }
 }
 
@@ -575,10 +585,10 @@ img {
     }
 
     #borderTop{
-        top:419px;
+        top:424px;
     }
     #borderBot{
-       top:776px;
+       top:781px;
     }
 
 }
@@ -588,6 +598,7 @@ img {
         width: 1394px;
         overflow-x: scroll;
         padding: 0px 100px;
+        padding-top: 55px;
     }
     body{
         font-size: 14px;
@@ -673,10 +684,10 @@ img {
     }
 
     #borderTop{
-        top:419px;
+        top:424px;
     }
     #borderBot{
-        top:776px;
+        top:781px;
     }
 }
 
@@ -774,10 +785,10 @@ img {
     }
 
     #borderTop{
-        top:387px;
+        top:392px;
     }
     #borderBot{
-        top:746px;
+        top:751px;
     }
     .content .wrapper .dailyStatis .totalList .circleRe .perTitle{
         line-height: 20px;
@@ -793,6 +804,7 @@ img {
         width: 1234px;
         overflow-x: scroll;
         padding: 0px 100px;
+        padding-top: 55px;
     }
     .content .wrapper .sumStatis .sumClass {
         width: 480px;
@@ -884,10 +896,10 @@ img {
     }
 
     #borderTop{
-        top:419px;
+        top:424px;
     }
     #borderBot{
-        top:776px;
+        top:781px;
     }
     .content .wrapper .dailyStatis .totalList .circleRe .perTitle{
         line-height: 20px;
@@ -900,6 +912,7 @@ img {
         width: 1234px;
         overflow-x: scroll;
         padding: 0px 2px 0px 0px;
+        padding-top: 55px;
     }
     .content .wrapper .dailyStatis .totalList .circleRe {
         width: 610px;
@@ -931,7 +944,7 @@ img {
         margin: 0 auto;
         width: 1234px;
         overflow-x: scroll;
-        padding: 0px 2px 0px 0px;
+        padding: 55px 2px 0px 0px;
     }
     .content .wrapper .dailyStatis .totalList .circleRe {
         width: 605px;
@@ -965,6 +978,7 @@ img {
         min-width:1350px;
         overflow: auto;
         padding: 0px 20px;
+        padding-top: 55px;
     }
     .content .wrapper .sumStatis .sumClass {
         width: 580px;

@@ -6,15 +6,18 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="renderer" content="webkit">
     <!-- build:css ../style/statisticInfo.css -->
+    <link href='../lib/mapbox/mapbox-gl.css' rel='stylesheet' />
     <link rel="stylesheet" href="../style/statisticInfo.css">
     <link rel="stylesheet" href="../lib/angular-nvd3/nv.d3.css">
     <!-- endbuild -->
 </head>
 <body ng-controller="statisticController">
+<nav-bar loc="locFlag"></nav-bar>
+
     <div class="content">
-        <div class="topSquare"></div>
+
         <div class="wrapper">
-            <div class="title">SMap日出品情况统计</div>
+            <div class="title">SMap日出品统计</div>
             <div class="sumStatis">
                 <div class="sumIcon">累计出品</div>
                 <div class="clear">
@@ -65,9 +68,12 @@
                             <div>日期</div>
                             <div>开始时间</div>
                             <div>结束时间</div>
-                            <span style="position: absolute;right: 16px;bottom: -287px;color:#36aeea;font-size:16px;border-bottom: 2px solid #36aeea;text-indent: 0px;line-height: 24px ">
+                            <a  style="position: absolute;right: 16px;
+                                bottom: 51px;color:#36aeea;font-size:16px;border-bottom: 2px solid #36aeea;
+                                text-indent: 0px;line-height: 24px "
+                                href="productDay.html">
                                 地图展示
-                            </span>
+                            </a>
                         </div>
                         <ul  class="dataList hoverStyle" id="topList">
                             <li  ng-repeat="item in dayProduceData" ng-mousemove="showStaticInfo(item,$index)">
