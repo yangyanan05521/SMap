@@ -77,7 +77,7 @@ var province = [
         capture: 'Q',
         id: 'captureQ',
         children: [
-            { id: 25, name: "青海", point: { x: 101.78011, y: 36.62087 } }
+            { id: 25, name: "青海", point: { x: 102.436663, y: 35.854505 } }
         ]
     },
     {

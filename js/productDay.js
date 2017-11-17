@@ -1,25 +1,30 @@
+/**
+ * Created by liwanchong on 2017/3/9.
+ */
+
+
 var tollGate = angular.module("tollGate", ['dataService', 'nvd3', 'angular-popups','navApp']);
 tollGate.controller("tollGateController", ['$scope', 'dsEdit', '$location', '$anchorScroll',"$http", function (
-    $scope, dsEdit, $location, $anchorScroll, $http) {
+  $scope, dsEdit, $location, $anchorScroll, $http) {
     $scope.locFlag = 'productDayFlag';
     $scope.lightTime = '';
     $scope.provinceArr = province;
     $scope.captureArr = ['A','B','C','F','G','H','J','L','N','Q','S','T','X','Y','Z'];
-    $scope.provincePid = 1;
-    $scope.nowProvince = '北京';
+    $scope.provincePid = 25;
+    $scope.nowProvince = '青海';
     $scope.resultPageNum = 0;
     $scope.resultPageTotal = 1;
     $scope.perCount = 10;
     $scope.paging = {
         display: 'block',
     };
-    $scope.endTime = '';
+    $scope.endTime = '20171012';
     // 初始化地图
     var map = new mapboxgl.Map({
         container : 'map',
         style : productDay,
-        zoom : 10,
-        center : [ 116.38402, 39.96261 ],
+        zoom : 12,
+        center : [ 102.436663, 35.854505],
         maxZoom : 17,
         minZoom : 5,
         pitch: 0,
@@ -36,12 +41,16 @@ tollGate.controller("tollGateController", ['$scope', 'dsEdit', '$location', '$an
             }
         }
     });
-    map.on('load', function (data) {
-        map.loadImage('../img/iconPOI.png', function(error, image) {
-            if (error) throw error;
-            map.addImage('cat', image);
-        });
+    map.loadImage('../img/iconPOI.png', function(error, image) {
+        if (error) throw error;
+        map.addImage('cat', image);
     });
+    // map.on('load', function (data) {
+    //     map.loadImage('../img/iconPOI.png', function(error, image) {
+    //         if (error) throw error;
+    //         map.addImage('cat', image);
+    //     });
+    // });
     $scope.goCapture = function (data){
         var local = 'capture'+data;
         $location.hash(local);
@@ -49,21 +58,21 @@ tollGate.controller("tollGateController", ['$scope', 'dsEdit', '$location', '$an
     };
     $scope.timeArr= [],
 
-        // 获取省 并定位
-        $scope.locationProvince = function (data) {
-            $scope.provincePid = data.id;
-            $scope.nowProvince = data.name;
-            //恢复默认值
-            $scope.resultPageNum = 0;
-            map.flyTo({center:[ data.point.x, data.point.y]});
-            $scope.getTimeList();
-        };
+      // 获取省 并定位
+    $scope.locationProvince = function (data) {
+        $scope.provincePid = data.id;
+        $scope.nowProvince = data.name;
+        //恢复默认值
+        $scope.resultPageNum = 0;
+        map.flyTo({center:[ data.point.x, data.point.y]});
+        $scope.getTimeList();
+    };
     $scope.getTimeList = function () {
         var resultPageNum = $scope.resultPageNum + 1;
         $http.post('http://fastmap.navinfo.com/smapapi/data/increlist?ak=Navinfo1!&pages='+
-            resultPageNum+'&percount='+$scope.perCount+'&province='+$scope.provincePid).then(function (data) {
-            $scope.timeArr = data.data.data.timelist;
-            $scope.resultPageTotal = Math.ceil(data.data.data.count/$scope.perCount);
+          resultPageNum+'&percount='+$scope.perCount+'&province='+$scope.provincePid).then(function (data) {
+                $scope.timeArr = data.data.data.timelist;
+                $scope.resultPageTotal = Math.ceil(data.data.data.count/$scope.perCount);
         })
         // dsEdit.getProduct('data/increlist', param).then(function (data) {
         //     $scope.timeArr = data.timeList;
@@ -106,11 +115,11 @@ tollGate.controller("tollGateController", ['$scope', 'dsEdit', '$location', '$an
         switch (page){
             case 1:
                 ($scope.resultPageNum < $scope.resultPageTotal) ?
-                    ++$scope.resultPageNum : $scope.resultPageNum ;
+                  ++$scope.resultPageNum : $scope.resultPageNum ;
                 break;
             case -1:
                 ($scope.resultPageNum > 0) ?
-                    --$scope.resultPageNum : $scope.resultPageNum ;
+                  --$scope.resultPageNum : $scope.resultPageNum ;
                 break;
             default: $scope.resultPageNum = 0;
         }
@@ -132,4 +141,3 @@ tollGate.controller("tollGateController", ['$scope', 'dsEdit', '$location', '$an
         map.addSource('increPoi', productDay.sources["increPoi"]);
     };
 }]);
-

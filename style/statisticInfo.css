@@ -219,7 +219,13 @@ img {
 }
 .content .wrapper .dailyStatis .totalList .circleRe .elementPer{
     float: left;
-    width: 50%;
+    text-align: center;
+}
+.content .wrapper .dailyStatis .totalList .circleRe .elementPer:nth-of-type(1){
+    width: 380px;
+}
+.content .wrapper .dailyStatis .totalList .circleRe .elementPer:nth-of-type(2){
+    width: 460px;
 }
 .content .wrapper .dailyStatis .totalList .circleRe .elementPer span{
     margin-right: 13px;
@@ -299,8 +305,7 @@ img {
         margin:0 auto;
         min-width:1714px;
         overflow-x: scroll;
-        padding: 0px 100px;
-        padding-top: 55px;
+        padding: 55px 100px 0px;
     }
 }
 
@@ -343,7 +348,10 @@ img {
         font-size: 12px;
     }
     .content .wrapper .dailyStatis .totalList .circleRe .elementPer:nth-of-type(1){
-        width: 255px;
+        width: 265px;
+    }
+    .content .wrapper .dailyStatis .totalList .circleRe .elementPer:nth-of-type(2){
+        width: 330px;
     }
     .content .wrapper .dailyStatis .totalList .circleRe .elementPer span {
         margin-right: 2px;
@@ -403,8 +411,7 @@ img {
         margin:0 auto;
         width:1474px;
         overflow-x: scroll;
-        padding: 0px 100px;
-        padding-top: 55px;
+        padding: 55px 100px 0px;
     }
     body{
         font-size: 14px;
@@ -439,12 +446,14 @@ img {
         padding: 0px 86px;
     }
     .content .wrapper .dailyStatis .totalList .circleRe .elementPer{
-        width: auto;
         margin-right: 10px;
         font-size: 12px;
     }
+    .content .wrapper .dailyStatis .totalList .circleRe .elementPer:nth-of-type(2){
+        width: 330px;
+    }
     .content .wrapper .dailyStatis .totalList .circleRe .elementPer:nth-of-type(1){
-        width: 255px;
+        width: 265px;
     }
     .content .wrapper .dailyStatis .totalList .circleRe .elementPer span {
         margin-right: 2px;
@@ -531,12 +540,14 @@ img {
         padding: 0px 79px;
     }
     .content .wrapper .dailyStatis .totalList .circleRe .elementPer{
-        width: auto;
         margin-right: 10px;
         font-size: 12px;
     }
     .content .wrapper .dailyStatis .totalList .circleRe .elementPer:nth-of-type(1){
-        width: 255px;
+        width: 265px;
+    }
+    .content .wrapper .dailyStatis .totalList .circleRe .elementPer:nth-of-type(2){
+        width: 330px;
     }
     .content .wrapper .dailyStatis .totalList .circleRe .elementPer span {
         margin-right: 2px;
@@ -597,8 +608,7 @@ img {
         margin: 0 auto;
         width: 1394px;
         overflow-x: scroll;
-        padding: 0px 100px;
-        padding-top: 55px;
+        padding: 55px 100px 0px;
     }
     body{
         font-size: 14px;
@@ -635,7 +645,10 @@ img {
         font-size: 12px;
     }
     .content .wrapper .dailyStatis .totalList .circleRe .elementPer:nth-of-type(1){
-        width: 255px;
+        width: 265px;
+    }
+    .content .wrapper .dailyStatis .totalList .circleRe .elementPer:nth-of-type(2){
+        width: 330px;
     }
     .content .wrapper .dailyStatis .totalList .circleRe .elementPer span {
         margin-right: 2px;
@@ -734,7 +747,10 @@ img {
         line-height: 20px;
     }
     .content .wrapper .dailyStatis .totalList .circleRe .elementPer:nth-of-type(1){
-        width: 245px;
+        width: 250px;
+    }
+    .content .wrapper .dailyStatis .totalList .circleRe .elementPer:nth-of-type(2){
+        width: 330px;
     }
     .content .wrapper .dailyStatis .totalList .circleRe .elementPer span {
         margin-right: 0px;
@@ -803,8 +819,7 @@ img {
         margin: 0 auto;
         width: 1234px;
         overflow-x: scroll;
-        padding: 0px 100px;
-        padding-top: 55px;
+        padding: 55px 100px 0px;
     }
     .content .wrapper .sumStatis .sumClass {
         width: 480px;
@@ -845,7 +860,10 @@ img {
         line-height: 20px;
     }
     .content .wrapper .dailyStatis .totalList .circleRe .elementPer:nth-of-type(1){
-        width: 245px;
+        width: 250px;
+    }
+    .content .wrapper .dailyStatis .totalList .circleRe .elementPer:nth-of-type(2){
+        width: 330px;
     }
     .content .wrapper .dailyStatis .totalList .circleRe .elementPer span {
         margin-right: 0px;
@@ -911,8 +929,7 @@ img {
         margin: 0 auto;
         width: 1234px;
         overflow-x: scroll;
-        padding: 0px 2px 0px 0px;
-        padding-top: 55px;
+        padding: 55px 2px 0px 0px;
     }
     .content .wrapper .dailyStatis .totalList .circleRe {
         width: 610px;
@@ -977,8 +994,7 @@ img {
         margin:0 auto;
         min-width:1350px;
         overflow: auto;
-        padding: 0px 20px;
-        padding-top: 55px;
+        padding: 55px 20px 0px;
     }
     .content .wrapper .sumStatis .sumClass {
         width: 580px;
@@ -1025,7 +1041,10 @@ img {
         font-size: 12px;
     }
     .content .wrapper .dailyStatis .totalList .circleRe .elementPer:nth-of-type(1){
-        width: 255px;
+        width: 265px;
+    }
+    .content .wrapper .dailyStatis .totalList .circleRe .elementPer:nth-of-type(2){
+        width: 330px;
     }
     .content .wrapper .dailyStatis .totalList .circleRe .elementPer span {
         margin-right: 2px;

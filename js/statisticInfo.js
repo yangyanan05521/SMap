@@ -1,7 +1,6 @@
 var statistic = angular.module("statistic", ['dataService', 'nvd3', 'angular-popups', 'navApp']);
 
 statistic.controller("statisticController", ['$scope', 'dsEdit', '$location', "$http", function ($scope, dsEdit, $location, $http) {
-    $scope.locFlag = 'statisticFlag';
     //初始化表格数据
     $scope.poiData = [];
     $scope.roadData = [];
@@ -74,7 +73,6 @@ statistic.controller("statisticController", ['$scope', 'dsEdit', '$location', "$
         }
         $scope.sumPoi = val.poi;
         $scope.sumRoad = val.road;
-      //  console.log(val);
     })
     $http.post(requestUrl+'?parm={"type":"S_ALL_LIST"}').then(function (data) {
         var static = data.data;
@@ -164,8 +162,6 @@ statistic.controller("statisticController", ['$scope', 'dsEdit', '$location', "$
             });
         });
     });
-
-    console.log(document.body.clientHeight);
 
     //点击日出品列表
     $scope.showStaticInfo = function (item, index) {
@@ -320,66 +316,66 @@ statistic.controller("statisticController", ['$scope', 'dsEdit', '$location', "$
     //饼图poi数据
     $scope.pieData = function (addCount, updateCount, delCount, param) {
         var sum = addCount + updateCount + delCount;
-        var addPer = (addCount / sum * 100);
-        var updatePer = (updateCount / sum * 100);
-        var delPer = (delCount / sum * 100);
+        var addPer = (addCount / sum * 100).toFixed(2);
+        var updatePer = (updateCount / sum * 100).toFixed(2);
+        var delPer = (100 - addPer - updatePer).toFixed(2);
         if (param === 'poiTop') {
             $scope.chartPoitop = [
                 {
-                    key: addPer.toFixed(2) + '%',
+                    key: addPer + '%',
                     y: addCount
                 },
                 {
-                    key: updatePer.toFixed(2) + '%',
+                    key: updatePer + '%',
                     y: updateCount
                 },
                 {
-                    key: delPer.toFixed(2) + '%',
+                    key: delPer + '%',
                     y: delCount
                 }
             ];
         } else if (param === 'roadTop') {
             $scope.chartRoadtop = [
                 {
-                    key: addPer.toFixed(2) + '%',
+                    key: addPer + '%',
                     y: addCount
                 },
                 {
-                    key: updatePer.toFixed(2) + '%',
+                    key: updatePer + '%',
                     y: updateCount
                 },
                 {
-                    key: delPer.toFixed(2) + '%',
+                    key: delPer + '%',
                     y: delCount
                 }
             ];
         } else if (param === 'poiBot') {
             $scope.chartPoibot = [
                 {
-                    key: addPer.toFixed(2) + '%',
+                    key: addPer + '%',
                     y: addCount
                 },
                 {
-                    key: updatePer.toFixed(2) + '%',
+                    key: updatePer + '%',
                     y: updateCount
                 },
                 {
-                    key: delPer.toFixed(2) + '%',
+                    key: delPer + '%',
                     y: delCount
                 }
             ];
         } else {
             $scope.chartRoadbot = [
                 {
-                    key: addPer.toFixed(2) + '%',
+                    key: addPer + '%',
                     y: addCount
                 },
                 {
-                    key: updatePer.toFixed(2) + '%',
+                    key: updatePer + '%',
                     y: updateCount
                 },
                 {
-                    key: delPer.toFixed(2) + '%',
+                    key: delPer + '%',
                     y: delCount
                 }
             ];
