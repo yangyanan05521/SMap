@@ -281,7 +281,6 @@ li{
     background-color: rgba(20, 120, 255, 0.2);
     border:1px solid #1478ff;
     margin-top: 12px;
-    display: none;
 }
 #container #content .sumTitle .cityDis .selectedCity div{
     line-height: 30px;
