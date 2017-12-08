@@ -345,7 +345,7 @@ map.on('load', function () {
                         fontSize: 12
                     },
                     formatter: function (params) {
-                        console.log(params);
+                        // console.log(params);
                         return '施工时间：'+ params.data.time +'<br/>施工原因：' + params.data.info;
 
                     }
