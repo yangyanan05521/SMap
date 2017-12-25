@@ -385,6 +385,7 @@ angular.module("trafficLimited", ["dataService", "navApp"])
                 $('.resultList ul').eq(0).attr('class','ulActive').siblings('ul').attr('class','ulNormal');
                 var geoArr = [];
                 var val = data.data.data;
+                console.log(val);
                 for (var i = 0, len = val.platelimit.length; i < len; i++) {
                     geoArr.push(val.platelimit[i].coordinates);
                 }

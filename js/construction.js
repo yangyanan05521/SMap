@@ -8,8 +8,8 @@ var map = new mapboxgl.Map({
     pitch: 0
 });
 
-map.on('load', function () {
 
+map.on('load', function () {
     var data = [{
         name: '成都',
         value: 58,
@@ -432,9 +432,65 @@ map.on('load', function () {
         ]
 
     };
+    optionLine = {
+        tooltip:{
+            trigger: 'item',             //series.tooltips仅在设置了option.tooltip.trigger:'item'时有效
+            show: false                  //设置show：false是为了不让其他series没有设置tooltips的元素显示
+        },
+        GLMap: {
+            roam: true
+        },
+        series: [
+            {
+                type: 'lines',
+                coordinateSystem: 'GLMap',
+                polyline: true,
+                data: [
+                    [
+                    [109.2041015625, 32.3057060139],
+                    [110.4345703125, 34.2345123624],
+                    [110.2807617188, 35.4248679193],
+                    [109.7973632813, 37.3526928037],
+                    [108.7646484375, 36.7564903295],
+                    [108.5009765625, 35.7465122599],
+                    [109.2041015625, 32.3057060139]
+                    ]
+
+                ],
+                tooltips: {
+                    show: false
+                },
+                largeThreshold: 100,
+                effect: {
+                    show: true,
+                    period: 3,
+                    trailLength: 0.1,
+                    opacity: 0.5,
+                    symbolSize: 10,
+                },
+                lineStyle: {
+                    normal: {
+                        color: '#936D92',
+                        width: 5,
+                        //  curveness: 0.2  设置两个端点之前的线段的曲折程度,当多个点连成线段时，即polyline: true时无效
+                    }
+                },
+            }
+        ]
+
+    };
 
     var echartslayer = new EchartsLayer(map);
     echartslayer.chart.setOption(option);
+
+    //根据地图级别控制在不同级别显示不同的线数据
+    map.on('zoomend',function(){
+        console.log('------'+map.getZoom()+'--------');
+        if(map.getZoom() < 8) {
+            echartslayer.chart.setOption(optionLine);
+        }
+    })
+
 
 })
 
